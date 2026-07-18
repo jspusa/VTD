@@ -1,0 +1,14 @@
+[
+  {"id":"pair-01-competitor","pairId":"pair-01","role":"competitor","sku":"iPS05-1","asin":"B0CZRN7HXT","baselineStatus":"在售","baselinePrice":14.49,"order":1},
+  {"id":"pair-01-own","pairId":"pair-01","role":"own","sku":"7VTSD013AB","asin":"B0DNF4564B","baselineStatus":"在售","baselinePrice":null,"order":2},
+  {"id":"pair-02-competitor","pairId":"pair-02","role":"competitor","sku":"iPS01-5","asin":"B0DWMFGPH3","baselineStatus":"在售","baselinePrice":69.99,"order":3},
+  {"id":"pair-02-own","pairId":"pair-02","role":"own","sku":"7VTSD513AB","asin":"B0H5JPQKKT","baselineStatus":"在售","baselinePrice":null,"order":4},
+  {"id":"pair-03-competitor","pairId":"pair-03","role":"competitor","sku":"iPS01-10","asin":"B0F4WN2333","baselineStatus":"暫時停售","baselinePrice":null,"order":5},
+  {"id":"pair-03-own","pairId":"pair-03","role":"own","sku":"7VTSD913AB","asin":"B0H5JKB7QS","baselineStatus":"停售","baselinePrice":null,"order":6},
+  {"id":"pair-04-competitor","pairId":"pair-04","role":"competitor","sku":"iPB01-4","asin":"B0DSKK95GQ","baselineStatus":"在售","baselinePrice":14.99,"order":7},
+  {"id":"pair-04-own","pairId":"pair-04","role":"own","sku":"7VTBD410AB","asin":"B0DNF21SYR","baselineStatus":"在售","baselinePrice":null,"order":8},
+  {"id":"pair-05-competitor","pairId":"pair-05","role":"competitor","sku":"iPB01-10","asin":"B0F139MJDQ","baselineStatus":"在售","baselinePrice":28.00,"order":9},
+  {"id":"pair-05-own","pairId":"pair-05","role":"own","sku":"7VTBD015AB","asin":"B0H5JZLM61","baselineStatus":"在售","baselinePrice":null,"order":10},
+  {"id":"pair-06-competitor","pairId":"pair-06","role":"competitor","sku":"iPR01-10","asin":"B0F1385154","baselineStatus":"在售","baselinePrice":19.99,"order":11},
+  {"id":"pair-06-own","pairId":"pair-06","role":"own","sku":"7VTRD015AB","asin":"B0H5K85LPS","baselineStatus":"在售","baselinePrice":null,"order":12}
+]
