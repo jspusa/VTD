@@ -199,7 +199,7 @@ function App() {
             <p className="subtitle">目標規則：我方售價固定等於 iPaw 即時售價減 $2.00。</p>
           </div>
           {STATIC_MODE
-            ? <div className="static-schedule"><span>自動更新時間</span><strong>平日 09:10 · 11:10 · 13:10 · 15:10 · 17:10 · 19:10</strong><small>週末 09:10 · 19:10；臨時更新由管理者在 GitHub Actions 執行</small></div>
+            ? <div className="static-schedule"><span>自動更新時間</span><strong>平日 09:10 · 11:10 · 13:10 · 15:10 · 17:10 · 19:10</strong><small>週末 09:10 · 19:10；頁面僅顯示最新結果，臨時擷取僅限管理者執行</small></div>
             : <div className="run-settings" aria-label="擷取設定"><label><span>美國配送 ZIP Code</span><input inputMode="numeric" maxLength={5} value={zipCode} onChange={(e) => setZipCode(e.target.value.replace(/\D/g, '').slice(0, 5))} /></label><label className="switch-row"><input type="checkbox" checked={showBrowser} onChange={(e) => setShowBrowser(e.target.checked)} /><span className="switch" /><span>顯示擷取瀏覽器</span></label></div>}
         </section>
 
@@ -217,7 +217,7 @@ function App() {
 
         <section className="table-section">
           <div className="table-toolbar">
-            <div className="filters"><label className="search-box"><Icon name="search" /><input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="搜尋 SKU 或 ASIN" /></label><select value={filter} onChange={(e) => setFilter(e.target.value)}><option>全部狀態</option><option>需要調價</option><option>符合規則</option><option>資料不足</option></select>{STATIC_MODE ? <><button className="button primary" onClick={() => { setError(''); load().then(() => setMessage('已重新載入最新結果。')).catch((e) => setError(e.message)); }}><Icon name="refresh" />重新整理</button>{ACTIONS_URL && <a className="button secondary" href={ACTIONS_URL} target="_blank" rel="noreferrer"><Icon name="external" />管理者手動更新</a>}</> : <button className="button primary" onClick={startScrape} disabled={busy || !products.length}><Icon name="refresh" />{busy ? '擷取中' : '立即擷取'}</button>}</div>
+            <div className="filters"><label className="search-box"><Icon name="search" /><input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="搜尋 SKU 或 ASIN" /></label><select value={filter} onChange={(e) => setFilter(e.target.value)}><option>全部狀態</option><option>需要調價</option><option>符合規則</option><option>資料不足</option></select>{STATIC_MODE ? ACTIONS_URL && <a className="button secondary" href={ACTIONS_URL} target="_blank" rel="noreferrer"><Icon name="external" />管理者手動更新</a> : <button className="button primary" onClick={startScrape} disabled={busy || !products.length}><Icon name="refresh" />{busy ? '擷取中' : '立即擷取'}</button>}</div>
             <div className="history-actions">{!STATIC_MODE && history.length > 0 && <select value={run?.id ?? ''} onChange={(e) => openHistory(e.target.value)} aria-label="選擇歷史批次">{history.map((item) => <option key={item.id} value={item.id}>{dateTime(item.finishedAt)} · {item.found}/{item.total} 價格</option>)}</select>}<a className={`button secondary ${!run ? 'disabled' : ''}`} href={run ? (STATIC_MODE ? staticAsset('latest.xlsx') : `/api/export/${run.id}.xlsx`) : undefined}><Icon name="download" />匯出 Excel</a></div>
           </div>
 
