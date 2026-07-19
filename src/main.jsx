@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { createRoot } from 'react-dom/client';
+import { isRunStale } from './schedule.js';
 import './styles.css';
 
 const STATIC_MODE = import.meta.env.VITE_STATIC_MODE === 'true';
@@ -168,6 +169,7 @@ function App() {
     matched: pairs.filter((pair) => pair.analysis.state === 'matched').length,
     adjust: pairs.filter((pair) => ['lower', 'raise'].includes(pair.analysis.state)).length,
   }), [pairs]);
+  const stale = STATIC_MODE && run && isRunStale(run.finishedAt);
 
   const busy = job && ['queued', 'running'].includes(job.status);
   const startScrape = async () => {
@@ -199,7 +201,7 @@ function App() {
             <p className="subtitle">目標規則：我方售價固定等於 iPaw 即時售價減 $2.00。</p>
           </div>
           {STATIC_MODE
-            ? <div className="static-schedule"><span>自動更新時間</span><strong>平日 09:10 · 11:10 · 13:10 · 15:10 · 17:10 · 19:10</strong><small>週末 09:10 · 19:10；頁面僅顯示最新結果，臨時擷取僅限管理者執行</small></div>
+            ? <div className="static-schedule"><span>自動更新時間</span><strong>平日 09:27 · 11:27 · 13:27 · 15:27 · 17:27 · 19:27</strong><small>週末 09:27 · 19:27；每次另有 20 分鐘後的智慧備援檢查</small></div>
             : <div className="run-settings" aria-label="擷取設定"><label><span>美國配送 ZIP Code</span><input inputMode="numeric" maxLength={5} value={zipCode} onChange={(e) => setZipCode(e.target.value.replace(/\D/g, '').slice(0, 5))} /></label><label className="switch-row"><input type="checkbox" checked={showBrowser} onChange={(e) => setShowBrowser(e.target.checked)} /><span className="switch" /><span>顯示擷取瀏覽器</span></label></div>}
         </section>
 
@@ -214,6 +216,7 @@ function App() {
         {busy && <section className="progress-panel" aria-live="polite"><div className="progress-copy"><div><span className="pulse" />正在讀取 {job.asin || 'Amazon 商品頁'}</div><strong>{job.current ?? 0} / {job.total ?? products.length}</strong></div><div className="progress-track"><span style={{ width: `${Math.max(2, ((job.current ?? 0) / Math.max(1, job.total ?? products.length)) * 100)}%` }} /></div>{(job.messages ?? []).length > 0 && <p>{job.messages.at(-1)}</p>}</section>}
 
         {(message || error) && <div className={`notice ${error ? 'error' : 'success'}`}><Icon name={error ? 'close' : 'check'} />{error || message}<button onClick={() => { setError(''); setMessage(''); }} aria-label="關閉通知"><Icon name="close" size={15} /></button></div>}
+        {stale && <div className="notice warning" role="alert"><Icon name="clock" />自動更新可能延遲：目前顯示的資料早於最近一個應完成的排程，請由管理者檢查 GitHub Actions。</div>}
 
         <section className="table-section">
           <div className="table-toolbar">

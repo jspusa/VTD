@@ -81,6 +81,7 @@ input:focus, select:focus, textarea:focus { border-color: var(--green); box-shad
 .progress-panel p { margin: 10px 0 0; font-size: 11px; color: rgba(255,255,255,.7); }
 .notice { margin-top: 16px; min-height: 45px; padding: 0 14px; border: 1px solid; border-radius: 10px; display: flex; align-items: center; gap: 9px; font-size: 12px; }
 .notice.success { color: #235e47; border-color: #bfdccc; background: #ebf5ef; }
+.notice.warning { color: #79501f; border-color: #e5c88f; background: #fff6e4; }
 .notice.error { color: #873a35; border-color: #edc9c5; background: #fdf0ee; }
 .notice button { margin-left: auto; border: 0; background: none; color: inherit; cursor: pointer; display: grid; place-items: center; }
 
