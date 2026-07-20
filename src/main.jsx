@@ -2,6 +2,8 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { isRunStale } from './schedule.js';
 import PriceGuardGame from './PriceGuardGame.jsx';
+import AdminGate from './AdminGate.jsx';
+import GuardianChaos from './GuardianChaos.jsx';
 import './styles.css';
 
 const STATIC_MODE = import.meta.env.VITE_STATIC_MODE === 'true';
@@ -94,6 +96,8 @@ function App() {
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
   const [gameOpen, setGameOpen] = useState(false);
+  const [adminGateOpen, setAdminGateOpen] = useState(false);
+  const [chaosMode, setChaosMode] = useState(null);
 
   const load = async () => {
     if (STATIC_MODE) {
@@ -201,6 +205,25 @@ function App() {
     try { setRun(await api(`/api/runs/${id}`)); } catch (e) { setError(e.message); }
   };
 
+  const triggerChaos = () => {
+    setGameOpen(false);
+    setAdminGateOpen(false);
+    setChaosMode((current) => current || 'rage');
+  };
+
+  const openGame = () => {
+    if (chaosMode) {
+      setChaosMode('takeover');
+      return;
+    }
+    setGameOpen(true);
+  };
+
+  const passAdminGate = () => {
+    setAdminGateOpen(false);
+    window.open(ACTIONS_URL, '_blank', 'noopener,noreferrer');
+  };
+
   return (
     <div className="app-shell">
       <header className="topbar">
@@ -234,7 +257,7 @@ function App() {
 
         <section className="table-section">
           <div className="table-toolbar">
-            <div className="filters"><label className="search-box"><Icon name="search" /><input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="搜尋 SKU 或 ASIN" /></label><select value={filter} onChange={(e) => setFilter(e.target.value)}><option>全部狀態</option><option>需要調價</option><option>符合規則</option><option>資料不足</option></select>{STATIC_MODE ? ACTIONS_URL && <a className="button secondary" href={ACTIONS_URL} target="_blank" rel="noreferrer"><Icon name="external" />管理者手動更新</a> : <button className="button primary" onClick={startScrape} disabled={busy || !products.length}><Icon name="refresh" />{busy ? '擷取中' : '立即擷取'}</button>}</div>
+            <div className="filters"><label className="search-box"><Icon name="search" /><input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="搜尋 SKU 或 ASIN" /></label><select value={filter} onChange={(e) => setFilter(e.target.value)}><option>全部狀態</option><option>需要調價</option><option>符合規則</option><option>資料不足</option></select>{STATIC_MODE ? ACTIONS_URL && <button className="button secondary" type="button" onClick={() => setAdminGateOpen(true)}><Icon name="external" />管理者手動更新</button> : <button className="button primary" onClick={startScrape} disabled={busy || !products.length}><Icon name="refresh" />{busy ? '擷取中' : '立即擷取'}</button>}</div>
             <div className="history-actions">{!STATIC_MODE && history.length > 0 && <select value={run?.id ?? ''} onChange={(e) => openHistory(e.target.value)} aria-label="選擇歷史批次">{history.map((item) => <option key={item.id} value={item.id}>{dateTime(item.finishedAt)} · {item.found}/{item.total} 價格</option>)}</select>}<a className={`button secondary ${!run ? 'disabled' : ''}`} href={run ? (STATIC_MODE ? staticAsset('latest.xlsx') : `/api/export/${run.id}.xlsx`) : undefined}><Icon name="download" />匯出 Excel</a></div>
           </div>
 
@@ -260,9 +283,11 @@ function App() {
           </div>
         </section>
 
-        <footer><div><Icon name="clock" size={16} />調價公式：我方目標價＝iPaw 即時售價－$2.00。</div><div className="footer-side"><span>低不到 $2 建議降價；低超過 $2 建議提高售價以保留毛利。</span><button className="game-launch" onClick={() => setGameOpen(true)}>價格守門員小遊戲</button></div></footer>
+        <footer><div><Icon name="clock" size={16} />調價公式：我方目標價＝iPaw 即時售價－$2.00。</div><div className="footer-side"><span>低不到 $2 建議降價；低超過 $2 建議提高售價以保留毛利。</span><button className="game-launch" onClick={openGame} data-chaos-safe="true">價格守門員小遊戲</button></div></footer>
       </main>
-      <PriceGuardGame open={gameOpen} onClose={() => setGameOpen(false)} />
+      <PriceGuardGame open={gameOpen} onClose={() => setGameOpen(false)} onFastClose={triggerChaos} />
+      <AdminGate open={adminGateOpen} onSuccess={passAdminGate} onFail={triggerChaos} />
+      <GuardianChaos mode={chaosMode} />
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 const makeTarget = () => ({
   id: Math.random(),
@@ -7,11 +7,12 @@ const makeTarget = () => ({
   good: Math.random() > 0.28,
 });
 
-export default function PriceGuardGame({ open, onClose }) {
+export default function PriceGuardGame({ open, onClose, onFastClose }) {
   const [score, setScore] = useState(0);
   const [timeLeft, setTimeLeft] = useState(20);
   const [playing, setPlaying] = useState(false);
   const [target, setTarget] = useState(makeTarget);
+  const openedAt = useRef(0);
 
   const restart = () => {
     setScore(0);
@@ -21,7 +22,10 @@ export default function PriceGuardGame({ open, onClose }) {
   };
 
   useEffect(() => {
-    if (open) restart();
+    if (open) {
+      openedAt.current = Date.now();
+      restart();
+    }
   }, [open]);
 
   useEffect(() => {
@@ -46,6 +50,12 @@ export default function PriceGuardGame({ open, onClose }) {
 
   if (!open) return null;
 
+  const closeGame = () => {
+    const escapedImmediately = Date.now() - openedAt.current <= 2_000;
+    onClose();
+    if (escapedImmediately) onFastClose?.();
+  };
+
   const hitTarget = () => {
     if (!playing) return;
     setScore((current) => Math.max(0, current + (target.good ? 1 : -1)));
@@ -57,7 +67,7 @@ export default function PriceGuardGame({ open, onClose }) {
       <section className="price-game" role="dialog" aria-modal="true" aria-labelledby="price-game-title">
         <div className="game-header">
           <div><span>20 秒休息一下</span><h2 id="price-game-title">價格守門員</h2></div>
-          <button className="game-close" onClick={onClose} aria-label="關閉小遊戲">×</button>
+          <button className="game-close" onClick={closeGame} aria-label="關閉小遊戲">×</button>
         </div>
         <p className="game-help">抓住綠色「−$2」，避開紅色「+$2」。看看你能守住幾次目標價！</p>
         <div className="game-hud"><strong>{score}<small> 分</small></strong><span>{timeLeft} 秒</span></div>
