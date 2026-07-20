@@ -6,17 +6,11 @@ on:
     branches:
       - main
   schedule:
-    # 正式排程：台灣時間週一至週五 09:27、11:27、13:27、15:27、17:27、19:27
-    - cron: '27 9,11,13,15,17,19 * * 1-5'
-      timezone: 'Asia/Taipei'
-    # 正式排程：台灣時間週六、週日 09:27、19:27
-    - cron: '27 9,19 * * 0,6'
-      timezone: 'Asia/Taipei'
-    # 備援排程：若同一時段已有新資料，只檢查、不重抓 Amazon
-    - cron: '47 9,11,13,15,17,19 * * 1-5'
-      timezone: 'Asia/Taipei'
-    - cron: '47 9,19 * * 0,6'
-      timezone: 'Asia/Taipei'
+    # GitHub 排程可能延遲，因此每 30 分鐘檢查一次；只有資料落後於最近目標時段才真正擷取。
+    # UTC 01:07–11:37 = 台灣平日 09:07–19:37。
+    - cron: '7,37 1-11 * * 1-5'
+    # 台灣週末只檢查早晚兩個目標時段。
+    - cron: '7,37 1,11 * * 0,6'
 
 permissions:
   contents: read
@@ -35,16 +29,17 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Check whether the backup run is needed
+      - uses: actions/checkout@v4
+
+      - name: Check whether new price data is needed
         id: freshness
         shell: bash
         env:
           EVENT_NAME: ${{ github.event_name }}
-          EVENT_SCHEDULE: ${{ github.event.schedule || '' }}
           SITE_DATA_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/latest-run.json
         run: |
           set -uo pipefail
-          if [[ "$EVENT_NAME" != "schedule" || "$EVENT_SCHEDULE" != 47\ * ]]; then
+          if [[ "$EVENT_NAME" != "schedule" ]]; then
             echo "should_run=true" >> "$GITHUB_OUTPUT"
             exit 0
           fi
@@ -52,19 +47,16 @@ jobs:
           payload="$(curl -fsSL --max-time 20 "$SITE_DATA_URL" 2>/dev/null || true)"
           finished_at="$(printf '%s' "$payload" | jq -r '.run.finishedAt // empty' 2>/dev/null || true)"
           finished_epoch="$(date -u -d "$finished_at" +%s 2>/dev/null || echo 0)"
-          now_epoch="$(date -u +%s)"
-          age_seconds=$((now_epoch - finished_epoch))
+          expected_epoch="$(node --input-type=module -e "import { latestExpectedRunAt } from './src/schedule.js'; console.log(Math.floor(latestExpectedRunAt(new Date()).getTime() / 1000))")"
 
-          if (( finished_epoch > 0 && age_seconds >= 0 && age_seconds < 2400 )); then
-            echo "最近 40 分鐘內已有成功資料，備援排程不重抓 Amazon。"
+          if (( finished_epoch >= expected_epoch )); then
+            echo "最近目標時段已有成功資料，本次只檢查、不重抓 Amazon。"
             echo "should_run=false" >> "$GITHUB_OUTPUT"
           else
-            echo "未找到本時段的新資料，啟動備援擷取。"
+            echo "資料落後於最近目標時段，啟動補抓。"
             echo "should_run=true" >> "$GITHUB_OUTPUT"
           fi
 
-      - uses: actions/checkout@v4
-        if: steps.freshness.outputs.should_run == 'true'
       - uses: actions/setup-node@v4
         if: steps.freshness.outputs.should_run == 'true'
         with:

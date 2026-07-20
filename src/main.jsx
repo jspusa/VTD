@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { isRunStale } from './schedule.js';
+import PriceGuardGame from './PriceGuardGame.jsx';
 import './styles.css';
 
 const STATIC_MODE = import.meta.env.VITE_STATIC_MODE === 'true';
@@ -92,10 +93,11 @@ function App() {
   const [showBrowser, setShowBrowser] = useState(false);
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
+  const [gameOpen, setGameOpen] = useState(false);
 
   const load = async () => {
     if (STATIC_MODE) {
-      const payload = await api(staticAsset('latest-run.json'));
+      const payload = await api(`${staticAsset('latest-run.json')}?v=${Date.now()}`, { cache: 'no-store' });
       setProducts(payload.products ?? []);
       setRun(payload.run ?? null);
       setHistory(payload.run ? [{
@@ -113,6 +115,18 @@ function App() {
   };
 
   useEffect(() => { load().catch((e) => setError(e.message)); }, []);
+
+  useEffect(() => {
+    if (!STATIC_MODE) return undefined;
+    const sync = () => load().catch((e) => setError(e.message));
+    const timer = window.setInterval(sync, 5 * 60 * 1_000);
+    const onVisibility = () => { if (document.visibilityState === 'visible') sync(); };
+    document.addEventListener('visibilitychange', onVisibility);
+    return () => {
+      window.clearInterval(timer);
+      document.removeEventListener('visibilitychange', onVisibility);
+    };
+  }, []);
 
   useEffect(() => {
     if (!job || !['queued', 'running'].includes(job.status)) return undefined;
@@ -201,7 +215,7 @@ function App() {
             <p className="subtitle">目標規則：我方售價固定等於 iPaw 即時售價減 $2.00。</p>
           </div>
           {STATIC_MODE
-            ? <div className="static-schedule"><span>自動更新時間</span><strong>平日 09:27 · 11:27 · 13:27 · 15:27 · 17:27 · 19:27</strong><small>週末 09:27 · 19:27；每次另有 20 分鐘後的智慧備援檢查</small></div>
+            ? <div className="static-schedule"><span>目標更新時間</span><strong>平日 09:27 · 11:27 · 13:27 · 15:27 · 17:27 · 19:27</strong><small>後台每 30 分鐘檢查缺漏；此頁每 5 分鐘自動同步最新結果</small></div>
             : <div className="run-settings" aria-label="擷取設定"><label><span>美國配送 ZIP Code</span><input inputMode="numeric" maxLength={5} value={zipCode} onChange={(e) => setZipCode(e.target.value.replace(/\D/g, '').slice(0, 5))} /></label><label className="switch-row"><input type="checkbox" checked={showBrowser} onChange={(e) => setShowBrowser(e.target.checked)} /><span className="switch" /><span>顯示擷取瀏覽器</span></label></div>}
         </section>
 
@@ -226,8 +240,8 @@ function App() {
 
           <div className="table-wrap">
             <table className="comparison-table">
-              <thead><tr><th>iPaw 品號／ASIN</th><th>iPaw 狀況</th><th className="number">iPaw 價格</th><th className="own-column">我方 SKU／ASIN</th><th className="own-column">我方庫存</th><th className="number own-column">我方價格</th><th>調價判斷</th><th>擷取資訊</th></tr></thead>
-              <tbody>
+              <thead><tr><th>iPaw 品號／ASIN</th><th>iPaw 狀況</th><th className="number">iPaw 價格</th><th className="own-column">我方 SKU／ASIN</th><th className="own-column">我方庫存</th><th className="number own-column">我方價格</th><th>目標價格</th><th>擷取資訊</th></tr></thead>
+              <tbody key={run?.id || 'empty'}>
                 {filteredPairs.map((pair) => (
                   <tr key={pair.pairId}>
                     <td><strong>{pair.competitor?.sku}</strong><a className="asin-link cell-link" href={`https://www.amazon.com/dp/${pair.competitor?.asin}`} target="_blank" rel="noreferrer">{pair.competitor?.asin}<Icon name="external" size={13} /></a></td>
@@ -236,7 +250,7 @@ function App() {
                     <td className="own-column"><strong>{pair.own?.sku}</strong><a className="asin-link cell-link" href={`https://www.amazon.com/dp/${pair.own?.asin}`} target="_blank" rel="noreferrer">{pair.own?.asin}<Icon name="external" size={13} /></a></td>
                     <td className="own-column"><ResultStatus result={pair.ownResult} fallback={pair.own?.baselineStatus} /></td>
                     <td className="number current-price own-column">{money(pair.ownResult?.currentPrice)}</td>
-                    <td><span className={`status ${pair.analysis.tone}`}>{pair.analysis.label}</span><strong className={`recommendation ${pair.analysis.state}`}>{pair.analysis.recommendation}</strong></td>
+                    <td><span className={`status target-price ${pair.analysis.tone}`}>{money(pair.analysis.targetPrice)}</span><strong className={`recommendation ${pair.analysis.state}`}>{pair.analysis.recommendation}</strong></td>
                     <td><span>{pair.competitorResult || pair.ownResult ? dateTime(pair.competitorResult?.scrapedAt || pair.ownResult?.scrapedAt) : '—'}</span>{(pair.competitorResult?.error || pair.ownResult?.error) && <span className="cell-sub error-text pair-error" title={[pair.competitorResult?.error, pair.ownResult?.error].filter(Boolean).join('｜')}>{[pair.competitorResult?.error, pair.ownResult?.error].filter(Boolean).join('｜')}</span>}</td>
                   </tr>
                 ))}
@@ -246,8 +260,9 @@ function App() {
           </div>
         </section>
 
-        <footer><div><Icon name="clock" size={16} />調價公式：我方目標價＝iPaw 即時售價－$2.00。</div><span>低不到 $2 建議降價；低超過 $2 建議提高售價以保留毛利。</span></footer>
+        <footer><div><Icon name="clock" size={16} />調價公式：我方目標價＝iPaw 即時售價－$2.00。</div><div className="footer-side"><span>低不到 $2 建議降價；低超過 $2 建議提高售價以保留毛利。</span><button className="game-launch" onClick={() => setGameOpen(true)}>價格守門員小遊戲</button></div></footer>
       </main>
+      <PriceGuardGame open={gameOpen} onClose={() => setGameOpen(false)} />
     </div>
   );
 }

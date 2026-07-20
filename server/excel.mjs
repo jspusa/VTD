@@ -23,7 +23,7 @@ function analyzePair(competitor, own) {
   }
   const target = roundPrice(Math.max(0, competitor.currentPrice - 2));
   if (!Number.isFinite(own?.currentPrice)) {
-    return { recommendation: `我方建議售價 $${target.toFixed(2)}`, state: 'suggested' };
+    return { target, recommendation: `我方建議售價 $${target.toFixed(2)}`, state: 'suggested' };
   }
   const gap = roundPrice(competitor.currentPrice - own.currentPrice);
   const adjustment = roundPrice(target - own.currentPrice);
@@ -64,7 +64,7 @@ export async function buildWorkbook(run) {
   const columns = [
     ['iPaw 品號', 15], ['iPaw ASIN', 15], ['iPaw 狀況', 20], ['iPaw 價格', 14],
     ['我方 SKU', 16], ['我方 ASIN', 15], ['我方庫存', 20], ['我方價格', 14],
-    ['調價判斷', 30], ['擷取時間', 21], ['錯誤／備註', 42],
+    ['目標價格', 30], ['擷取時間', 21], ['錯誤／備註', 42],
   ];
   sheet.columns = columns.map(([header, width]) => ({ header, width }));
   const header = sheet.getRow(2);
@@ -88,7 +88,7 @@ export async function buildWorkbook(run) {
       own ? { text: own.asin, hyperlink: own.finalUrl || `https://www.amazon.com/dp/${own.asin}` } : '',
       own ? `${STATUS_LABELS[own.status] ?? own.status}${own.availability ? `｜${own.availability}` : ''}` : '無資料',
       own?.currentPrice,
-      analysis.recommendation,
+      `${Number.isFinite(analysis.target) ? `$${analysis.target.toFixed(2)}` : '—'}\n${analysis.recommendation}`,
       new Date(competitor?.scrapedAt || own?.scrapedAt || run.finishedAt || run.startedAt),
       [competitor?.error, own?.error].filter(Boolean).join('｜'),
     ]);
