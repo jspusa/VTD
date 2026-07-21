@@ -1,4 +1,7 @@
 const PRICE_SELECTORS = [
+  '#corePrice_feature_div .apex-pricetopay-accessibility-label',
+  '#corePriceDisplay_desktop_feature_div .apex-pricetopay-accessibility-label',
+  '#apex_desktop .apex-pricetopay-accessibility-label',
   '#corePriceDisplay_desktop_feature_div .priceToPay .a-offscreen',
   '#corePrice_feature_div .priceToPay .a-offscreen',
   '#corePrice_desktop .priceToPay .a-offscreen',
@@ -78,6 +81,16 @@ function closestPlausiblePrice(prices, baselinePrice) {
   return plausible.sort((a, b) => Math.abs(a - baselinePrice) - Math.abs(b - baselinePrice))[0];
 }
 
+export function isIncompleteProductSnapshot(snapshot) {
+  return Boolean(snapshot.pageAsin)
+    && !snapshot.productTitle
+    && !snapshot.hasAddToCart
+    && !(snapshot.availabilityText ?? '').trim()
+    && (snapshot.priceTexts?.length ?? 0) === 0
+    && (snapshot.priceDetails?.length ?? 0) === 0
+    && (snapshot.structuredPriceValues?.length ?? 0) === 0;
+}
+
 export function interpretSnapshot(snapshot) {
   const body = snapshot.bodyText ?? '';
   const monthlyBought = parseMonthlyBought(snapshot.salesVolumeText || body);
@@ -90,11 +103,12 @@ export function interpretSnapshot(snapshot) {
   // Amazon" links on a valid product page. Only trust those phrases when the
   // page also lacks concrete product evidence.
   const missingCopy = /looking for something|page not found/i.test(body);
-  const hasProductEvidence = Boolean(snapshot.productTitle)
+  const hasRenderedProductEvidence = Boolean(snapshot.productTitle)
     || Boolean(snapshot.hasAddToCart)
     || (snapshot.priceTexts?.length ?? 0) > 0
     || (snapshot.priceDetails?.length ?? 0) > 0;
-  const pageMissing = snapshot.httpStatus === 404 || (missingCopy && !hasProductEvidence);
+  const pageMissing = snapshot.httpStatus === 404 || (missingCopy && !hasRenderedProductEvidence);
+  const hasProductEvidence = hasRenderedProductEvidence || Boolean(snapshot.pageAsin);
   const hiddenPrice = /add this item to your cart to see the price|to see product details, add this item to your cart|see price in cart/i.test(body);
   const deliveryUnavailable = /cannot be shipped to your selected delivery location|not deliverable to this address|does not ship to your location/i.test(body);
 
@@ -164,6 +178,9 @@ export function interpretSnapshot(snapshot) {
   } else if (inStock) {
     status = 'available_no_price';
     availability = availabilityText || '可購買，但價格未出現在頁面';
+  } else if (hasProductEvidence) {
+    status = 'available_no_price';
+    availability = '商品頁已確認，價格暫未顯示';
   }
 
   return {
@@ -373,6 +390,29 @@ async function gotoProductWithRetry(page, url, timeout) {
   }
 }
 
+async function loadProductSnapshot(page, product, options) {
+  const timeout = options.timeoutMs ?? 45_000;
+  const primaryUrl = `https://www.amazon.com/dp/${product.asin}?th=1&psc=1&language=en_US&currency=USD`;
+  const response = await gotoProductWithRetry(page, primaryUrl, timeout);
+  await page.waitForTimeout(options.pageWaitMs ?? 2_400);
+  let snapshot = await snapshotPage(page, response?.status() ?? null);
+  if (!isIncompleteProductSnapshot(snapshot)) return snapshot;
+
+  // Amazon occasionally returns only a variation shell: the requested ASIN is
+  // present, but the title, offer and price widgets have not hydrated. Retrying
+  // the canonical ASIN URL without forced variation parameters reliably asks
+  // for the complete offer page instead of recording an ambiguous result.
+  const retryUrl = `https://www.amazon.com/dp/${product.asin}?language=en_US&currency=USD`;
+  const retryResponse = await gotoProductWithRetry(page, retryUrl, timeout);
+  await page.locator('#productTitle, #title, #corePrice_feature_div, #corePriceDisplay_desktop_feature_div, #add-to-cart-button, #buy-now-button')
+    .first()
+    .waitFor({ state: 'attached', timeout: 8_000 })
+    .catch(() => {});
+  await page.waitForTimeout(options.retryPageWaitMs ?? 2_000);
+  snapshot = await snapshotPage(page, retryResponse?.status() ?? null);
+  return snapshot;
+}
+
 function conciseError(error) {
   return String(error?.message || error || '未知錯誤')
     .replace(/\nCall log:[\s\S]*/i, '')
@@ -426,10 +466,7 @@ export async function scrapeProducts(products, options = {}, onProgress = () => 
       onProgress({ type: 'start', index, total: products.length, asin: product.asin });
       const startedAt = new Date().toISOString();
       try {
-        const productUrl = `https://www.amazon.com/dp/${product.asin}?th=1&psc=1&language=en_US&currency=USD`;
-        const response = await gotoProductWithRetry(page, productUrl, options.timeoutMs ?? 45_000);
-        await page.waitForTimeout(options.pageWaitMs ?? 2_400);
-        const snapshot = await snapshotPage(page, response?.status() ?? null);
+        const snapshot = await loadProductSnapshot(page, product, options);
         snapshot.baselinePrice = product.baselinePrice;
         let interpreted = interpretSnapshot(snapshot);
         if (interpreted.pageAsin && interpreted.pageAsin !== product.asin) {

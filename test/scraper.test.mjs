@@ -1,6 +1,11 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { interpretSnapshot, parseMonthlyBought, parseUsd } from '../server/scraper.mjs';
+import {
+  interpretSnapshot,
+  isIncompleteProductSnapshot,
+  parseMonthlyBought,
+  parseUsd,
+} from '../server/scraper.mjs';
 
 test('parseUsd parses common Amazon formats', () => {
   assert.equal(parseUsd('$14.99'), 14.99);
@@ -34,6 +39,38 @@ test('interpretSnapshot finds current price, list price and availability', () =>
   assert.equal(output.coupon, 'Save 10%');
 });
 
+test('interpretSnapshot reads the new Amazon accessibility deal-price label', () => {
+  const output = interpretSnapshot({
+    title: 'iPaw product', url: 'https://www.amazon.com/dp/B0F1385154', bodyText: 'In Stock',
+    priceTexts: ['$17.99 with 10 percent savings'], listPriceTexts: ['$19.99'],
+    availabilityText: 'In Stock', hasAddToCart: true, pageAsin: 'B0F1385154',
+  });
+  assert.equal(output.currentPrice, 17.99);
+  assert.equal(output.listPrice, 19.99);
+  assert.equal(output.status, 'available');
+});
+
+test('an ASIN-only Amazon variation shell is retried instead of accepted as complete', () => {
+  assert.equal(isIncompleteProductSnapshot({
+    pageAsin: 'B0F1385154', productTitle: '', hasAddToCart: false,
+    availabilityText: '', priceTexts: [], priceDetails: [], structuredPriceValues: [],
+  }), true);
+  assert.equal(isIncompleteProductSnapshot({
+    pageAsin: 'B0F1385154', productTitle: 'iPaw Turkey Tendons', hasAddToCart: false,
+    availabilityText: '', priceTexts: [], priceDetails: [], structuredPriceValues: [],
+  }), false);
+});
+
+test('a confirmed product shell never falls back to an ambiguous unknown status', () => {
+  const output = interpretSnapshot({
+    title: 'Amazon.com', url: 'https://www.amazon.com/dp/B0F1385154', bodyText: '',
+    pageAsin: 'B0F1385154', productTitle: '', hasAddToCart: false,
+    availabilityText: '', priceTexts: [], priceDetails: [], structuredPriceValues: [],
+  });
+  assert.equal(output.status, 'available_no_price');
+  assert.equal(output.availability, '商品頁已確認，價格暫未顯示');
+});
+
 test('interpretSnapshot includes the monthly bought indicator when Amazon exposes it', () => {
   const output = interpretSnapshot({
     title: 'iPaw product', url: 'https://www.amazon.com/dp/B0TEST0001', bodyText: 'In Stock',
@@ -61,6 +98,15 @@ test('interpretSnapshot still reports a genuine 404 page as missing', () => {
     title: 'Amazon.com', url: 'https://www.amazon.com/dp/B0MISSING0',
     httpStatus: 404, bodyText: 'Looking for something?', priceTexts: [],
     listPriceTexts: [], hasAddToCart: false, productTitle: '',
+  });
+  assert.equal(output.status, 'missing');
+});
+
+test('interpretSnapshot still reports an Amazon soft 404 even when the URL contains the requested ASIN', () => {
+  const output = interpretSnapshot({
+    title: 'Amazon.com', url: 'https://www.amazon.com/dp/B0MISSING0',
+    bodyText: 'Looking for something?', pageAsin: 'B0MISSING0', priceTexts: [],
+    priceDetails: [], listPriceTexts: [], hasAddToCart: false, productTitle: '',
   });
   assert.equal(output.status, 'missing');
 });
