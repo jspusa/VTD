@@ -62,29 +62,75 @@ function ResultStatus({ result, fallback }) {
   return <><span className={`status ${status.tone}`}>{status.label}</span><span className="cell-sub availability" title={result.availability}>{result.availability || ''}</span></>;
 }
 
-function TargetPrice({ analysis }) {
+function TargetPrice({ pair, onOpen }) {
+  const { analysis } = pair;
   const hasChecks = analysis.checks?.length > 0;
   return (
-    <details className="price-reason">
-      <summary aria-label={hasChecks ? `查看 ${analysis.checks.length} 個價格檢查點` : '查看價格狀態'}>
+    <div className="price-reason">
+      <button
+        type="button"
+        className="price-reason-trigger"
+        aria-label={hasChecks ? `查看 ${pair.own?.sku} 目標價格 ${money(analysis.targetPrice)} 的定價依據` : '目前沒有定價依據'}
+        aria-haspopup={hasChecks ? 'dialog' : undefined}
+        onClick={hasChecks ? onOpen : undefined}
+        disabled={!hasChecks}
+      >
         <span className={`status target-price ${analysis.tone}`}>{money(analysis.targetPrice)}</span>
-        <strong className={`recommendation ${analysis.state}`}>{analysis.recommendation}</strong>
-      </summary>
-      {hasChecks && (
-        <div className="price-reason-panel">
-          <div className="reason-heading"><strong>定價依據</strong><span>{analysis.checks.length} 個檢查點</span></div>
-          <div className="reason-checks">
-            {analysis.checks.map((check) => (
-              <div className={check.selected ? 'selected' : ''} key={check.label}>
-                <span>{check.label}{check.note && <small>{check.note}</small>}</span>
-                <strong>{money(check.value)}</strong>
-              </div>
-            ))}
-          </div>
-          <p>採用最低允許價格 <strong>{money(analysis.targetPrice)}</strong></p>
+      </button>
+      <strong className={`recommendation ${analysis.state}`}>{analysis.recommendation}</strong>
+    </div>
+  );
+}
+
+function PriceDetailsDialog({ pair, onClose }) {
+  useEffect(() => {
+    if (!pair) return undefined;
+    const closeOnEscape = (event) => {
+      if (event.key === 'Escape') onClose();
+    };
+    document.addEventListener('keydown', closeOnEscape);
+    return () => document.removeEventListener('keydown', closeOnEscape);
+  }, [pair, onClose]);
+
+  if (!pair) return null;
+  const { analysis } = pair;
+  return (
+    <div className="price-detail-backdrop" onMouseDown={(event) => { if (event.target === event.currentTarget) onClose(); }}>
+      <section className="price-detail-dialog" role="dialog" aria-modal="true" aria-labelledby="price-detail-title" data-testid="price-detail-dialog">
+        <header className="price-detail-header">
+          <div><p>PRICE DECISION</p><h2 id="price-detail-title">目標價格詳情</h2></div>
+          <button type="button" className="price-detail-close" onClick={onClose} aria-label="關閉目標價格詳情"><Icon name="close" /></button>
+        </header>
+
+        <div className="price-detail-route" aria-label="SKU 對照組">
+          <span><small>iPaw</small><strong>{pair.competitor?.sku}</strong></span>
+          <i aria-hidden="true">→</i>
+          <span className="own"><small>我方</small><strong>{pair.own?.sku}</strong></span>
         </div>
-      )}
-    </details>
+
+        <div className={`price-detail-decision ${analysis.tone}`}>
+          <span>本輪目標價格</span>
+          <strong>{money(analysis.targetPrice)}</strong>
+          <small>{analysis.recommendation}</small>
+        </div>
+
+        <div className="price-detail-section-title">
+          <div><span>定價依據</span><strong>所有限制逐一檢查</strong></div>
+          <b>{analysis.checks.length} 個檢查點</b>
+        </div>
+        <div className={`price-detail-checks count-${analysis.checks.length}`}>
+          {analysis.checks.map((check, index) => (
+            <article className={check.selected ? 'selected' : ''} key={check.label}>
+              <div><span>{check.selected ? '本輪採用' : `檢查點 ${index + 1}`}</span>{check.selected && <i><Icon name="check" size={13} />最低限制</i>}</div>
+              <h3>{check.label}</h3>
+              {check.note && <p>{check.note}</p>}
+              <strong>{money(check.value)}</strong>
+            </article>
+          ))}
+        </div>
+        <footer className="price-detail-footer"><Icon name="check" size={17} /><span>系統採用所有檢查點中<strong>最低的允許價格</strong>，因此本輪目標為 <b>{money(analysis.targetPrice)}</b>。</span></footer>
+      </section>
+    </div>
   );
 }
 
@@ -103,6 +149,7 @@ function App() {
   const [gameOpen, setGameOpen] = useState(false);
   const [adminGateOpen, setAdminGateOpen] = useState(false);
   const [chaosMode, setChaosMode] = useState(null);
+  const [priceDetailsPair, setPriceDetailsPair] = useState(null);
 
   const load = async () => {
     if (STATIC_MODE) {
@@ -284,7 +331,7 @@ function App() {
                     <td className="own-column"><strong>{pair.own?.sku}</strong><a className="asin-link cell-link" href={`https://www.amazon.com/dp/${pair.own?.asin}`} target="_blank" rel="noreferrer">{pair.own?.asin}<Icon name="external" size={13} /></a></td>
                     <td className="own-column"><ResultStatus result={pair.ownResult} fallback={pair.own?.baselineStatus} /></td>
                     <td className="number current-price own-column">{money(pair.ownResult?.currentPrice)}</td>
-                    <td><TargetPrice analysis={pair.analysis} /></td>
+                    <td><TargetPrice pair={pair} onOpen={() => setPriceDetailsPair(pair)} /></td>
                     <td><span>{pair.competitorResult || pair.ownResult ? dateTime(pair.competitorResult?.scrapedAt || pair.ownResult?.scrapedAt) : '—'}</span>{(pair.competitorResult?.error || pair.ownResult?.error) && <span className="cell-sub error-text pair-error" title={[pair.competitorResult?.error, pair.ownResult?.error].filter(Boolean).join('｜')}>{[pair.competitorResult?.error, pair.ownResult?.error].filter(Boolean).join('｜')}</span>}</td>
                   </tr>
                 ))}
@@ -298,6 +345,7 @@ function App() {
 
         <footer><div><Icon name="clock" size={16} />調價公式：各項限制取最低；整數結果只向下調為 .99。</div><div className="footer-side"><span>單品最高 $19.99；五包與十包另受單包、五包售價連動限制。</span><button className="game-launch" onClick={openGame} data-chaos-safe="true">價格守門員小遊戲</button></div></footer>
       </main>
+      <PriceDetailsDialog pair={priceDetailsPair} onClose={() => setPriceDetailsPair(null)} />
       <PriceGuardGame open={gameOpen} onClose={() => setGameOpen(false)} onFastClose={triggerChaos} />
       <AdminGate open={adminGateOpen} onSuccess={passAdminGate} onFail={triggerChaos} />
       <GuardianChaos mode={chaosMode} />
