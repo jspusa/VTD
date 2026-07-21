@@ -24,14 +24,25 @@ test('interpretSnapshot finds current price, list price and availability', () =>
   assert.equal(output.coupon, 'Save 10%');
 });
 
-test('interpretSnapshot does not mistake the normal Dogs of Amazon footer for a missing page', () => {
+test('interpretSnapshot does not mistake generic Amazon copy on a valid product page for a missing page', () => {
   const output = interpretSnapshot({
     title: 'Vitaday product', url: 'https://www.amazon.com/dp/B0DNF4564B',
-    bodyText: 'In Stock\nDogs of Amazon', priceTexts: ['$12.49'], listPriceTexts: [],
-    availabilityText: 'In Stock', hasAddToCart: true, pageAsin: 'B0DNF4564B',
+    bodyText: 'In Stock\nLooking for something?\nDogs of Amazon',
+    productTitle: 'VITADAY Turkey Tendons for Dogs',
+    priceTexts: ['$7.99'], listPriceTexts: [], availabilityText: 'In Stock',
+    hasAddToCart: true, pageAsin: 'B0DNF4564B',
   });
   assert.equal(output.status, 'available');
-  assert.equal(output.currentPrice, 12.49);
+  assert.equal(output.currentPrice, 7.99);
+});
+
+test('interpretSnapshot still reports a genuine 404 page as missing', () => {
+  const output = interpretSnapshot({
+    title: 'Amazon.com', url: 'https://www.amazon.com/dp/B0MISSING0',
+    httpStatus: 404, bodyText: 'Looking for something?', priceTexts: [],
+    listPriceTexts: [], hasAddToCart: false, productTitle: '',
+  });
+  assert.equal(output.status, 'missing');
 });
 
 test('interpretSnapshot never invents cart-hidden prices', () => {

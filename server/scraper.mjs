@@ -68,9 +68,15 @@ function closestPlausiblePrice(prices, baselinePrice) {
 export function interpretSnapshot(snapshot) {
   const body = snapshot.bodyText ?? '';
   const captcha = /enter the characters you see below|type the characters you see in this image|sorry, we just need to make sure you're not a robot|validatecaptcha/i.test(`${snapshot.title ?? ''} ${body} ${snapshot.url ?? ''}`);
-  // "Dogs of Amazon" also appears in the normal Amazon footer, so it cannot
-  // be used as evidence that a product page is missing.
-  const pageMissing = /looking for something|page not found/i.test(body) || snapshot.httpStatus === 404;
+  // Amazon can render generic "Looking for something?" copy and "Dogs of
+  // Amazon" links on a valid product page. Only trust those phrases when the
+  // page also lacks concrete product evidence.
+  const missingCopy = /looking for something|page not found/i.test(body);
+  const hasProductEvidence = Boolean(snapshot.productTitle)
+    || Boolean(snapshot.hasAddToCart)
+    || (snapshot.priceTexts?.length ?? 0) > 0
+    || (snapshot.priceDetails?.length ?? 0) > 0;
+  const pageMissing = snapshot.httpStatus === 404 || (missingCopy && !hasProductEvidence);
   const hiddenPrice = /add this item to your cart to see the price|to see product details, add this item to your cart|see price in cart/i.test(body);
   const deliveryUnavailable = /cannot be shipped to your selected delivery location|not deliverable to this address|does not ship to your location/i.test(body);
 
