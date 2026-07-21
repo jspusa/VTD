@@ -1,7 +1,7 @@
 [
   {
     "date": "2026-07-21",
-    "capturedAt": "2026-07-21T11:59:48.192Z",
+    "capturedAt": "2026-07-21T14:18:47.411Z",
     "items": [
       {
         "id": "pair-01-competitor",
@@ -119,10 +119,10 @@
         "role": "competitor",
         "sku": "iPR01-10",
         "asin": "B0F1385154",
-        "status": "unknown",
-        "price": null,
-        "monthlyBoughtText": "",
-        "monthlyBoughtLowerBound": null
+        "status": "available",
+        "price": 19.99,
+        "monthlyBoughtText": "3K+ bought in past month",
+        "monthlyBoughtLowerBound": 3000
       },
       {
         "id": "pair-06-own",
