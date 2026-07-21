@@ -1,7 +1,7 @@
 [
   {
     "date": "2026-07-21",
-    "capturedAt": "2026-07-21T07:11:42.130Z",
+    "capturedAt": "2026-07-21T07:40:15.605Z",
     "items": [
       {
         "id": "pair-01-competitor",
@@ -65,7 +65,7 @@
         "sku": "7VTSD913AB",
         "asin": "B0H5JKB7QS",
         "status": "available",
-        "price": 118,
+        "price": 113.99,
         "monthlyBoughtText": "",
         "monthlyBoughtLowerBound": null
       },
