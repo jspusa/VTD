@@ -24,7 +24,7 @@ test('Excel export contains paired SKU comparison and adjustment rule', async ()
   assert.equal(prices.getCell('E3').value, '7VTSD013AB');
   assert.equal(prices.getCell('D3').value, 14.99);
   assert.equal(prices.getCell('H3').value, 12.99);
-  assert.equal(prices.getCell('I3').value, '$12.99\n無須調整（上限 $12.99）');
+  assert.equal(prices.getCell('I3').value, '$12.99\n無須調整');
   const buffer = await workbook.xlsx.writeBuffer();
   assert.ok(buffer.byteLength > 5_000);
 });
@@ -38,5 +38,5 @@ test('Excel shows a suggested own price when the own price is missing', async ()
       { id: 'o', pairId: 'pair-1', role: 'own', sku: '7VTSD013AB', currentPrice: null, status: 'available_no_price', asin: 'B0DNF4564B', scrapedAt: now },
     ],
   });
-  assert.equal(workbook.getWorksheet('六組價格對照').getCell('I3').value, '$12.49\n我方建議售價 $12.49（iPaw 價格 − $2）');
+  assert.equal(workbook.getWorksheet('六組價格對照').getCell('I3').value, '$12.49\n我方建議售價 $12.49');
 });

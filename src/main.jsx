@@ -61,6 +61,32 @@ function ResultStatus({ result, fallback }) {
   return <><span className={`status ${status.tone}`}>{status.label}</span><span className="cell-sub availability" title={result.availability}>{result.availability || ''}</span></>;
 }
 
+function TargetPrice({ analysis }) {
+  const hasChecks = analysis.checks?.length > 0;
+  return (
+    <details className="price-reason">
+      <summary aria-label={hasChecks ? `查看 ${analysis.checks.length} 個價格檢查點` : '查看價格狀態'}>
+        <span className={`status target-price ${analysis.tone}`}>{money(analysis.targetPrice)}</span>
+        <strong className={`recommendation ${analysis.state}`}>{analysis.recommendation}</strong>
+      </summary>
+      {hasChecks && (
+        <div className="price-reason-panel">
+          <div className="reason-heading"><strong>定價依據</strong><span>{analysis.checks.length} 個檢查點</span></div>
+          <div className="reason-checks">
+            {analysis.checks.map((check) => (
+              <div className={check.selected ? 'selected' : ''} key={check.label}>
+                <span>{check.label}{check.note && <small>{check.note}</small>}</span>
+                <strong>{money(check.value)}</strong>
+              </div>
+            ))}
+          </div>
+          <p>採用最低允許價格 <strong>{money(analysis.targetPrice)}</strong></p>
+        </div>
+      )}
+    </details>
+  );
+}
+
 function App() {
   const [products, setProducts] = useState([]);
   const [run, setRun] = useState(null);
@@ -251,7 +277,7 @@ function App() {
                     <td className="own-column"><strong>{pair.own?.sku}</strong><a className="asin-link cell-link" href={`https://www.amazon.com/dp/${pair.own?.asin}`} target="_blank" rel="noreferrer">{pair.own?.asin}<Icon name="external" size={13} /></a></td>
                     <td className="own-column"><ResultStatus result={pair.ownResult} fallback={pair.own?.baselineStatus} /></td>
                     <td className="number current-price own-column">{money(pair.ownResult?.currentPrice)}</td>
-                    <td><span className={`status target-price ${pair.analysis.tone}`}>{money(pair.analysis.targetPrice)}</span><strong className={`recommendation ${pair.analysis.state}`}>{pair.analysis.recommendation}</strong></td>
+                    <td><TargetPrice analysis={pair.analysis} /></td>
                     <td><span>{pair.competitorResult || pair.ownResult ? dateTime(pair.competitorResult?.scrapedAt || pair.ownResult?.scrapedAt) : '—'}</span>{(pair.competitorResult?.error || pair.ownResult?.error) && <span className="cell-sub error-text pair-error" title={[pair.competitorResult?.error, pair.ownResult?.error].filter(Boolean).join('｜')}>{[pair.competitorResult?.error, pair.ownResult?.error].filter(Boolean).join('｜')}</span>}</td>
                   </tr>
                 ))}
