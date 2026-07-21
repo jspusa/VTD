@@ -68,7 +68,9 @@ function closestPlausiblePrice(prices, baselinePrice) {
 export function interpretSnapshot(snapshot) {
   const body = snapshot.bodyText ?? '';
   const captcha = /enter the characters you see below|type the characters you see in this image|sorry, we just need to make sure you're not a robot|validatecaptcha/i.test(`${snapshot.title ?? ''} ${body} ${snapshot.url ?? ''}`);
-  const pageMissing = /looking for something|page not found|dogs of amazon/i.test(body) || snapshot.httpStatus === 404;
+  // "Dogs of Amazon" also appears in the normal Amazon footer, so it cannot
+  // be used as evidence that a product page is missing.
+  const pageMissing = /looking for something|page not found/i.test(body) || snapshot.httpStatus === 404;
   const hiddenPrice = /add this item to your cart to see the price|to see product details, add this item to your cart|see price in cart/i.test(body);
   const deliveryUnavailable = /cannot be shipped to your selected delivery location|not deliverable to this address|does not ship to your location/i.test(body);
 

@@ -4,6 +4,7 @@ import { isRunStale } from './schedule.js';
 import PriceGuardGame from './PriceGuardGame.jsx';
 import AdminGate from './AdminGate.jsx';
 import GuardianChaos from './GuardianChaos.jsx';
+import { analyzePairs } from './pricing.js';
 import './styles.css';
 
 const STATIC_MODE = import.meta.env.VITE_STATIC_MODE === 'true';
@@ -32,30 +33,6 @@ const money = (value) => Number.isFinite(value)
 const dateTime = (value) => value
   ? new Intl.DateTimeFormat('zh-TW', { dateStyle: 'medium', timeStyle: 'short' }).format(new Date(value))
   : '尚未擷取';
-
-const roundPrice = (value) => Math.round((value + Number.EPSILON) * 100) / 100;
-
-function analyzePair(competitorResult, ownResult) {
-  const competitorPrice = competitorResult?.currentPrice;
-  const ownPrice = ownResult?.currentPrice;
-  if (!Number.isFinite(competitorPrice)) {
-    return { state: 'insufficient', label: '資料不足', tone: 'neutral', targetPrice: null, gap: null, adjustment: null, recommendation: '待取得 iPaw 價格後判斷' };
-  }
-
-  const targetPrice = roundPrice(Math.max(0, competitorPrice - 2));
-  if (!Number.isFinite(ownPrice)) {
-    return { state: 'suggested', label: '建議售價', tone: 'warning', targetPrice, gap: null, adjustment: null, recommendation: `我方建議售價 ${money(targetPrice)}` };
-  }
-  const gap = roundPrice(competitorPrice - ownPrice);
-  const adjustment = roundPrice(targetPrice - ownPrice);
-  if (Math.abs(adjustment) < 0.005) {
-    return { state: 'matched', label: '符合規則', tone: 'positive', targetPrice, gap, adjustment: 0, recommendation: '無須調整' };
-  }
-  if (adjustment < 0) {
-    return { state: 'lower', label: '需要降價', tone: 'negative', targetPrice, gap, adjustment, recommendation: `降價 ${money(Math.abs(adjustment))} → ${money(targetPrice)}` };
-  }
-  return { state: 'raise', label: '可提高售價', tone: 'warning', targetPrice, gap, adjustment, recommendation: `漲價 ${money(adjustment)} → ${money(targetPrice)}` };
-}
 
 function Icon({ name, size = 18 }) {
   const common = { width: size, height: size, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 1.8, strokeLinecap: 'round', strokeLinejoin: 'round', 'aria-hidden': true };
@@ -164,11 +141,12 @@ function App() {
       if (!grouped.has(product.pairId)) grouped.set(product.pairId, { pairId: product.pairId });
       grouped.get(product.pairId)[product.role] = product;
     }
-    return [...grouped.values()].map((pair) => {
+    const rawPairs = [...grouped.values()].map((pair) => {
       const competitorResult = resultsById.get(pair.competitor?.id);
       const ownResult = resultsById.get(pair.own?.id);
-      return { ...pair, competitorResult, ownResult, analysis: analyzePair(competitorResult, ownResult) };
+      return { ...pair, competitorResult, ownResult };
     });
+    return analyzePairs(rawPairs);
   }, [products, resultsById]);
 
   const filteredPairs = useMemo(() => pairs.filter((pair) => {
@@ -235,7 +213,7 @@ function App() {
           <div>
             <p className="eyebrow">iPaw vs. Jasper Amazon US</p>
             <h1>六組 SKU 價格對照</h1>
-            <p className="subtitle">目標規則：我方售價固定等於 iPaw 即時售價減 $2.00。</p>
+            <p className="subtitle">目標規則：依 iPaw 價差、$19.99 上限與單包／組合包價格邏輯，採用最低允許售價上限。</p>
           </div>
           {STATIC_MODE
             ? <div className="static-schedule"><span>目標更新時間</span><strong>平日 09:27 · 11:27 · 13:27 · 15:27 · 17:27 · 19:27</strong><small>後台每 30 分鐘檢查缺漏；此頁每 5 分鐘自動同步最新結果</small></div>
@@ -245,7 +223,7 @@ function App() {
         <section className="summary-strip pair-summary">
           <div><span>SKU 對照組數</span><strong>{pairs.length}</strong></div>
           <div><span>雙邊價格完整</span><strong>{summary.complete}<small> / {pairs.length}</small></strong></div>
-          <div><span>符合低 $2</span><strong>{summary.matched}</strong></div>
+          <div><span>符合價格規則</span><strong>{summary.matched}</strong></div>
           <div><span>需要調價</span><strong>{summary.adjust}</strong></div>
           <div className="last-run"><span>目前顯示批次</span><strong>{dateTime(run?.finishedAt)}</strong></div>
         </section>
@@ -283,7 +261,7 @@ function App() {
           </div>
         </section>
 
-        <footer><div><Icon name="clock" size={16} />調價公式：我方目標價＝iPaw 即時售價－$2.00。</div><div className="footer-side"><span>低不到 $2 建議降價；低超過 $2 建議提高售價以保留毛利。</span><button className="game-launch" onClick={openGame} data-chaos-safe="true">價格守門員小遊戲</button></div></footer>
+        <footer><div><Icon name="clock" size={16} />調價公式：各項限制取最低；整數結果只向下調為 .99。</div><div className="footer-side"><span>單品最高 $19.99；五包與十包另受單包、五包售價連動限制。</span><button className="game-launch" onClick={openGame} data-chaos-safe="true">價格守門員小遊戲</button></div></footer>
       </main>
       <PriceGuardGame open={gameOpen} onClose={() => setGameOpen(false)} onFastClose={triggerChaos} />
       <AdminGate open={adminGateOpen} onSuccess={passAdminGate} onFail={triggerChaos} />

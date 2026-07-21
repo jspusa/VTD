@@ -1,4 +1,5 @@
 import ExcelJS from 'exceljs';
+import { analyzePairs } from '../src/pricing.js';
 
 const STATUS_LABELS = {
   available: '在售',
@@ -14,23 +15,6 @@ const STATUS_LABELS = {
   error: '擷取失敗',
   unknown: '未能判定',
 };
-
-const roundPrice = (value) => Math.round((value + Number.EPSILON) * 100) / 100;
-
-function analyzePair(competitor, own) {
-  if (!Number.isFinite(competitor?.currentPrice)) {
-    return { recommendation: '資料不足：待取得 iPaw 價格後判斷', state: 'insufficient' };
-  }
-  const target = roundPrice(Math.max(0, competitor.currentPrice - 2));
-  if (!Number.isFinite(own?.currentPrice)) {
-    return { target, recommendation: `我方建議售價 $${target.toFixed(2)}`, state: 'suggested' };
-  }
-  const gap = roundPrice(competitor.currentPrice - own.currentPrice);
-  const adjustment = roundPrice(target - own.currentPrice);
-  if (Math.abs(adjustment) < 0.005) return { gap, target, recommendation: '無須調整', state: 'matched' };
-  if (adjustment < 0) return { gap, target, recommendation: `降價 $${Math.abs(adjustment).toFixed(2)} → $${target.toFixed(2)}`, state: 'lower' };
-  return { gap, target, recommendation: `漲價 $${adjustment.toFixed(2)} → $${target.toFixed(2)}`, state: 'raise' };
-}
 
 function buildPairs(results = []) {
   const grouped = new Map();
@@ -77,8 +61,14 @@ export async function buildWorkbook(run) {
     header.getCell(column).fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF426D86' } };
   });
 
-  buildPairs(run.results).forEach(({ competitor, own }) => {
-    const analysis = analyzePair(competitor, own);
+  const pricedPairs = analyzePairs(buildPairs(run.results).map((pair) => ({
+    ...pair,
+    competitorResult: pair.competitor,
+    ownResult: pair.own,
+    competitor: pair.competitor,
+    own: pair.own,
+  })));
+  pricedPairs.forEach(({ competitor, own, analysis }) => {
     const row = sheet.addRow([
       competitor?.sku,
       competitor ? { text: competitor.asin, hyperlink: competitor.finalUrl || `https://www.amazon.com/dp/${competitor.asin}` } : '',
@@ -88,7 +78,7 @@ export async function buildWorkbook(run) {
       own ? { text: own.asin, hyperlink: own.finalUrl || `https://www.amazon.com/dp/${own.asin}` } : '',
       own ? `${STATUS_LABELS[own.status] ?? own.status}${own.availability ? `｜${own.availability}` : ''}` : '無資料',
       own?.currentPrice,
-      `${Number.isFinite(analysis.target) ? `$${analysis.target.toFixed(2)}` : '—'}\n${analysis.recommendation}`,
+      `${Number.isFinite(analysis.targetPrice) ? `$${analysis.targetPrice.toFixed(2)}` : '—'}\n${analysis.recommendation}`,
       new Date(competitor?.scrapedAt || own?.scrapedAt || run.finishedAt || run.startedAt),
       [competitor?.error, own?.error].filter(Boolean).join('｜'),
     ]);
@@ -126,7 +116,7 @@ export async function buildWorkbook(run) {
     ['美國配送郵遞區號', run.options?.zipCode || '10001'],
     ['擷取模式', run.options?.headless === false ? '顯示瀏覽器' : '背景執行'],
     ['SKU 對照組數', buildPairs(run.results).length],
-    ['調價規則', '我方目標售價＝iPaw 即時售價－US$2.00。低不到 US$2 建議降價；低超過 US$2 建議提高售價。'],
+    ['調價規則', '各項限制取最低：指定單品不超過 US$19.99；五包與十包另受單包、五包售價連動限制；整數結果只向下調為 .99。低於允許上限時無須漲價。'],
     ['說明', 'Amazon 顯示價格會受配送地點、登入狀態、優惠資格、Subscribe & Save 與購物車隱藏價影響。工具不會猜測未讀取到的價格。'],
   ]);
   meta.getRow(1).font = { bold: true, color: { argb: 'FFFFFFFF' } };
