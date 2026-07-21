@@ -4,6 +4,7 @@ import { isRunStale } from './schedule.js';
 import PriceGuardGame from './PriceGuardGame.jsx';
 import AdminGate from './AdminGate.jsx';
 import GuardianChaos from './GuardianChaos.jsx';
+import HistoryPanel from './HistoryPanel.jsx';
 import { analyzePairs } from './pricing.js';
 import './styles.css';
 
@@ -91,6 +92,7 @@ function App() {
   const [products, setProducts] = useState([]);
   const [run, setRun] = useState(null);
   const [history, setHistory] = useState([]);
+  const [dailyHistory, setDailyHistory] = useState([]);
   const [job, setJob] = useState(null);
   const [search, setSearch] = useState('');
   const [filter, setFilter] = useState('全部狀態');
@@ -104,9 +106,14 @@ function App() {
 
   const load = async () => {
     if (STATIC_MODE) {
-      const payload = await api(`${staticAsset('latest-run.json')}?v=${Date.now()}`, { cache: 'no-store' });
+      const cacheBuster = Date.now();
+      const [payload, storedDailyHistory] = await Promise.all([
+        api(`${staticAsset('latest-run.json')}?v=${cacheBuster}`, { cache: 'no-store' }),
+        api(`${staticAsset('daily-history.json')}?v=${cacheBuster}`, { cache: 'no-store' }).catch(() => []),
+      ]);
       setProducts(payload.products ?? []);
       setRun(payload.run ?? null);
+      setDailyHistory(Array.isArray(storedDailyHistory) ? storedDailyHistory : []);
       setHistory(payload.run ? [{
         id: payload.run.id,
         finishedAt: payload.run.finishedAt,
@@ -231,7 +238,7 @@ function App() {
   return (
     <div className="app-shell">
       <header className="topbar">
-        <div className="brand"><span className="brand-mark">iP</span><div><strong>SKU Price Guard</strong><span>{STATIC_MODE ? 'GitHub Pages' : 'Amazon US'} · v1.8</span></div></div>
+        <div className="brand"><span className="brand-mark">iP</span><div><strong>SKU Price Guard</strong><span>{STATIC_MODE ? 'GitHub Pages' : 'Amazon US'} · v1.9</span></div></div>
       </header>
 
       <main>
@@ -286,6 +293,8 @@ function App() {
             </table>
           </div>
         </section>
+
+        <HistoryPanel products={products} run={run} history={dailyHistory} />
 
         <footer><div><Icon name="clock" size={16} />調價公式：各項限制取最低；整數結果只向下調為 .99。</div><div className="footer-side"><span>單品最高 $19.99；五包與十包另受單包、五包售價連動限制。</span><button className="game-launch" onClick={openGame} data-chaos-safe="true">價格守門員小遊戲</button></div></footer>
       </main>

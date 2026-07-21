@@ -8,7 +8,7 @@ import { buildWorkbook } from './excel.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
-const APP_VERSION = '1.8.0';
+const APP_VERSION = '1.9.0';
 const port = Number(process.env.PORT) || 8792;
 const jobs = new Map();
 

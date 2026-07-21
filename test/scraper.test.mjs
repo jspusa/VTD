@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { interpretSnapshot, parseUsd } from '../server/scraper.mjs';
+import { interpretSnapshot, parseMonthlyBought, parseUsd } from '../server/scraper.mjs';
 
 test('parseUsd parses common Amazon formats', () => {
   assert.equal(parseUsd('$14.99'), 14.99);
@@ -10,6 +10,16 @@ test('parseUsd parses common Amazon formats', () => {
   assert.equal(parseUsd('TWD 792.59'), null);
   assert.equal(parseUsd('CA$20.00'), null);
   assert.equal(parseUsd('no price'), null);
+});
+
+test('parseMonthlyBought reads Amazon public sales ranges', () => {
+  assert.deepEqual(parseMonthlyBought('700+ bought in past month'), {
+    text: '700+ bought in past month', lowerBound: 700,
+  });
+  assert.equal(parseMonthlyBought('1K+ bought in past month').lowerBound, 1000);
+  assert.equal(parseMonthlyBought('1.5K+ bought in past month').lowerBound, 1500);
+  assert.equal(parseMonthlyBought('2,000+ bought in past month').lowerBound, 2000);
+  assert.equal(parseMonthlyBought('In Stock').lowerBound, null);
 });
 
 test('interpretSnapshot finds current price, list price and availability', () => {
@@ -22,6 +32,16 @@ test('interpretSnapshot finds current price, list price and availability', () =>
   assert.equal(output.listPrice, 28);
   assert.equal(output.status, 'available');
   assert.equal(output.coupon, 'Save 10%');
+});
+
+test('interpretSnapshot includes the monthly bought indicator when Amazon exposes it', () => {
+  const output = interpretSnapshot({
+    title: 'iPaw product', url: 'https://www.amazon.com/dp/B0TEST0001', bodyText: 'In Stock',
+    priceTexts: ['$19.99'], listPriceTexts: [], availabilityText: 'In Stock',
+    hasAddToCart: true, salesVolumeText: '700+ bought in past month',
+  });
+  assert.equal(output.monthlyBoughtText, '700+ bought in past month');
+  assert.equal(output.monthlyBoughtLowerBound, 700);
 });
 
 test('interpretSnapshot does not mistake generic Amazon copy on a valid product page for a missing page', () => {

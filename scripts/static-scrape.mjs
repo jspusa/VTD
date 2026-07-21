@@ -3,6 +3,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { buildWorkbook } from '../server/excel.mjs';
+import { updateDailyHistory } from '../server/daily-history.mjs';
 import { scrapeProducts } from '../server/scraper.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -32,10 +33,21 @@ const run = {
 };
 
 const publicDir = path.join(root, 'public');
+const dailyHistoryFile = path.join(root, 'data', 'daily-history.json');
 await fs.mkdir(publicDir, { recursive: true });
 await fs.writeFile(path.join(publicDir, 'latest-run.json'), `${JSON.stringify({ products, run }, null, 2)}\n`);
+let previousDailyHistory = [];
+try {
+  previousDailyHistory = JSON.parse(await fs.readFile(dailyHistoryFile, 'utf8'));
+} catch (error) {
+  if (error.code !== 'ENOENT') throw error;
+}
+const dailyHistory = updateDailyHistory(previousDailyHistory, run, { retentionDays: 365 });
+await fs.writeFile(dailyHistoryFile, `${JSON.stringify(dailyHistory, null, 2)}\n`);
+await fs.writeFile(path.join(publicDir, 'daily-history.json'), `${JSON.stringify(dailyHistory, null, 2)}\n`);
 const workbook = await buildWorkbook(run);
 await workbook.xlsx.writeFile(path.join(publicDir, 'latest.xlsx'));
 
 const found = run.results.filter((item) => Number.isFinite(item.currentPrice)).length;
 console.log(`完成：${found}/${run.results.length} 個 ASIN 讀取到價格。`);
+console.log(`每日歷史：${dailyHistory.length}/365 天；${dailyHistory[0]?.date || '尚無資料'} 已更新。`);

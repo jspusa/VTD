@@ -35,6 +35,19 @@ export function parseUsd(text) {
   return Number.isFinite(value) ? value : null;
 }
 
+export function parseMonthlyBought(text) {
+  const normalized = String(text ?? '').replace(/\s+/g, ' ').trim();
+  const match = normalized.match(/(\d+(?:[,.]\d+)?)\s*([KMB]?)\s*\+\s*bought in past month/i);
+  if (!match) return { text: '', lowerBound: null };
+  const amount = Number.parseFloat(match[1].replace(/,/g, ''));
+  const multiplier = { K: 1_000, M: 1_000_000, B: 1_000_000_000 }[match[2].toUpperCase()] ?? 1;
+  const lowerBound = amount * multiplier;
+  return {
+    text: match[0],
+    lowerBound: Number.isFinite(lowerBound) ? Math.round(lowerBound) : null,
+  };
+}
+
 function uniquePrices(values) {
   const seen = new Set();
   return values.filter((value) => {
@@ -67,6 +80,11 @@ function closestPlausiblePrice(prices, baselinePrice) {
 
 export function interpretSnapshot(snapshot) {
   const body = snapshot.bodyText ?? '';
+  const monthlyBought = parseMonthlyBought(snapshot.salesVolumeText || body);
+  const salesFields = {
+    monthlyBoughtText: monthlyBought.text,
+    monthlyBoughtLowerBound: monthlyBought.lowerBound,
+  };
   const captcha = /enter the characters you see below|type the characters you see in this image|sorry, we just need to make sure you're not a robot|validatecaptcha/i.test(`${snapshot.title ?? ''} ${body} ${snapshot.url ?? ''}`);
   // Amazon can render generic "Looking for something?" copy and "Dogs of
   // Amazon" links on a valid product page. Only trust those phrases when the
@@ -81,10 +99,10 @@ export function interpretSnapshot(snapshot) {
   const deliveryUnavailable = /cannot be shipped to your selected delivery location|not deliverable to this address|does not ship to your location/i.test(body);
 
   if (captcha) {
-    return { status: 'blocked', availability: 'Amazon 驗證頁', error: 'Amazon 要求 CAPTCHA／人機驗證，未嘗試繞過。' };
+    return { status: 'blocked', availability: 'Amazon 驗證頁', error: 'Amazon 要求 CAPTCHA／人機驗證，未嘗試繞過。', ...salesFields };
   }
   if (pageMissing) {
-    return { status: 'missing', availability: '頁面不存在', error: '找不到商品頁或 ASIN 已失效。' };
+    return { status: 'missing', availability: '頁面不存在', error: '找不到商品頁或 ASIN 已失效。', ...salesFields };
   }
 
   const priceDetails = snapshot.priceDetails ?? [];
@@ -158,6 +176,7 @@ export function interpretSnapshot(snapshot) {
     productTitle: snapshot.productTitle || '',
     pageAsin: snapshot.pageAsin || '',
     finalUrl: snapshot.url || '',
+    ...salesFields,
     error: currentPrice === null && ['unknown', 'available_no_price'].includes(status)
       ? `頁面已開啟，但找不到整包主售價。${diagnosticPrices ? `偵測到：${diagnosticPrices}` : '未偵測到價格節點。'}`
       : '',
@@ -331,6 +350,12 @@ async function snapshotPage(page, httpStatus) {
       couponText: firstText(['#couponTextpctch', '#couponText', '.couponBadge', '#promoPriceBlockMessage_feature_div']),
       availabilityText: firstText(['#availability > span', '#availability .a-color-success', '#availability .a-color-state', '#outOfStock', '#mir-layout-DELIVERY_BLOCK-slot-PRIMARY_DELIVERY_MESSAGE_LARGE', '#availability']).replace(/\s*\{[\s\S]*$/, ''),
       sellerText: firstText(['#sellerProfileTriggerId', '#merchant-info', '#tabular-buybox-truncate-1 .a-truncate-full']),
+      salesVolumeText: firstText([
+        '#social-proofing-faceout-title-tk_bought',
+        '[data-csa-c-content-id="social-proofing-faceout-title-tk_bought"]',
+        '.social-proofing-faceout-title-text',
+        '[data-feature-name="socialProof"]',
+      ]),
       hasAddToCart: Boolean(document.querySelector('#add-to-cart-button, input[name="submit.add-to-cart"]')),
     };
   }, { priceSelectors: PRICE_SELECTORS, listPriceSelectors: LIST_PRICE_SELECTORS, httpStatusValue: httpStatus });
