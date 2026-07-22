@@ -1,5 +1,143 @@
 [
   {
+    "date": "2026-07-22",
+    "capturedAt": "2026-07-22T04:29:28.302Z",
+    "items": [
+      {
+        "id": "pair-01-competitor",
+        "pairId": "pair-01",
+        "role": "competitor",
+        "sku": "iPS05-1",
+        "asin": "B0CZRN7HXT",
+        "status": "available",
+        "price": 14.49,
+        "monthlyBoughtText": "10K+ bought in past month",
+        "monthlyBoughtLowerBound": 10000
+      },
+      {
+        "id": "pair-01-own",
+        "pairId": "pair-01",
+        "role": "own",
+        "sku": "7VTSD013AB",
+        "asin": "B0DNF4564B",
+        "status": "available",
+        "price": 12.49,
+        "monthlyBoughtText": "2K+ bought in past month",
+        "monthlyBoughtLowerBound": 2000
+      },
+      {
+        "id": "pair-02-competitor",
+        "pairId": "pair-02",
+        "role": "competitor",
+        "sku": "iPS01-5",
+        "asin": "B0DWMFGPH3",
+        "status": "available",
+        "price": 60,
+        "monthlyBoughtText": "700+ bought in past month",
+        "monthlyBoughtLowerBound": 700
+      },
+      {
+        "id": "pair-02-own",
+        "pairId": "pair-02",
+        "role": "own",
+        "sku": "7VTSD513AB",
+        "asin": "B0H5JPQKKT",
+        "status": "available",
+        "price": 57.99,
+        "monthlyBoughtText": "",
+        "monthlyBoughtLowerBound": null
+      },
+      {
+        "id": "pair-03-competitor",
+        "pairId": "pair-03",
+        "role": "competitor",
+        "sku": "iPS01-10",
+        "asin": "B0F4WN2333",
+        "status": "available",
+        "price": 120,
+        "monthlyBoughtText": "",
+        "monthlyBoughtLowerBound": null
+      },
+      {
+        "id": "pair-03-own",
+        "pairId": "pair-03",
+        "role": "own",
+        "sku": "7VTSD913AB",
+        "asin": "B0H5JKB7QS",
+        "status": "available",
+        "price": 113.99,
+        "monthlyBoughtText": "",
+        "monthlyBoughtLowerBound": null
+      },
+      {
+        "id": "pair-04-competitor",
+        "pairId": "pair-04",
+        "role": "competitor",
+        "sku": "iPB01-4",
+        "asin": "B0DSKK95GQ",
+        "status": "available",
+        "price": 14.99,
+        "monthlyBoughtText": "200+ bought in past month",
+        "monthlyBoughtLowerBound": 200
+      },
+      {
+        "id": "pair-04-own",
+        "pairId": "pair-04",
+        "role": "own",
+        "sku": "7VTBD410AB",
+        "asin": "B0DNF21SYR",
+        "status": "available",
+        "price": 12.99,
+        "monthlyBoughtText": "100+ bought in past month",
+        "monthlyBoughtLowerBound": 100
+      },
+      {
+        "id": "pair-05-competitor",
+        "pairId": "pair-05",
+        "role": "competitor",
+        "sku": "iPB01-10",
+        "asin": "B0F139MJDQ",
+        "status": "available",
+        "price": 28,
+        "monthlyBoughtText": "200+ bought in past month",
+        "monthlyBoughtLowerBound": 200
+      },
+      {
+        "id": "pair-05-own",
+        "pairId": "pair-05",
+        "role": "own",
+        "sku": "7VTBD015AB",
+        "asin": "B0H5JZLM61",
+        "status": "available",
+        "price": 19.99,
+        "monthlyBoughtText": "",
+        "monthlyBoughtLowerBound": null
+      },
+      {
+        "id": "pair-06-competitor",
+        "pairId": "pair-06",
+        "role": "competitor",
+        "sku": "iPR01-10",
+        "asin": "B0F1385154",
+        "status": "available",
+        "price": 19.99,
+        "monthlyBoughtText": "3K+ bought in past month",
+        "monthlyBoughtLowerBound": 3000
+      },
+      {
+        "id": "pair-06-own",
+        "pairId": "pair-06",
+        "role": "own",
+        "sku": "7VTRD015AB",
+        "asin": "B0H5K85LPS",
+        "status": "available",
+        "price": 17.99,
+        "monthlyBoughtText": "",
+        "monthlyBoughtLowerBound": null
+      }
+    ]
+  },
+  {
     "date": "2026-07-21",
     "capturedAt": "2026-07-21T14:18:47.411Z",
     "items": [
