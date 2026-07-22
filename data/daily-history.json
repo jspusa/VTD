@@ -1,7 +1,7 @@
 [
   {
     "date": "2026-07-22",
-    "capturedAt": "2026-07-22T10:06:00.441Z",
+    "capturedAt": "2026-07-22T12:03:18.313Z",
     "items": [
       {
         "id": "pair-01-competitor",
@@ -20,10 +20,10 @@
         "role": "own",
         "sku": "7VTSD013AB",
         "asin": "B0DNF4564B",
-        "status": "available",
-        "price": 12.49,
-        "monthlyBoughtText": "2K+ bought in past month",
-        "monthlyBoughtLowerBound": 2000
+        "status": "available_no_price",
+        "price": null,
+        "monthlyBoughtText": "",
+        "monthlyBoughtLowerBound": null
       },
       {
         "id": "pair-02-competitor",
@@ -31,10 +31,10 @@
         "role": "competitor",
         "sku": "iPS01-5",
         "asin": "B0DWMFGPH3",
-        "status": "available",
-        "price": 60,
-        "monthlyBoughtText": "600+ bought in past month",
-        "monthlyBoughtLowerBound": 600
+        "status": "available_no_price",
+        "price": null,
+        "monthlyBoughtText": "",
+        "monthlyBoughtLowerBound": null
       },
       {
         "id": "pair-02-own",
@@ -53,8 +53,8 @@
         "role": "competitor",
         "sku": "iPS01-10",
         "asin": "B0F4WN2333",
-        "status": "available",
-        "price": 120,
+        "status": "available_no_price",
+        "price": null,
         "monthlyBoughtText": "",
         "monthlyBoughtLowerBound": null
       },
@@ -64,8 +64,8 @@
         "role": "own",
         "sku": "7VTSD913AB",
         "asin": "B0H5JKB7QS",
-        "status": "available",
-        "price": 113.99,
+        "status": "available_no_price",
+        "price": null,
         "monthlyBoughtText": "",
         "monthlyBoughtLowerBound": null
       },
@@ -75,10 +75,10 @@
         "role": "competitor",
         "sku": "iPB01-4",
         "asin": "B0DSKK95GQ",
-        "status": "available",
-        "price": 14.99,
-        "monthlyBoughtText": "200+ bought in past month",
-        "monthlyBoughtLowerBound": 200
+        "status": "available_no_price",
+        "price": null,
+        "monthlyBoughtText": "",
+        "monthlyBoughtLowerBound": null
       },
       {
         "id": "pair-04-own",
@@ -108,8 +108,8 @@
         "role": "own",
         "sku": "7VTBD015AB",
         "asin": "B0H5JZLM61",
-        "status": "available",
-        "price": 19.99,
+        "status": "available_no_price",
+        "price": null,
         "monthlyBoughtText": "",
         "monthlyBoughtLowerBound": null
       },
@@ -130,8 +130,8 @@
         "role": "own",
         "sku": "7VTRD015AB",
         "asin": "B0H5K85LPS",
-        "status": "available",
-        "price": 17.99,
+        "status": "available_no_price",
+        "price": null,
         "monthlyBoughtText": "",
         "monthlyBoughtLowerBound": null
       }
