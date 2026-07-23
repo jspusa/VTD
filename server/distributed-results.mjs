@@ -14,6 +14,7 @@ const TRANSIENT_STATUSES = new Set([
   'skipped',
   'unknown',
   'available_no_price',
+  'location_unverified',
   'error',
   'last_known_price',
 ]);

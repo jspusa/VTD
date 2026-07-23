@@ -4,12 +4,14 @@ import {
   buildExactOfferSnapshot,
   buildExactSearchResultSnapshot,
   extractProductSignalsFromHtml,
+  finalizeProductSnapshot,
   interpretSnapshot,
   isIncompleteProductSnapshot,
   mergeSnapshotWithHtml,
   parseMonthlyBought,
   parseUsd,
   shouldRetryMissingPriceSnapshot,
+  verifyAmazonUsdPrice,
 } from '../server/scraper.mjs';
 
 test('parseUsd parses common Amazon formats', () => {
@@ -20,6 +22,113 @@ test('parseUsd parses common Amazon formats', () => {
   assert.equal(parseUsd('TWD 792.59'), null);
   assert.equal(parseUsd('CA$20.00'), null);
   assert.equal(parseUsd('no price'), null);
+});
+
+test('strict USD fallback requires Amazon.com, the exact ASIN and an explicit USD price', () => {
+  const valid = {
+    url: 'https://www.amazon.com/dp/B0H5JZLM61?currency=USD',
+    pageAsin: 'B0H5JZLM61',
+    priceTexts: ['$19.99'],
+    priceDetails: [],
+    structuredPriceValues: [],
+  };
+  assert.equal(verifyAmazonUsdPrice(valid, 'B0H5JZLM61', 19.99).verified, true);
+  assert.equal(verifyAmazonUsdPrice({
+    ...valid,
+    url: 'https://www.amazon.ca/dp/B0H5JZLM61',
+  }, 'B0H5JZLM61', 19.99).verified, false);
+  assert.equal(verifyAmazonUsdPrice({
+    ...valid,
+    pageAsin: 'B0H5K85LPS',
+  }, 'B0H5JZLM61', 19.99).verified, false);
+  assert.equal(verifyAmazonUsdPrice({
+    ...valid,
+    priceTexts: ['NT$19.99'],
+  }, 'B0H5JZLM61', 19.99).verified, false);
+});
+
+test('strict USD fallback accepts JSON-LD only when its price currency is USD', () => {
+  const base = {
+    url: 'https://www.amazon.com/dp/B0F1385154',
+    pageAsin: 'B0F1385154',
+    priceTexts: [],
+    priceDetails: [],
+  };
+  assert.equal(verifyAmazonUsdPrice({
+    ...base,
+    structuredPriceValues: ['{"@type":"Offer","price":"19.99","priceCurrency":"USD"}'],
+  }, 'B0F1385154', 19.99).verified, true);
+  assert.equal(verifyAmazonUsdPrice({
+    ...base,
+    structuredPriceValues: ['19.99'],
+  }, 'B0F1385154', 19.99).verified, false);
+});
+
+test('a missing ZIP label may use a strictly verified Amazon US dollar price', () => {
+  const output = finalizeProductSnapshot({
+    title: 'Amazon.com',
+    url: 'https://www.amazon.com/dp/B0H5K85LPS?currency=USD',
+    bodyText: 'In Stock',
+    productTitle: 'VITADAY Turkey Tendons',
+    pageAsin: 'B0H5K85LPS',
+    priceTexts: ['$17.99'],
+    priceDetails: [],
+    structuredPriceValues: [],
+    listPriceTexts: [],
+    availabilityText: 'In Stock',
+    hasAddToCart: true,
+  }, {
+    asin: 'B0H5K85LPS',
+  }, {
+    applied: false,
+    verificationMode: 'strict_usd_page',
+  });
+
+  assert.equal(output.currentPrice, 17.99);
+  assert.equal(output.status, 'available');
+  assert.equal(output.currency, 'USD');
+  assert.equal(output.locationValidation, 'amazon_com_exact_asin_usd');
+});
+
+test('a missing ZIP label never permits an ambiguous currency or location-only stock result', () => {
+  const ambiguousPrice = finalizeProductSnapshot({
+    title: 'Amazon.com',
+    url: 'https://www.amazon.com/dp/B0H5K85LPS',
+    bodyText: 'In Stock',
+    productTitle: 'VITADAY Turkey Tendons',
+    pageAsin: 'B0H5K85LPS',
+    priceTexts: [],
+    priceDetails: [],
+    structuredPriceValues: ['17.99'],
+    listPriceTexts: [],
+    availabilityText: 'In Stock',
+    hasAddToCart: true,
+  }, {
+    asin: 'B0H5K85LPS',
+  }, {
+    applied: false,
+  });
+  const unavailable = finalizeProductSnapshot({
+    title: 'Amazon.com',
+    url: 'https://www.amazon.com/dp/B0H5K85LPS',
+    bodyText: 'No featured offers available',
+    productTitle: 'VITADAY Turkey Tendons',
+    pageAsin: 'B0H5K85LPS',
+    priceTexts: [],
+    priceDetails: [],
+    structuredPriceValues: [],
+    listPriceTexts: [],
+    availabilityText: 'No featured offers available',
+    hasAddToCart: false,
+  }, {
+    asin: 'B0H5K85LPS',
+  }, {
+    applied: false,
+  });
+
+  assert.equal(ambiguousPrice.currentPrice, null);
+  assert.equal(ambiguousPrice.status, 'location_unverified');
+  assert.equal(unavailable.status, 'location_unverified');
 });
 
 test('parseMonthlyBought reads Amazon public sales ranges', () => {

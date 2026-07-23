@@ -21,6 +21,7 @@ if (!product) {
 const startedAt = new Date().toISOString();
 let location = {
   applied: false,
+  verificationMode: '',
   visibleLocation: '',
   message: '尚未完成配送地點驗證。',
 };
@@ -43,6 +44,7 @@ try {
     if (event.type === 'location') {
       location = {
         applied: Boolean(event.applied),
+        verificationMode: event.verificationMode || '',
         visibleLocation: event.visibleLocation || '',
         message: event.message || '',
       };
