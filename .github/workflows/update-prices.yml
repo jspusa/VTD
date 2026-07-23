@@ -96,6 +96,7 @@ jobs:
           path: ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-${{ hashFiles('package-lock.json') }}
       - run: npx playwright install --with-deps chromium
+        timeout-minutes: 4
       - name: Scrape one ASIN on an isolated runner
         run: npm run static:scrape:shard
         env:
@@ -162,6 +163,7 @@ jobs:
           path: ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-${{ hashFiles('package-lock.json') }}
       - run: npx playwright install --with-deps chromium
+        timeout-minutes: 4
       - name: Retry one ASIN on another isolated runner
         run: npm run static:scrape:shard
         env:
@@ -191,6 +193,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
+          ref: main
           fetch-depth: 0
       - uses: actions/download-artifact@v5
         with:
@@ -232,6 +235,8 @@ jobs:
             echo "今日歷史資料沒有變更。"
           else
             git commit -m "[skip ci] Update daily price and sales history"
+            git fetch origin main
+            git rebase origin/main
             git push origin HEAD:main
           fi
       - name: Build GitHub Pages site
