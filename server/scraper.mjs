@@ -522,11 +522,13 @@ async function gotoProductWithRetry(page, url, timeout) {
 
 async function loadProductSnapshot(page, product, options) {
   const timeout = options.timeoutMs ?? 45_000;
-  const urls = [
+  const allUrls = [
     `https://www.amazon.com/dp/${product.asin}?th=1&psc=1&language=en_US&currency=USD`,
     `https://www.amazon.com/dp/${product.asin}?language=en_US&currency=USD`,
     `https://www.amazon.com/gp/product/${product.asin}?psc=1&language=en_US&currency=USD`,
   ];
+  const urlLimit = Math.max(1, Math.min(allUrls.length, Number(options.productUrlLimit) || allUrls.length));
+  const urls = allUrls.slice(0, urlLimit);
   let bestSnapshot = null;
 
   for (let attempt = 0; attempt < urls.length; attempt += 1) {
@@ -729,6 +731,93 @@ export async function scrapeProducts(products, options = {}, onProgress = () => 
         const delay = Math.max(1_500, Number(options.delayMs) || 3_500);
         await new Promise((resolve) => setTimeout(resolve, delay));
       }
+    }
+
+    const retryIndexes = results
+      .map((result, index) => ({ result, index }))
+      .filter(({ result }) => !Number.isFinite(result.currentPrice)
+        && ['unknown', 'available_no_price', 'error'].includes(result.status))
+      .map(({ index }) => index);
+
+    if (retryIndexes.length) {
+      onProgress({
+        type: 'warning',
+        message: `第一階段仍有 ${retryIndexes.length} 支缺價，改用全新 Amazon 瀏覽情境集中補抓。`,
+      });
+      const retryContext = await browser.newContext({
+        locale: 'en-US',
+        timezoneId: 'America/Los_Angeles',
+        viewport: { width: 1440, height: 1100 },
+        extraHTTPHeaders: { 'Accept-Language': 'en-US,en;q=0.9' },
+      });
+      await retryContext.addCookies([
+        { name: 'lc-main', value: 'en_US', domain: '.amazon.com', path: '/' },
+        { name: 'i18n-prefs', value: 'USD', domain: '.amazon.com', path: '/' },
+      ]);
+      const retryLocationPage = await retryContext.newPage();
+      await configurePage(retryLocationPage);
+      const retryLocation = await setDeliveryZip(
+        retryLocationPage,
+        retryContext,
+        options.zipCode ?? '10001',
+      );
+      await retryLocationPage.close();
+
+      if (retryLocation.applied) {
+        for (const index of retryIndexes) {
+          const product = products[index];
+          const page = await retryContext.newPage();
+          await configurePage(page);
+          const startedAt = new Date().toISOString();
+          try {
+            const snapshot = await loadProductWithSearchFallback(page, product, {
+              ...options,
+              productUrlLimit: options.retryProductUrlLimit ?? 1,
+              priceObservationCount: options.retryPriceObservationCount ?? 2,
+            });
+            snapshot.baselinePrice = product.baselinePrice;
+            let interpreted = interpretSnapshot(snapshot);
+            if (interpreted.pageAsin && interpreted.pageAsin !== product.asin) {
+              interpreted = {
+                ...interpreted,
+                status: 'asin_mismatch',
+                availability: 'Amazon 導向其他規格',
+                currentPrice: null,
+                listPrice: null,
+                error: `要求 ${product.asin}，但 Amazon 頁面目前選取 ${interpreted.pageAsin}；為避免抓錯規格，未採用頁面價格。`,
+              };
+            }
+            if (Number.isFinite(interpreted.currentPrice)) {
+              results[index] = {
+                ...product,
+                ...interpreted,
+                scrapedAt: new Date().toISOString(),
+                startedAt,
+              };
+            }
+            onProgress({
+              type: 'retry_result',
+              index,
+              total: retryIndexes.length,
+              result: results[index],
+            });
+          } catch (error) {
+            onProgress({
+              type: 'warning',
+              message: `${product.asin} 第二階段補抓失敗：${conciseError(error)}`,
+            });
+          } finally {
+            await page.close().catch(() => {});
+          }
+          await new Promise((resolve) => setTimeout(
+            resolve,
+            Math.max(1_500, Number(options.retryDelayMs) || 2_500),
+          ));
+        }
+      } else {
+        onProgress({ type: 'warning', message: retryLocation.message });
+      }
+      await retryContext.close();
     }
   } finally {
     await context.close();
