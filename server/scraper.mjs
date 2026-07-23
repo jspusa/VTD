@@ -919,7 +919,14 @@ export async function scrapeProducts(products, options = {}, onProgress = () => 
         && ['unknown', 'available_no_price', 'error'].includes(result.status))
       .map(({ index }) => index);
 
-    if (retryIndexes.length) {
+    if (retryIndexes.length && options.sameRunnerRetry === false) {
+      onProgress({
+        type: 'warning',
+        message: `本 runner 仍有 ${retryIndexes.length} 支缺價；略過相同出口環境的重抓，交由新的獨立 runner 補抓。`,
+      });
+    }
+
+    if (retryIndexes.length && options.sameRunnerRetry !== false) {
       onProgress({
         type: 'warning',
         message: `第一階段仍有 ${retryIndexes.length} 支缺價，改用全新 Amazon 瀏覽情境集中補抓。`,
