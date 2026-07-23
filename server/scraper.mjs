@@ -339,6 +339,7 @@ export function interpretSnapshot(snapshot) {
     availability,
     currentPrice,
     listPrice,
+    priceSource: snapshot.priceSource || 'amazon_product_page',
     coupon: snapshot.couponText || '',
     seller: snapshot.sellerText || '',
     productTitle: snapshot.productTitle || '',
