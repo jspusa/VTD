@@ -171,6 +171,7 @@ test('Amazon All Offers fallback accepts only a current offer bound to the exact
   assert.equal(interpretSnapshot(exact).currentPrice, 17.99);
   assert.equal(interpretSnapshot(exact).status, 'available');
   assert.equal(interpretSnapshot(exact).seller, 'Amazon.com');
+  assert.equal(interpretSnapshot(exact).priceSource, 'amazon_all_offers');
   assert.equal(wrongAsin, null);
 });
 
