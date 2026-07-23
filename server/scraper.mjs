@@ -191,6 +191,33 @@ export function buildExactSearchResultSnapshot(result, product) {
   };
 }
 
+export function buildExactOfferSnapshot(result, product) {
+  const asin = String(result?.asin ?? '').trim().toUpperCase();
+  if (!asin || asin !== String(product?.asin ?? '').trim().toUpperCase()) return null;
+  const priceTexts = [...new Set(result?.priceTexts ?? [])]
+    .filter((value) => parseUsd(value) !== null);
+  if (!priceTexts.length) return null;
+  return {
+    url: `https://www.amazon.com/dp/${product.asin}`,
+    title: result.productTitle || 'Amazon.com',
+    httpStatus: 200,
+    bodyText: result.bodyText || result.productTitle || '',
+    productTitle: result.productTitle || '',
+    pageAsin: asin,
+    priceTexts,
+    priceDetails: [],
+    structuredPriceValues: [],
+    listPriceTexts: [],
+    couponText: '',
+    availabilityText: 'In Stock',
+    sellerText: result.sellerText || '',
+    salesVolumeText: '',
+    hasAddToCart: true,
+    baselinePrice: product.baselinePrice,
+    priceSource: 'amazon_all_offers',
+  };
+}
+
 function closestPlausiblePrice(prices, baselinePrice) {
   if (!prices.length) return null;
   if (!Number.isFinite(baselinePrice) || baselinePrice <= 0) return prices.length === 1 ? prices[0] : null;
@@ -602,9 +629,49 @@ async function loadExactSearchResultSnapshot(page, product, options) {
   return buildExactSearchResultSnapshot(result, product);
 }
 
+async function loadExactOfferSnapshot(page, product, options) {
+  const timeout = options.timeoutMs ?? 45_000;
+  const offersUrl = 'https://www.amazon.com/gp/product/ajax/ref=dp_aod_ALL_mbc'
+    + `?asin=${encodeURIComponent(product.asin)}&pc=dp&experienceId=aodAjaxMain`;
+  await gotoProductWithRetry(page, offersUrl, timeout);
+  const offer = page.locator('#aod-price-0, #aod-offer').first();
+  await offer.waitFor({ state: 'attached', timeout: options.offerWaitMs ?? 8_000 }).catch(() => {});
+  if (!(await offer.count())) return null;
+  const result = await page.evaluate((asin) => {
+    const featuredPrices = [
+      ...document.querySelectorAll('#aod-price-0 .a-price:not(.a-text-price) .a-offscreen'),
+    ].map((node) => (node.textContent || '').trim()).filter(Boolean);
+    const firstOfferPrices = featuredPrices.length
+      ? featuredPrices
+      : [...document.querySelectorAll('#aod-offer .a-price:not(.a-text-price) .a-offscreen')]
+        .slice(0, 1)
+        .map((node) => (node.textContent || '').trim())
+        .filter(Boolean);
+    const firstOffer = document.querySelector('#aod-price-0')?.closest('#aod-offer')
+      || document.querySelector('#aod-offer');
+    const bodyText = (firstOffer?.innerText || firstOffer?.textContent || '')
+      .replace(/\s+/g, ' ')
+      .trim();
+    const sellerText = (
+      firstOffer?.querySelector('#aod-offer-soldBy .a-size-small, #aod-offer-soldBy a')
+        ?.textContent || ''
+    ).replace(/\s+/g, ' ').trim();
+    return {
+      asin,
+      priceTexts: firstOfferPrices,
+      productTitle: '',
+      bodyText,
+      sellerText,
+    };
+  }, product.asin);
+  return buildExactOfferSnapshot(result, product);
+}
+
 async function loadProductWithSearchFallback(page, product, options) {
   const productSnapshot = await loadProductSnapshot(page, product, options);
   if (!shouldRetryMissingPriceSnapshot(productSnapshot)) return productSnapshot;
+  const offerSnapshot = await loadExactOfferSnapshot(page, product, options).catch(() => null);
+  if (offerSnapshot) return offerSnapshot;
   const searchSnapshot = await loadExactSearchResultSnapshot(page, product, options).catch(() => null);
   return searchSnapshot || productSnapshot;
 }

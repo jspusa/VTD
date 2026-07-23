@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
+  buildExactOfferSnapshot,
   buildExactSearchResultSnapshot,
   extractProductSignalsFromHtml,
   interpretSnapshot,
@@ -152,6 +153,33 @@ test('exact-ASIN search fallback rejects cards without a current main price', ()
     priceTexts: [],
     bodyText: 'Typical price: $18.99',
   }, { asin: 'B0DSKK95GQ', baselinePrice: 14.99 }), null);
+});
+
+test('Amazon All Offers fallback accepts only a current offer bound to the exact ASIN', () => {
+  const product = { asin: 'B0H5K85LPS', baselinePrice: 17.99 };
+  const exact = buildExactOfferSnapshot({
+    asin: 'B0H5K85LPS',
+    priceTexts: ['$17.99'],
+    bodyText: '$17.99 FREE delivery',
+    sellerText: 'Amazon.com',
+  }, product);
+  const wrongAsin = buildExactOfferSnapshot({
+    asin: 'B0H5JZLM61',
+    priceTexts: ['$19.99'],
+  }, product);
+
+  assert.equal(interpretSnapshot(exact).currentPrice, 17.99);
+  assert.equal(interpretSnapshot(exact).status, 'available');
+  assert.equal(interpretSnapshot(exact).seller, 'Amazon.com');
+  assert.equal(wrongAsin, null);
+});
+
+test('Amazon All Offers fallback rejects an offer shell without a price', () => {
+  assert.equal(buildExactOfferSnapshot({
+    asin: 'B0DWMFGPH3',
+    priceTexts: [],
+    bodyText: 'No featured offers available',
+  }, { asin: 'B0DWMFGPH3', baselinePrice: 60 }), null);
 });
 
 test('interpretSnapshot reads JSON-LD offer prices', () => {
