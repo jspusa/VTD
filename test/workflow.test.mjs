@@ -29,6 +29,7 @@ test('transactional assembly must pass before history or Pages deployment can ru
 
 test('distributed jobs time out setup failures and history publishing rebases on latest main', () => {
   assert.equal((workflow.match(/timeout-minutes: 4/g) || []).length, 2);
+  assert.equal((workflow.match(/continue-on-error: true/g) || []).length, 2);
   assert.match(workflow, /assemble-and-deploy:[\s\S]*ref: main[\s\S]*fetch-depth: 0/);
   assert.match(
     workflow,

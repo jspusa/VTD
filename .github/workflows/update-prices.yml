@@ -99,6 +99,9 @@ jobs:
           key: ${{ runner.os }}-playwright-${{ hashFiles('package-lock.json') }}
       - run: npx playwright install --with-deps chromium
         timeout-minutes: 4
+        # Setup timeouts become missing shard artifacts and are recovered by
+        # the cross-platform pass; they must not poison a recovered run.
+        continue-on-error: true
       - name: Scrape one ASIN on an isolated runner
         run: npm run static:scrape:shard
         env:
@@ -176,6 +179,9 @@ jobs:
           key: ${{ runner.os }}-playwright-${{ hashFiles('package-lock.json') }}
       - run: npx playwright install chromium
         timeout-minutes: 4
+        # Let the shard script emit a diagnostic artifact if the browser is
+        # still unavailable. Transactional assembly remains the final gate.
+        continue-on-error: true
       - name: Retry one ASIN on another isolated runner
         run: npm run static:scrape:shard
         env:
