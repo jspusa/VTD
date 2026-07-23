@@ -28,3 +28,10 @@ test('distributed jobs time out setup failures and history publishing rebases on
   assert.match(workflow, /assemble-and-deploy:[\s\S]*ref: main[\s\S]*fetch-depth: 0/);
   assert.match(workflow, /git fetch origin main[\s\S]*git rebase origin\/main[\s\S]*git push origin HEAD:main/);
 });
+
+test('retry matrix still runs after a primary matrix runner fails', () => {
+  assert.match(
+    workflow,
+    /scrape-retry:[\s\S]*if: always\(\)[^\n]*needs\.plan-retry\.result == 'success'[^\n]*missing_count != '0'/,
+  );
+});
