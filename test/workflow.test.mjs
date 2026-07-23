@@ -20,7 +20,7 @@ test('scheduled price workflow isolates ASINs and retries failures on new runner
 
 test('transactional assembly must pass before history or Pages deployment can run', () => {
   const assembleAt = workflow.indexOf('Assemble and require a publishable result for every ASIN');
-  const historyAt = workflow.indexOf('Save rolling 365-day history to GitHub');
+  const historyAt = workflow.indexOf('Save verified price data and rolling history to GitHub');
   const deployAt = workflow.indexOf('uses: actions/deploy-pages@v4');
   assert.ok(assembleAt > 0);
   assert.ok(historyAt > assembleAt);
@@ -30,6 +30,10 @@ test('transactional assembly must pass before history or Pages deployment can ru
 test('distributed jobs time out setup failures and history publishing rebases on latest main', () => {
   assert.equal((workflow.match(/timeout-minutes: 4/g) || []).length, 2);
   assert.match(workflow, /assemble-and-deploy:[\s\S]*ref: main[\s\S]*fetch-depth: 0/);
+  assert.match(
+    workflow,
+    /git add --[\s\S]*data\/daily-history\.json[\s\S]*public\/daily-history\.json[\s\S]*public\/latest-run\.json/,
+  );
   assert.match(workflow, /git fetch origin main[\s\S]*git rebase origin\/main[\s\S]*git push origin HEAD:main/);
 });
 

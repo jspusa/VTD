@@ -237,16 +237,21 @@ jobs:
           path: .scrape-output/aggregate-diagnostics.json
           if-no-files-found: ignore
           retention-days: 7
-      - name: Save rolling 365-day history to GitHub
+      - name: Save verified price data and rolling history to GitHub
         shell: bash
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/daily-history.json
+          # The assembler updates all three tracked data files. Commit them
+          # together so no unstaged generated file can block the rebase.
+          git add -- \
+            data/daily-history.json \
+            public/daily-history.json \
+            public/latest-run.json
           if git diff --cached --quiet; then
             echo "今日歷史資料沒有變更。"
           else
-            git commit -m "[skip ci] Update daily price and sales history"
+            git commit -m "[skip ci] Update verified price data and history"
             git fetch origin main
             git rebase origin/main
             git push origin HEAD:main
