@@ -143,7 +143,10 @@ jobs:
     needs:
       - prepare
       - plan-retry
-    if: needs.prepare.outputs.should_run == 'true' && needs.plan-retry.outputs.missing_count != '0'
+    # A failed primary matrix job is expected to flow into this recovery job.
+    # `always()` prevents GitHub's implicit upstream-failure guard from
+    # skipping the dynamic retry matrix.
+    if: always() && needs.prepare.outputs.should_run == 'true' && needs.plan-retry.result == 'success' && needs.plan-retry.outputs.missing_count != '0'
     runs-on: ubuntu-latest
     timeout-minutes: 12
     strategy:
