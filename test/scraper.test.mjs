@@ -1,8 +1,10 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
+  extractProductSignalsFromHtml,
   interpretSnapshot,
   isIncompleteProductSnapshot,
+  mergeSnapshotWithHtml,
   parseMonthlyBought,
   parseUsd,
   shouldRetryMissingPriceSnapshot,
@@ -73,6 +75,54 @@ test('a rendered product page with a missing price widget is retried', () => {
     availabilityText: 'In Stock', bodyText: 'In Stock', priceTexts: ['$60.00'], priceDetails: [],
     structuredPriceValues: [],
   }), false);
+});
+
+test('raw Amazon HTML recovers the one-time purchase price when hydration drops the price widget', () => {
+  const html = `
+    <div id="newAccordionRow_0">
+      <span class="aok-offscreen apex-pricetopay-accessibility-label">$60.00</span>
+      <input id="ASIN" value="B0DWMFGPH3">
+      <input id="add-to-cart-button">
+    </div>
+    <div id="snsAccordionRowMiddle">
+      <span class="apex-pricetopay-accessibility-label">$54.00 with 10 percent savings</span>
+    </div>
+  `;
+  const signals = extractProductSignalsFromHtml(html);
+  assert.deepEqual(signals.priceTexts, ['$60.00']);
+  assert.equal(signals.pageAsin, 'B0DWMFGPH3');
+  assert.equal(signals.hasAddToCart, true);
+
+  const output = interpretSnapshot(mergeSnapshotWithHtml({
+    bodyText: 'In Stock', availabilityText: 'In Stock', priceTexts: [],
+    priceDetails: [], structuredPriceValues: [],
+  }, html));
+  assert.equal(output.currentPrice, 60);
+  assert.equal(output.status, 'available');
+});
+
+test('raw Amazon HTML uses an explicit One-Time Price label but never the subscription price', () => {
+  const html = `
+    <div id="newAccordionRow_0">To see product details, add this item to your cart.</div>
+    <div id="snsAccordionRowMiddle">
+      <span class="apex-pricetopay-accessibility-label">$13.04 with 10 percent savings</span>
+      <span data-basisprice-label="{label} {price}">One-Time Price: $14.49</span>
+    </div>
+  `;
+  assert.deepEqual(extractProductSignalsFromHtml(html).priceTexts, ['$14.49']);
+});
+
+test('raw Amazon HTML rejects Typical price, unit price and recommendation prices', () => {
+  const html = `
+    <div id="newAccordionRow_0">To see product details, add this item to your cart.</div>
+    <div id="snsAccordionRowMiddle">
+      <span class="apex-pricetopay-accessibility-label">$54.00 with 23 percent savings</span>
+      <span data-basisprice-label="{label} {price}">Typical price: $69.99</span>
+      <span class="apex-priceperunit-accessibility-label">$57.64 per lb</span>
+    </div>
+    <div id="recommendations">$59.99</div>
+  `;
+  assert.deepEqual(extractProductSignalsFromHtml(html).priceTexts, []);
 });
 
 test('interpretSnapshot reads JSON-LD offer prices', () => {

@@ -74,6 +74,96 @@ function parseStructuredPrice(text) {
   return null;
 }
 
+function decodeAmazonHtmlText(value) {
+  return String(value ?? '')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/&nbsp;|&#160;/gi, ' ')
+    .replace(/&dollar;|&#36;|&#x24;/gi, '$')
+    .replace(/&period;|&#46;|&#x2e;/gi, '.')
+    .replace(/&amp;/gi, '&')
+    .replace(/&quot;|&#34;/gi, '"')
+    .replace(/&#39;|&apos;/gi, "'")
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function matchedTexts(html, pattern) {
+  const values = [];
+  for (const match of String(html ?? '').matchAll(pattern)) {
+    const value = decodeAmazonHtmlText(match[1]);
+    if (value) values.push(value);
+  }
+  return values;
+}
+
+export function extractProductSignalsFromHtml(html) {
+  const source = String(html ?? '');
+  if (!source) return {
+    priceTexts: [], productTitle: '', pageAsin: '', availabilityText: '', hasAddToCart: false,
+  };
+
+  // Amazon sometimes returns the complete price in the navigation response,
+  // then omits the price widget from the hydrated DOM. Keep this fallback
+  // strictly scoped to the one-time-purchase offer. Subscribe & Save, unit,
+  // recommendation and struck "Typical price" values are not valid here.
+  const oneTimeStart = source.search(/id=["']newAccordionRow_0["']/i);
+  const laterBuyingOption = oneTimeStart >= 0
+    ? source.slice(oneTimeStart + 1).search(/id=["'](?:snsAccordionRow|usedAccordionRow|newAccordionRow_1)/i)
+    : -1;
+  const oneTimeEnd = laterBuyingOption >= 0 ? oneTimeStart + 1 + laterBuyingOption : source.length;
+  const oneTimeSection = oneTimeStart >= 0 ? source.slice(oneTimeStart, oneTimeEnd) : '';
+
+  const directOneTimePrices = matchedTexts(
+    oneTimeSection,
+    /class=["'][^"']*apex-pricetopay-accessibility-label[^"']*["'][^>]*>([\s\S]*?)<\/span>/gi,
+  );
+  const labeledOneTimePrices = matchedTexts(
+    source,
+    /data-basisprice-label=["'][^"']*["'][^>]*>\s*(One-Time Price:\s*(?:US\$|USD\s*|\$)\s*\d+(?:[.,]\d{1,2})?)[\s\S]*?<\/span>/gi,
+  ).map((value) => value.replace(/^One-Time Price:\s*/i, ''));
+  const legacyPrices = matchedTexts(
+    source,
+    /id=["'](?:price_inside_buybox|newBuyBoxPrice|priceblock_ourprice|priceblock_dealprice)["'][^>]*>([\s\S]*?)<\/[^>]+>/gi,
+  );
+  const priceTexts = [...new Set([...directOneTimePrices, ...labeledOneTimePrices, ...legacyPrices])]
+    .filter((value) => parseUsd(value) !== null);
+
+  const title = matchedTexts(
+    source,
+    /id=["'](?:productTitle|title)["'][^>]*>([\s\S]*?)<\/(?:span|h1)>/gi,
+  )[0] ?? '';
+  const hiddenAsin = source.match(/id=["']ASIN["'][^>]*value=["']([A-Z0-9]{10})["']/i)?.[1]
+    || source.match(/value=["']([A-Z0-9]{10})["'][^>]*id=["']ASIN["']/i)?.[1]
+    || '';
+  const availabilityText = matchedTexts(
+    source,
+    /id=["']availability["'][^>]*>([\s\S]*?)<\/div>/gi,
+  )[0] ?? '';
+
+  return {
+    priceTexts,
+    productTitle: title,
+    pageAsin: hiddenAsin,
+    availabilityText,
+    hasAddToCart: /id=["']add-to-cart-button["']|name=["']submit\.add-to-cart["']/i.test(source),
+  };
+}
+
+export function mergeSnapshotWithHtml(snapshot, html) {
+  const signals = extractProductSignalsFromHtml(html);
+  return {
+    ...snapshot,
+    productTitle: snapshot.productTitle || signals.productTitle,
+    pageAsin: snapshot.pageAsin || signals.pageAsin,
+    availabilityText: snapshot.availabilityText || signals.availabilityText,
+    hasAddToCart: snapshot.hasAddToCart || signals.hasAddToCart,
+    structuredPriceValues: [
+      ...(snapshot.structuredPriceValues ?? []),
+      ...signals.priceTexts,
+    ],
+  };
+}
+
 function closestPlausiblePrice(prices, baselinePrice) {
   if (!prices.length) return null;
   if (!Number.isFinite(baselinePrice) || baselinePrice <= 0) return prices.length === 1 ? prices[0] : null;
@@ -414,6 +504,7 @@ async function loadProductSnapshot(page, product, options) {
 
   for (let attempt = 0; attempt < urls.length; attempt += 1) {
     const response = await gotoProductWithRetry(page, urls[attempt], timeout);
+    const responseHtmlPromise = response?.text().catch(() => '') ?? Promise.resolve('');
     await page.locator('#productTitle, #title, #corePrice_feature_div, #corePriceDisplay_desktop_feature_div, #apex_desktop, #add-to-cart-button, #buy-now-button')
       .first()
       .waitFor({ state: 'attached', timeout: attempt === 0 ? 6_000 : 10_000 })
@@ -421,7 +512,8 @@ async function loadProductSnapshot(page, product, options) {
     await page.waitForTimeout(attempt === 0
       ? (options.pageWaitMs ?? 2_800)
       : (options.retryPageWaitMs ?? 3_200));
-    const snapshot = await snapshotPage(page, response?.status() ?? null);
+    const renderedSnapshot = await snapshotPage(page, response?.status() ?? null);
+    const snapshot = mergeSnapshotWithHtml(renderedSnapshot, await responseHtmlPromise);
     snapshot.baselinePrice = product.baselinePrice;
 
     const score = (candidate) => (candidate?.productTitle ? 2 : 0)

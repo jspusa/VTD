@@ -14,7 +14,10 @@ const startedAt = new Date().toISOString();
 const options = {
   zipCode: /^\d{5}$/.test(process.env.AMAZON_ZIP || '') ? process.env.AMAZON_ZIP : '10001',
   headless: true,
-  delayMs: 3_500,
+  // Amazon is more likely to return a price-less shell when twelve product
+  // pages are requested back-to-back. A modest pause keeps the scheduled run
+  // well inside the Actions timeout while reducing transient 503/partial pages.
+  delayMs: 6_500,
   timeoutMs: 45_000,
 };
 
