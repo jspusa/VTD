@@ -135,6 +135,11 @@ jobs:
         env:
           PRIMARY_RESULTS_DIR: .scrape-output/primary
           SCRAPE_REPORT_DIR: .scrape-output
+      - name: Cool down before cross-platform recovery
+        if: steps.retry.outputs.missing_count != '0'
+        run: |
+          echo "Amazon 回傳暫時性缺價；冷卻 3 分鐘後改由不同平台與出口環境補抓。"
+          sleep 180
       - uses: actions/upload-artifact@v4
         with:
           name: price-retry-plan
@@ -149,7 +154,9 @@ jobs:
     # `always()` prevents GitHub's implicit upstream-failure guard from
     # skipping the dynamic retry matrix.
     if: always() && needs.prepare.outputs.should_run == 'true' && needs.plan-retry.result == 'success' && needs.plan-retry.outputs.missing_count != '0'
-    runs-on: ubuntu-latest
+    # A different OS runner provides a genuinely separate browser build and
+    # hosted-runner egress pool from the Ubuntu primary pass.
+    runs-on: macos-latest
     timeout-minutes: 12
     strategy:
       fail-fast: false
@@ -165,9 +172,9 @@ jobs:
       - run: npm ci --ignore-scripts
       - uses: actions/cache@v4
         with:
-          path: ~/.cache/ms-playwright
+          path: ~/Library/Caches/ms-playwright
           key: ${{ runner.os }}-playwright-${{ hashFiles('package-lock.json') }}
-      - run: npx playwright install --with-deps chromium
+      - run: npx playwright install chromium
         timeout-minutes: 4
       - name: Retry one ASIN on another isolated runner
         run: npm run static:scrape:shard

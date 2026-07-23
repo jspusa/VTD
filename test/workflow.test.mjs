@@ -44,3 +44,15 @@ test('hosted-runner Amazon traffic is throttled and same-runner retries are skip
   assert.equal((workflow.match(/max-parallel: 3/g) || []).length, 2);
   assert.match(shardScript, /sameRunnerRetry:\s*false/);
 });
+
+test('recovery waits for cooldown and changes the hosted runner platform', () => {
+  assert.match(
+    workflow,
+    /Cool down before cross-platform recovery[\s\S]*sleep 180[\s\S]*scrape-retry:/,
+  );
+  assert.match(workflow, /scrape-retry:[\s\S]*runs-on: macos-latest/);
+  assert.match(
+    workflow,
+    /scrape-retry:[\s\S]*Library\/Caches\/ms-playwright[\s\S]*npx playwright install chromium/,
+  );
+});
