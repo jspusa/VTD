@@ -5,6 +5,7 @@ import {
   isIncompleteProductSnapshot,
   parseMonthlyBought,
   parseUsd,
+  shouldRetryMissingPriceSnapshot,
 } from '../server/scraper.mjs';
 
 test('parseUsd parses common Amazon formats', () => {
@@ -59,6 +60,30 @@ test('an ASIN-only Amazon variation shell is retried instead of accepted as comp
     pageAsin: 'B0F1385154', productTitle: 'iPaw Turkey Tendons', hasAddToCart: false,
     availabilityText: '', priceTexts: [], priceDetails: [], structuredPriceValues: [],
   }), false);
+});
+
+test('a rendered product page with a missing price widget is retried', () => {
+  assert.equal(shouldRetryMissingPriceSnapshot({
+    pageAsin: 'B0DWMFGPH3', productTitle: 'iPaw Chicken Breast', hasAddToCart: true,
+    availabilityText: 'In Stock', bodyText: 'In Stock', priceTexts: [], priceDetails: [],
+    structuredPriceValues: [],
+  }), true);
+  assert.equal(shouldRetryMissingPriceSnapshot({
+    pageAsin: 'B0DWMFGPH3', productTitle: 'iPaw Chicken Breast', hasAddToCart: true,
+    availabilityText: 'In Stock', bodyText: 'In Stock', priceTexts: ['$60.00'], priceDetails: [],
+    structuredPriceValues: [],
+  }), false);
+});
+
+test('interpretSnapshot reads JSON-LD offer prices', () => {
+  const output = interpretSnapshot({
+    title: 'iPaw product', url: 'https://www.amazon.com/dp/B0DWMFGPH3', bodyText: 'In Stock',
+    priceTexts: [], priceDetails: [], listPriceTexts: [], availabilityText: 'In Stock',
+    hasAddToCart: true, pageAsin: 'B0DWMFGPH3',
+    structuredPriceValues: ['{"@type":"Offer","price":"60.00","priceCurrency":"USD"}'],
+  });
+  assert.equal(output.currentPrice, 60);
+  assert.equal(output.status, 'available');
 });
 
 test('a confirmed product shell never falls back to an ambiguous unknown status', () => {

@@ -16,6 +16,7 @@ const STATUS = {
   available: { label: '在售', tone: 'positive' },
   price_found: { label: '已讀取價格', tone: 'positive' },
   available_no_price: { label: '在售／無價格', tone: 'warning' },
+  last_known_price: { label: '沿用前次有效價格', tone: 'warning' },
   unavailable: { label: '停售／無報價', tone: 'neutral' },
   delivery_unavailable: { label: '配送地點不可送', tone: 'warning' },
   cart_price: { label: '購物車內顯示', tone: 'warning' },

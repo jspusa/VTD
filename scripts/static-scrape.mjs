@@ -4,6 +4,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { buildWorkbook } from '../server/excel.mjs';
 import { updateDailyHistory } from '../server/daily-history.mjs';
+import { preserveLastKnownPrices } from '../server/last-known.mjs';
 import { scrapeProducts } from '../server/scraper.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -23,25 +24,26 @@ const output = await scrapeProducts(products, options, (event) => {
   if (event.type === 'warning' && event.message) console.warn(event.message);
 });
 
-const run = {
-  id: crypto.randomUUID(),
-  startedAt,
-  finishedAt: new Date().toISOString(),
-  options,
-  location: output.location,
-  results: output.results,
-};
-
-const publicDir = path.join(root, 'public');
 const dailyHistoryFile = path.join(root, 'data', 'daily-history.json');
-await fs.mkdir(publicDir, { recursive: true });
-await fs.writeFile(path.join(publicDir, 'latest-run.json'), `${JSON.stringify({ products, run }, null, 2)}\n`);
 let previousDailyHistory = [];
 try {
   previousDailyHistory = JSON.parse(await fs.readFile(dailyHistoryFile, 'utf8'));
 } catch (error) {
   if (error.code !== 'ENOENT') throw error;
 }
+
+const run = {
+  id: crypto.randomUUID(),
+  startedAt,
+  finishedAt: new Date().toISOString(),
+  options,
+  location: output.location,
+  results: preserveLastKnownPrices(output.results, previousDailyHistory),
+};
+
+const publicDir = path.join(root, 'public');
+await fs.mkdir(publicDir, { recursive: true });
+await fs.writeFile(path.join(publicDir, 'latest-run.json'), `${JSON.stringify({ products, run }, null, 2)}\n`);
 const dailyHistory = updateDailyHistory(previousDailyHistory, run, { retentionDays: 365 });
 await fs.writeFile(dailyHistoryFile, `${JSON.stringify(dailyHistory, null, 2)}\n`);
 await fs.writeFile(path.join(publicDir, 'daily-history.json'), `${JSON.stringify(dailyHistory, null, 2)}\n`);

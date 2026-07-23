@@ -19,6 +19,7 @@ test('daily snapshot stores price and public monthly sales lower bound', () => {
   assert.deepEqual(snapshot.items[0], {
     id: 'pair-01-competitor', pairId: 'pair-01', role: 'competitor',
     sku: 'iPS01-5', asin: 'B0DWMFGPH3', status: 'available', price: 60,
+    priceFreshness: 'fresh', priceObservedAt: '',
     monthlyBoughtText: '700+ bought in past month', monthlyBoughtLowerBound: 700,
   });
 });

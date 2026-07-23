@@ -30,6 +30,8 @@ export function makeDailySnapshot(run, capturedAt = run?.finishedAt || new Date(
       asin: result.asin,
       status: result.status,
       price: Number.isFinite(result.currentPrice) ? result.currentPrice : null,
+      priceFreshness: result.priceFreshness || (Number.isFinite(result.currentPrice) ? 'fresh' : ''),
+      priceObservedAt: result.priceObservedAt || '',
       monthlyBoughtText: result.monthlyBoughtText || '',
       monthlyBoughtLowerBound: Number.isFinite(result.monthlyBoughtLowerBound)
         ? result.monthlyBoughtLowerBound

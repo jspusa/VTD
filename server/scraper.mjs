@@ -17,6 +17,7 @@ const PRICE_SELECTORS = [
   '.reinventPricePriceToPayMargin .a-offscreen',
   '#priceblock_ourprice',
   '#priceblock_dealprice',
+  'meta[itemprop="price"]',
 ];
 
 const LIST_PRICE_SELECTORS = [
@@ -68,8 +69,8 @@ function parseStructuredPrice(text) {
     const value = Number.parseFloat(normalized);
     return Number.isFinite(value) ? value : null;
   }
-  const priceAmount = normalized.match(/"priceAmount"\s*:\s*(\d+(?:\.\d{1,2})?)/i);
-  if (priceAmount) return Number.parseFloat(priceAmount[1]);
+  const jsonPrice = normalized.match(/"(?:priceAmount|price|lowPrice)"\s*:\s*"?(\d+(?:\.\d{1,2})?)/i);
+  if (jsonPrice) return Number.parseFloat(jsonPrice[1]);
   return null;
 }
 
@@ -89,6 +90,12 @@ export function isIncompleteProductSnapshot(snapshot) {
     && (snapshot.priceTexts?.length ?? 0) === 0
     && (snapshot.priceDetails?.length ?? 0) === 0
     && (snapshot.structuredPriceValues?.length ?? 0) === 0;
+}
+
+export function shouldRetryMissingPriceSnapshot(snapshot) {
+  const interpreted = interpretSnapshot(snapshot);
+  return interpreted.currentPrice === null
+    && ['unknown', 'available_no_price'].includes(interpreted.status);
 }
 
 export function interpretSnapshot(snapshot) {
@@ -290,7 +297,7 @@ async function snapshotPage(page, httpStatus) {
   return page.evaluate(({ priceSelectors, listPriceSelectors, httpStatusValue }) => {
     const texts = (selectors) => selectors.flatMap((selector) =>
       [...document.querySelectorAll(selector)]
-        .map((node) => (node.textContent || '').trim())
+        .map((node) => (node.getAttribute('content') || node.textContent || '').trim())
         .filter(Boolean));
     const firstText = (selectors) => {
       for (const selector of selectors) {
@@ -346,12 +353,18 @@ async function snapshotPage(page, httpStatus) {
       '#corePrice_feature_div [data-a-raw-price]',
       '#apex_desktop [data-a-raw-price]',
       '#desktop_buybox [data-a-raw-price]',
+      'meta[itemprop="price"]',
     ].flatMap((selector) => [...document.querySelectorAll(selector)].map((node) =>
       node.getAttribute('value')
+      || node.getAttribute('content')
       || node.getAttribute('data-a-raw-price')
       || node.getAttribute('data-price')
       || node.textContent
       || '').filter(Boolean));
+    for (const node of document.querySelectorAll('script[type="application/ld+json"]')) {
+      const text = node.textContent || '';
+      if (/"(?:price|lowPrice|highPrice)"\s*:/i.test(text)) structuredPriceValues.push(text);
+    }
     const urlAsin = location.pathname.match(/\/(?:dp|gp\/product)\/([A-Z0-9]{10})/i)?.[1] || '';
     return {
       url: location.href,
@@ -392,25 +405,39 @@ async function gotoProductWithRetry(page, url, timeout) {
 
 async function loadProductSnapshot(page, product, options) {
   const timeout = options.timeoutMs ?? 45_000;
-  const primaryUrl = `https://www.amazon.com/dp/${product.asin}?th=1&psc=1&language=en_US&currency=USD`;
-  const response = await gotoProductWithRetry(page, primaryUrl, timeout);
-  await page.waitForTimeout(options.pageWaitMs ?? 2_400);
-  let snapshot = await snapshotPage(page, response?.status() ?? null);
-  if (!isIncompleteProductSnapshot(snapshot)) return snapshot;
+  const urls = [
+    `https://www.amazon.com/dp/${product.asin}?th=1&psc=1&language=en_US&currency=USD`,
+    `https://www.amazon.com/dp/${product.asin}?language=en_US&currency=USD`,
+    `https://www.amazon.com/gp/product/${product.asin}?psc=1&language=en_US&currency=USD`,
+  ];
+  let bestSnapshot = null;
 
-  // Amazon occasionally returns only a variation shell: the requested ASIN is
-  // present, but the title, offer and price widgets have not hydrated. Retrying
-  // the canonical ASIN URL without forced variation parameters reliably asks
-  // for the complete offer page instead of recording an ambiguous result.
-  const retryUrl = `https://www.amazon.com/dp/${product.asin}?language=en_US&currency=USD`;
-  const retryResponse = await gotoProductWithRetry(page, retryUrl, timeout);
-  await page.locator('#productTitle, #title, #corePrice_feature_div, #corePriceDisplay_desktop_feature_div, #add-to-cart-button, #buy-now-button')
-    .first()
-    .waitFor({ state: 'attached', timeout: 8_000 })
-    .catch(() => {});
-  await page.waitForTimeout(options.retryPageWaitMs ?? 2_000);
-  snapshot = await snapshotPage(page, retryResponse?.status() ?? null);
-  return snapshot;
+  for (let attempt = 0; attempt < urls.length; attempt += 1) {
+    const response = await gotoProductWithRetry(page, urls[attempt], timeout);
+    await page.locator('#productTitle, #title, #corePrice_feature_div, #corePriceDisplay_desktop_feature_div, #apex_desktop, #add-to-cart-button, #buy-now-button')
+      .first()
+      .waitFor({ state: 'attached', timeout: attempt === 0 ? 6_000 : 10_000 })
+      .catch(() => {});
+    await page.waitForTimeout(attempt === 0
+      ? (options.pageWaitMs ?? 2_800)
+      : (options.retryPageWaitMs ?? 3_200));
+    const snapshot = await snapshotPage(page, response?.status() ?? null);
+    snapshot.baselinePrice = product.baselinePrice;
+
+    const score = (candidate) => (candidate?.productTitle ? 2 : 0)
+      + (candidate?.hasAddToCart ? 2 : 0)
+      + (candidate?.priceTexts?.length ?? 0) * 4
+      + (candidate?.priceDetails?.length ?? 0) * 3
+      + (candidate?.structuredPriceValues?.length ?? 0) * 2;
+    if (!bestSnapshot || score(snapshot) > score(bestSnapshot)) bestSnapshot = snapshot;
+
+    if (!isIncompleteProductSnapshot(snapshot) && !shouldRetryMissingPriceSnapshot(snapshot)) {
+      return snapshot;
+    }
+    if (attempt < urls.length - 1) await page.waitForTimeout(1_200);
+  }
+
+  return bestSnapshot;
 }
 
 function conciseError(error) {
