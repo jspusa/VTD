@@ -22,3 +22,9 @@ test('transactional assembly must pass before history or Pages deployment can ru
   assert.ok(historyAt > assembleAt);
   assert.ok(deployAt > historyAt);
 });
+
+test('distributed jobs time out setup failures and history publishing rebases on latest main', () => {
+  assert.equal((workflow.match(/timeout-minutes: 4/g) || []).length, 2);
+  assert.match(workflow, /assemble-and-deploy:[\s\S]*ref: main[\s\S]*fetch-depth: 0/);
+  assert.match(workflow, /git fetch origin main[\s\S]*git rebase origin\/main[\s\S]*git push origin HEAD:main/);
+});
