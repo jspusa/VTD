@@ -1,7 +1,7 @@
 [
   {
     "date": "2026-07-23",
-    "capturedAt": "2026-07-23T06:13:49.649Z",
+    "capturedAt": "2026-07-23T10:14:36.592Z",
     "items": [
       {
         "id": "pair-01-competitor",
@@ -12,7 +12,7 @@
         "status": "available",
         "price": 14.49,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-07-23T06:11:40.269Z",
+        "priceObservedAt": "2026-07-23T10:03:21.807Z",
         "monthlyBoughtText": "10K+ bought in past month",
         "monthlyBoughtLowerBound": 10000
       },
@@ -25,7 +25,7 @@
         "status": "available",
         "price": 12.49,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-07-23T06:11:52.449Z",
+        "priceObservedAt": "2026-07-23T10:09:51.193Z",
         "monthlyBoughtText": "3K+ bought in past month",
         "monthlyBoughtLowerBound": 3000
       },
@@ -35,12 +35,12 @@
         "role": "competitor",
         "sku": "iPS01-5",
         "asin": "B0DWMFGPH3",
-        "status": "available",
+        "status": "last_known_price",
         "price": 60,
-        "priceFreshness": "fresh",
+        "priceFreshness": "last_known",
         "priceObservedAt": "2026-07-23T06:12:04.423Z",
-        "monthlyBoughtText": "800+ bought in past month",
-        "monthlyBoughtLowerBound": 800
+        "monthlyBoughtText": "",
+        "monthlyBoughtLowerBound": null
       },
       {
         "id": "pair-02-own",
@@ -48,9 +48,9 @@
         "role": "own",
         "sku": "7VTSD513AB",
         "asin": "B0H5JPQKKT",
-        "status": "available",
+        "status": "last_known_price",
         "price": 57.99,
-        "priceFreshness": "fresh",
+        "priceFreshness": "last_known",
         "priceObservedAt": "2026-07-23T06:12:15.561Z",
         "monthlyBoughtText": "",
         "monthlyBoughtLowerBound": null
@@ -61,12 +61,12 @@
         "role": "competitor",
         "sku": "iPS01-10",
         "asin": "B0F4WN2333",
-        "status": "available",
+        "status": "last_known_price",
         "price": 120,
-        "priceFreshness": "fresh",
+        "priceFreshness": "last_known",
         "priceObservedAt": "2026-07-23T06:12:27.568Z",
-        "monthlyBoughtText": "50+ bought in past month",
-        "monthlyBoughtLowerBound": 50
+        "monthlyBoughtText": "",
+        "monthlyBoughtLowerBound": null
       },
       {
         "id": "pair-03-own",
@@ -74,9 +74,9 @@
         "role": "own",
         "sku": "7VTSD913AB",
         "asin": "B0H5JKB7QS",
-        "status": "available",
+        "status": "last_known_price",
         "price": 113.99,
-        "priceFreshness": "fresh",
+        "priceFreshness": "last_known",
         "priceObservedAt": "2026-07-23T06:12:38.764Z",
         "monthlyBoughtText": "",
         "monthlyBoughtLowerBound": null
@@ -87,12 +87,12 @@
         "role": "competitor",
         "sku": "iPB01-4",
         "asin": "B0DSKK95GQ",
-        "status": "available",
+        "status": "last_known_price",
         "price": 14.99,
-        "priceFreshness": "fresh",
+        "priceFreshness": "last_known",
         "priceObservedAt": "2026-07-23T06:12:50.578Z",
-        "monthlyBoughtText": "300+ bought in past month",
-        "monthlyBoughtLowerBound": 300
+        "monthlyBoughtText": "",
+        "monthlyBoughtLowerBound": null
       },
       {
         "id": "pair-04-own",
@@ -100,12 +100,12 @@
         "role": "own",
         "sku": "7VTBD410AB",
         "asin": "B0DNF21SYR",
-        "status": "available",
+        "status": "last_known_price",
         "price": 12.99,
-        "priceFreshness": "fresh",
+        "priceFreshness": "last_known",
         "priceObservedAt": "2026-07-23T06:13:02.765Z",
-        "monthlyBoughtText": "100+ bought in past month",
-        "monthlyBoughtLowerBound": 100
+        "monthlyBoughtText": "",
+        "monthlyBoughtLowerBound": null
       },
       {
         "id": "pair-05-competitor",
@@ -113,12 +113,12 @@
         "role": "competitor",
         "sku": "iPB01-10",
         "asin": "B0F139MJDQ",
-        "status": "available",
+        "status": "last_known_price",
         "price": 28,
-        "priceFreshness": "fresh",
+        "priceFreshness": "last_known",
         "priceObservedAt": "2026-07-23T06:13:14.571Z",
-        "monthlyBoughtText": "200+ bought in past month",
-        "monthlyBoughtLowerBound": 200
+        "monthlyBoughtText": "",
+        "monthlyBoughtLowerBound": null
       },
       {
         "id": "pair-05-own",
@@ -126,9 +126,9 @@
         "role": "own",
         "sku": "7VTBD015AB",
         "asin": "B0H5JZLM61",
-        "status": "available",
+        "status": "last_known_price",
         "price": 19.99,
-        "priceFreshness": "fresh",
+        "priceFreshness": "last_known",
         "priceObservedAt": "2026-07-23T06:13:26.013Z",
         "monthlyBoughtText": "",
         "monthlyBoughtLowerBound": null
@@ -139,12 +139,12 @@
         "role": "competitor",
         "sku": "iPR01-10",
         "asin": "B0F1385154",
-        "status": "available",
+        "status": "last_known_price",
         "price": 19.99,
-        "priceFreshness": "fresh",
+        "priceFreshness": "last_known",
         "priceObservedAt": "2026-07-23T06:13:38.003Z",
-        "monthlyBoughtText": "4K+ bought in past month",
-        "monthlyBoughtLowerBound": 4000
+        "monthlyBoughtText": "",
+        "monthlyBoughtLowerBound": null
       },
       {
         "id": "pair-06-own",
@@ -155,7 +155,7 @@
         "status": "available",
         "price": 17.99,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-07-23T06:13:49.535Z",
+        "priceObservedAt": "2026-07-23T10:09:42.535Z",
         "monthlyBoughtText": "",
         "monthlyBoughtLowerBound": null
       }
