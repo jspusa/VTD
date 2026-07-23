@@ -19,12 +19,21 @@ const options = {
   // well inside the Actions timeout while reducing transient 503/partial pages.
   delayMs: 6_500,
   timeoutMs: 45_000,
+  // One product URL plus an exact-ASIN search card is faster and more
+  // independent than cycling three product URLs in the same Amazon session.
+  // Any unresolved items get a second pass in a brand-new browser context.
+  productUrlLimit: 1,
+  priceObservationCount: 2,
 };
 
 console.log(`開始擷取 ${products.length} 個 ASIN，配送 ZIP ${options.zipCode}`);
 const output = await scrapeProducts(products, options, (event) => {
   if (event.type === 'start') console.log(`[${event.index + 1}/${event.total}] ${event.asin}`);
   if (event.type === 'warning' && event.message) console.warn(event.message);
+  if (event.type === 'retry_result') {
+    const freshness = Number.isFinite(event.result?.currentPrice) ? '已補回新價格' : '仍缺價';
+    console.log(`[補抓] ${event.result?.asin}: ${freshness}`);
+  }
 });
 
 const dailyHistoryFile = path.join(root, 'data', 'daily-history.json');
