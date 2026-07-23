@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
+  buildExactSearchResultSnapshot,
   extractProductSignalsFromHtml,
   interpretSnapshot,
   isIncompleteProductSnapshot,
@@ -123,6 +124,34 @@ test('raw Amazon HTML rejects Typical price, unit price and recommendation price
     <div id="recommendations">$59.99</div>
   `;
   assert.deepEqual(extractProductSignalsFromHtml(html).priceTexts, []);
+});
+
+test('exact-ASIN search fallback accepts only the requested Amazon result card', () => {
+  const product = { asin: 'B0H5JKB7QS', baselinePrice: 113.99 };
+  const exact = buildExactSearchResultSnapshot({
+    asin: 'B0H5JKB7QS',
+    productTitle: 'VITADAY Turkey Tendons 10 Pack',
+    priceTexts: ['$113.99'],
+    bodyText: 'VITADAY Turkey Tendons 10 Pack $113.99 In Stock',
+  }, product);
+  const wrongVariation = buildExactSearchResultSnapshot({
+    asin: 'B0DNF4564B',
+    productTitle: 'VITADAY Turkey Tendons 1 Pack',
+    priceTexts: ['$12.49'],
+  }, product);
+
+  assert.equal(interpretSnapshot(exact).currentPrice, 113.99);
+  assert.equal(interpretSnapshot(exact).status, 'available');
+  assert.equal(wrongVariation, null);
+});
+
+test('exact-ASIN search fallback rejects cards without a current main price', () => {
+  assert.equal(buildExactSearchResultSnapshot({
+    asin: 'B0DSKK95GQ',
+    productTitle: 'iPaw Beef Tendons',
+    priceTexts: [],
+    bodyText: 'Typical price: $18.99',
+  }, { asin: 'B0DSKK95GQ', baselinePrice: 14.99 }), null);
 });
 
 test('interpretSnapshot reads JSON-LD offer prices', () => {
