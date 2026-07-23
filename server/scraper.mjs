@@ -164,6 +164,33 @@ export function mergeSnapshotWithHtml(snapshot, html) {
   };
 }
 
+export function buildExactSearchResultSnapshot(result, product) {
+  const asin = String(result?.asin ?? '').trim().toUpperCase();
+  if (!asin || asin !== String(product?.asin ?? '').trim().toUpperCase()) return null;
+  const priceTexts = [...new Set(result?.priceTexts ?? [])]
+    .filter((value) => parseUsd(value) !== null);
+  if (!priceTexts.length) return null;
+  return {
+    url: `https://www.amazon.com/dp/${product.asin}`,
+    title: result.productTitle || 'Amazon.com',
+    httpStatus: 200,
+    bodyText: result.bodyText || result.productTitle || '',
+    productTitle: result.productTitle || '',
+    pageAsin: asin,
+    priceTexts,
+    priceDetails: [],
+    structuredPriceValues: [],
+    listPriceTexts: [],
+    couponText: '',
+    availabilityText: 'In Stock',
+    sellerText: '',
+    salesVolumeText: result.salesVolumeText || '',
+    hasAddToCart: true,
+    baselinePrice: product.baselinePrice,
+    priceSource: 'exact_asin_search_result',
+  };
+}
+
 function closestPlausiblePrice(prices, baselinePrice) {
   if (!prices.length) return null;
   if (!Number.isFinite(baselinePrice) || baselinePrice <= 0) return prices.length === 1 ? prices[0] : null;
@@ -512,9 +539,22 @@ async function loadProductSnapshot(page, product, options) {
     await page.waitForTimeout(attempt === 0
       ? (options.pageWaitMs ?? 2_800)
       : (options.retryPageWaitMs ?? 3_200));
-    const renderedSnapshot = await snapshotPage(page, response?.status() ?? null);
-    const snapshot = mergeSnapshotWithHtml(renderedSnapshot, await responseHtmlPromise);
-    snapshot.baselinePrice = product.baselinePrice;
+    let snapshot = null;
+    const responseHtml = await responseHtmlPromise;
+    const observationCount = Math.max(1, Number(options.priceObservationCount) || 3);
+    for (let observation = 0; observation < observationCount; observation += 1) {
+      const renderedSnapshot = await snapshotPage(page, response?.status() ?? null);
+      const renderedHtml = await page.content().catch(() => '');
+      snapshot = mergeSnapshotWithHtml(
+        mergeSnapshotWithHtml(renderedSnapshot, responseHtml),
+        renderedHtml,
+      );
+      snapshot.baselinePrice = product.baselinePrice;
+      if (!shouldRetryMissingPriceSnapshot(snapshot)) break;
+      if (observation < observationCount - 1) {
+        await page.waitForTimeout(options.priceObservationWaitMs ?? 1_800);
+      }
+    }
 
     const score = (candidate) => (candidate?.productTitle ? 2 : 0)
       + (candidate?.hasAddToCart ? 2 : 0)
@@ -530,6 +570,41 @@ async function loadProductSnapshot(page, product, options) {
   }
 
   return bestSnapshot;
+}
+
+async function loadExactSearchResultSnapshot(page, product, options) {
+  const timeout = options.timeoutMs ?? 45_000;
+  const searchUrl = `https://www.amazon.com/s?k=${encodeURIComponent(product.asin)}&language=en_US&currency=USD`;
+  await gotoProductWithRetry(page, searchUrl, timeout);
+  const card = page.locator(`[data-asin="${product.asin}"]`).first();
+  await card.waitFor({ state: 'attached', timeout: options.searchWaitMs ?? 10_000 }).catch(() => {});
+  if (!(await card.count())) return null;
+  const result = await card.evaluate((node) => {
+    const priceTexts = [...node.querySelectorAll('.a-price:not(.a-text-price) .a-offscreen')]
+      .map((priceNode) => (priceNode.textContent || '').trim())
+      .filter(Boolean);
+    const productTitle = (
+      node.querySelector('h2 a span, h2 span, [data-cy="title-recipe"] span')
+        ?.textContent || ''
+    ).replace(/\s+/g, ' ').trim();
+    const bodyText = (node.innerText || node.textContent || '').replace(/\s+/g, ' ').trim();
+    const salesVolumeText = bodyText.match(/\d+(?:[,.]\d+)?\s*[KMB]?\s*\+\s*bought in past month/i)?.[0] || '';
+    return {
+      asin: node.getAttribute('data-asin') || '',
+      priceTexts,
+      productTitle,
+      bodyText,
+      salesVolumeText,
+    };
+  });
+  return buildExactSearchResultSnapshot(result, product);
+}
+
+async function loadProductWithSearchFallback(page, product, options) {
+  const productSnapshot = await loadProductSnapshot(page, product, options);
+  if (!shouldRetryMissingPriceSnapshot(productSnapshot)) return productSnapshot;
+  const searchSnapshot = await loadExactSearchResultSnapshot(page, product, options).catch(() => null);
+  return searchSnapshot || productSnapshot;
 }
 
 function conciseError(error) {
@@ -562,21 +637,22 @@ export async function scrapeProducts(products, options = {}, onProgress = () => 
     { name: 'lc-main', value: 'en_US', domain: '.amazon.com', path: '/' },
     { name: 'i18n-prefs', value: 'USD', domain: '.amazon.com', path: '/' },
   ]);
-  const page = await context.newPage();
-
-  await page.route('**/*', async (route) => {
+  const configurePage = async (page) => page.route('**/*', async (route) => {
     const type = route.request().resourceType();
-    if (['media', 'font'].includes(type)) await route.abort();
+    if (['image', 'media', 'font'].includes(type)) await route.abort();
     else await route.continue();
   });
+  const locationPage = await context.newPage();
+  await configurePage(locationPage);
 
-  const location = await setDeliveryZip(page, context, options.zipCode ?? '10001');
+  const location = await setDeliveryZip(locationPage, context, options.zipCode ?? '10001');
   onProgress({ type: 'location', ...location });
   if (!location.applied) {
     await context.close();
     await browser.close();
     throw new Error(location.message);
   }
+  await locationPage.close();
 
   const results = [];
   try {
@@ -584,8 +660,10 @@ export async function scrapeProducts(products, options = {}, onProgress = () => 
       const product = products[index];
       onProgress({ type: 'start', index, total: products.length, asin: product.asin });
       const startedAt = new Date().toISOString();
+      const page = await context.newPage();
+      await configurePage(page);
       try {
-        const snapshot = await loadProductSnapshot(page, product, options);
+        const snapshot = await loadProductWithSearchFallback(page, product, options);
         snapshot.baselinePrice = product.baselinePrice;
         let interpreted = interpretSnapshot(snapshot);
         if (interpreted.pageAsin && interpreted.pageAsin !== product.asin) {
@@ -643,11 +721,13 @@ export async function scrapeProducts(products, options = {}, onProgress = () => 
         };
         results.push(result);
         onProgress({ type: 'result', index, total: products.length, result });
+      } finally {
+        await page.close().catch(() => {});
       }
 
       if (index < products.length - 1) {
         const delay = Math.max(1_500, Number(options.delayMs) || 3_500);
-        await page.waitForTimeout(delay);
+        await new Promise((resolve) => setTimeout(resolve, delay));
       }
     }
   } finally {
