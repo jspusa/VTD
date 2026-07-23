@@ -9,9 +9,12 @@
     "dev:web": "vite",
     "build": "vite build",
     "static:scrape": "node scripts/static-scrape.mjs",
+    "static:scrape:shard": "node scripts/scrape-shard.mjs",
+    "static:scrape:plan-retry": "node scripts/plan-shard-retries.mjs",
+    "static:scrape:assemble": "node scripts/assemble-shard-results.mjs",
     "start": "node server/index.mjs",
     "test": "node --test",
-    "check": "node --check server/index.mjs && node --check server/scraper.mjs && node --check server/store.mjs && node --check scripts/dev.mjs && node --check scripts/static-scrape.mjs && npm run build"
+    "check": "node --check server/index.mjs && node --check server/scraper.mjs && node --check server/store.mjs && node --check server/distributed-results.mjs && node --check scripts/dev.mjs && node --check scripts/static-scrape.mjs && node --check scripts/scrape-shard.mjs && node --check scripts/plan-shard-retries.mjs && node --check scripts/assemble-shard-results.mjs && npm run build"
   },
   "dependencies": {
     "exceljs": "^4.4.0",

@@ -22,12 +22,13 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  scrape-and-deploy:
+  prepare:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+    outputs:
+      should_run: ${{ steps.freshness.outputs.should_run }}
+      asins: ${{ steps.inventory.outputs.asins }}
+      expected_count: ${{ steps.inventory.outputs.expected_count }}
+      run_started_at: ${{ steps.inventory.outputs.run_started_at }}
     steps:
       - uses: actions/checkout@v4
 
@@ -50,45 +51,178 @@ jobs:
           expected_epoch="$(node --input-type=module -e "import { latestExpectedRunAt } from './src/schedule.js'; console.log(Math.floor(latestExpectedRunAt(new Date()).getTime() / 1000))")"
 
           if (( finished_epoch >= expected_epoch )); then
-            echo "最近目標時段已有成功資料，本次只檢查、不重抓 Amazon。"
+            echo "最近目標時段已有完整資料，本次只檢查、不重抓 Amazon。"
             echo "should_run=false" >> "$GITHUB_OUTPUT"
           else
-            echo "資料落後於最近目標時段，啟動補抓。"
+            echo "資料落後於最近目標時段，啟動分散式補抓。"
             echo "should_run=true" >> "$GITHUB_OUTPUT"
           fi
 
+      - name: Build ASIN runner matrix
+        id: inventory
+        shell: bash
+        env:
+          SHOULD_RUN: ${{ steps.freshness.outputs.should_run }}
+        run: |
+          if [[ "$SHOULD_RUN" == "true" ]]; then
+            echo "asins=$(jq -c '[.[].asin]' data/products.json)" >> "$GITHUB_OUTPUT"
+            echo "expected_count=$(jq 'length' data/products.json)" >> "$GITHUB_OUTPUT"
+            echo "run_started_at=$(date -u +%Y-%m-%dT%H:%M:%S.000Z)" >> "$GITHUB_OUTPUT"
+          else
+            echo 'asins=[]' >> "$GITHUB_OUTPUT"
+            echo 'expected_count=0' >> "$GITHUB_OUTPUT"
+            echo 'run_started_at=' >> "$GITHUB_OUTPUT"
+          fi
+
+  scrape-primary:
+    needs: prepare
+    if: needs.prepare.outputs.should_run == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    strategy:
+      fail-fast: false
+      max-parallel: 12
+      matrix:
+        asin: ${{ fromJSON(needs.prepare.outputs.asins) }}
+    steps:
+      - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
-        if: steps.freshness.outputs.should_run == 'true'
         with:
           node-version: 22
           cache: npm
       - run: npm ci --ignore-scripts
-        if: steps.freshness.outputs.should_run == 'true'
       - uses: actions/cache@v4
-        if: steps.freshness.outputs.should_run == 'true'
         with:
           path: ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-${{ hashFiles('package-lock.json') }}
       - run: npx playwright install --with-deps chromium
-        if: steps.freshness.outputs.should_run == 'true'
-      - name: Scrape 12 Amazon ASINs
-        if: steps.freshness.outputs.should_run == 'true'
-        shell: bash
-        run: |
-          attempt=1
-          until npm run static:scrape; do
-            if (( attempt >= 2 )); then
-              echo "兩次擷取皆失敗。" >&2
-              exit 1
-            fi
-            echo "::warning::第一次擷取失敗，20 秒後自動重試。"
-            attempt=$((attempt + 1))
-            sleep 20
-          done
+      - name: Scrape one ASIN on an isolated runner
+        run: npm run static:scrape:shard
         env:
+          AMAZON_ASIN: ${{ matrix.asin }}
           AMAZON_ZIP: '10001'
+          SCRAPE_PASS: primary
+          SCRAPE_OUTPUT_DIR: .scrape-output/primary
+      - uses: actions/upload-artifact@v4
+        with:
+          name: price-primary-${{ matrix.asin }}
+          path: .scrape-output/primary/${{ matrix.asin }}.json
+          if-no-files-found: error
+          retention-days: 1
+
+  plan-retry:
+    needs:
+      - prepare
+      - scrape-primary
+    if: always() && needs.prepare.outputs.should_run == 'true'
+    runs-on: ubuntu-latest
+    outputs:
+      missing: ${{ steps.retry.outputs.missing }}
+      missing_count: ${{ steps.retry.outputs.missing_count }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v5
+        with:
+          pattern: price-primary-*
+          path: .scrape-output/primary
+          merge-multiple: true
+      - name: Plan retries on brand-new runners
+        id: retry
+        run: node scripts/plan-shard-retries.mjs
+        env:
+          PRIMARY_RESULTS_DIR: .scrape-output/primary
+          SCRAPE_REPORT_DIR: .scrape-output
+      - uses: actions/upload-artifact@v4
+        with:
+          name: price-retry-plan
+          path: .scrape-output/retry-plan.json
+          retention-days: 1
+
+  scrape-retry:
+    needs:
+      - prepare
+      - plan-retry
+    if: needs.prepare.outputs.should_run == 'true' && needs.plan-retry.outputs.missing_count != '0'
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    strategy:
+      fail-fast: false
+      max-parallel: 12
+      matrix:
+        asin: ${{ fromJSON(needs.plan-retry.outputs.missing) }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ hashFiles('package-lock.json') }}
+      - run: npx playwright install --with-deps chromium
+      - name: Retry one ASIN on another isolated runner
+        run: npm run static:scrape:shard
+        env:
+          AMAZON_ASIN: ${{ matrix.asin }}
+          AMAZON_ZIP: '10001'
+          SCRAPE_PASS: retry
+          SCRAPE_OUTPUT_DIR: .scrape-output/retry
+      - uses: actions/upload-artifact@v4
+        with:
+          name: price-retry-${{ matrix.asin }}
+          path: .scrape-output/retry/${{ matrix.asin }}.json
+          if-no-files-found: error
+          retention-days: 1
+
+  assemble-and-deploy:
+    needs:
+      - prepare
+      - scrape-primary
+      - plan-retry
+      - scrape-retry
+    if: always() && needs.prepare.outputs.should_run == 'true' && needs.plan-retry.result == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/download-artifact@v5
+        with:
+          pattern: price-primary-*
+          path: .scrape-output/primary
+          merge-multiple: true
+      - uses: actions/download-artifact@v5
+        if: needs.plan-retry.outputs.missing_count != '0'
+        with:
+          pattern: price-retry-*
+          path: .scrape-output/retry
+          merge-multiple: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - name: Assemble and require a publishable result for every ASIN
+        run: npm run static:scrape:assemble
+        env:
+          PRIMARY_RESULTS_DIR: .scrape-output/primary
+          RETRY_RESULTS_DIR: .scrape-output/retry
+          SCRAPE_REPORT_DIR: .scrape-output
+          RUN_STARTED_AT: ${{ needs.prepare.outputs.run_started_at }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: price-aggregate-diagnostics
+          path: .scrape-output/aggregate-diagnostics.json
+          if-no-files-found: ignore
+          retention-days: 7
       - name: Save rolling 365-day history to GitHub
-        if: steps.freshness.outputs.should_run == 'true'
         shell: bash
         run: |
           git config user.name "github-actions[bot]"
@@ -101,21 +235,17 @@ jobs:
             git push origin HEAD:main
           fi
       - name: Build GitHub Pages site
-        if: steps.freshness.outputs.should_run == 'true'
         run: npm run build
         env:
           VITE_STATIC_MODE: 'true'
           VITE_BASE_PATH: /${{ github.event.repository.name }}/
           VITE_ACTIONS_URL: https://github.com/${{ github.repository }}/actions/workflows/update-prices.yml
       - uses: actions/configure-pages@v5
-        if: steps.freshness.outputs.should_run == 'true'
         with:
           enablement: true
       - uses: actions/upload-pages-artifact@v4
-        if: steps.freshness.outputs.should_run == 'true'
         with:
           path: dist
       - name: Deploy GitHub Pages
-        if: steps.freshness.outputs.should_run == 'true'
         id: deployment
         uses: actions/deploy-pages@v4
