@@ -1,7 +1,7 @@
 [
   {
     "date": "2026-07-23",
-    "capturedAt": "2026-07-23T10:14:36.592Z",
+    "capturedAt": "2026-07-23T12:12:06.283Z",
     "items": [
       {
         "id": "pair-01-competitor",
@@ -12,7 +12,7 @@
         "status": "available",
         "price": 14.49,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-07-23T10:03:21.807Z",
+        "priceObservedAt": "2026-07-23T12:00:05.737Z",
         "monthlyBoughtText": "10K+ bought in past month",
         "monthlyBoughtLowerBound": 10000
       },
@@ -25,7 +25,7 @@
         "status": "available",
         "price": 12.49,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-07-23T10:09:51.193Z",
+        "priceObservedAt": "2026-07-23T12:06:46.547Z",
         "monthlyBoughtText": "3K+ bought in past month",
         "monthlyBoughtLowerBound": 3000
       },
@@ -152,9 +152,9 @@
         "role": "own",
         "sku": "7VTRD015AB",
         "asin": "B0H5K85LPS",
-        "status": "available",
+        "status": "last_known_price",
         "price": 17.99,
-        "priceFreshness": "fresh",
+        "priceFreshness": "last_known",
         "priceObservedAt": "2026-07-23T10:09:42.535Z",
         "monthlyBoughtText": "",
         "monthlyBoughtLowerBound": null
