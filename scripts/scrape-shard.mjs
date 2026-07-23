@@ -38,6 +38,7 @@ try {
     priceObservationCount: 2,
     searchWaitMs: 8_000,
     offerWaitMs: 7_000,
+    sameRunnerRetry: false,
     retryProductUrlLimit: 1,
     retryPriceObservationCount: 2,
   }, (event) => {

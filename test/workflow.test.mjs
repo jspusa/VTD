@@ -6,6 +6,10 @@ const workflow = await fs.readFile(
   new URL('../.github/workflows/update-prices.yml', import.meta.url),
   'utf8',
 );
+const shardScript = await fs.readFile(
+  new URL('../scripts/scrape-shard.mjs', import.meta.url),
+  'utf8',
+);
 
 test('scheduled price workflow isolates ASINs and retries failures on new runners', () => {
   assert.match(workflow, /scrape-primary:[\s\S]*matrix:[\s\S]*asin:/);
@@ -34,4 +38,9 @@ test('retry matrix still runs after a primary matrix runner fails', () => {
     workflow,
     /scrape-retry:[\s\S]*if: always\(\)[^\n]*needs\.plan-retry\.result == 'success'[^\n]*missing_count != '0'/,
   );
+});
+
+test('hosted-runner Amazon traffic is throttled and same-runner retries are skipped', () => {
+  assert.equal((workflow.match(/max-parallel: 3/g) || []).length, 2);
+  assert.match(shardScript, /sameRunnerRetry:\s*false/);
 });

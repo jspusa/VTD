@@ -81,7 +81,9 @@ jobs:
     timeout-minutes: 12
     strategy:
       fail-fast: false
-      max-parallel: 12
+      # Amazon degrades bursts from the same hosted-runner region even when
+      # every ASIN uses a different VM/IP. Keep the regional request rate low.
+      max-parallel: 3
       matrix:
         asin: ${{ fromJSON(needs.prepare.outputs.asins) }}
     steps:
@@ -151,7 +153,7 @@ jobs:
     timeout-minutes: 12
     strategy:
       fail-fast: false
-      max-parallel: 12
+      max-parallel: 3
       matrix:
         asin: ${{ fromJSON(needs.plan-retry.outputs.missing) }}
     steps:
