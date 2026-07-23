@@ -27,6 +27,10 @@ const payloads = await readShardPayloads(primaryDir, retryDir);
 const rawResults = mergeShardPayloads(products, payloads);
 const unresolved = unresolvedAsins(rawResults);
 const summary = shardSummary(products, payloads);
+const zipVerifiedCount = rawResults.filter((result) =>
+  result.locationValidation === 'zip_10001').length;
+const strictUsdVerifiedCount = rawResults.filter((result) =>
+  result.locationValidation === 'amazon_com_exact_asin_usd').length;
 const startedTimes = payloads
   .map((payload) => payload.startedAt)
   .filter(Boolean)
@@ -46,6 +50,7 @@ const diagnostics = {
     currentPrice: result.currentPrice,
     scrapePass: result.scrapePass,
     priceSource: result.priceSource || '',
+    locationValidation: result.locationValidation || '',
     error: result.error || '',
   })),
 };
@@ -76,15 +81,19 @@ if (unresolved.length) {
     options: {
       zipCode: '10001',
       headless: true,
-      strategy: 'one-asin-per-runner-v1',
+      strategy: 'one-asin-per-runner-v2',
       primaryRunnerCount: products.length,
       retryRunnerCount: payloads.filter((payload) => payload.pass === 'retry').length,
       transactionalPublish: true,
+      strictUsdFallback: true,
     },
     location: {
-      applied: true,
-      visibleLocation: 'New York 10001',
-      message: `${products.length} 支 ASIN 均於獨立 runner 驗證美國 ZIP 10001 後擷取。`,
+      applied: zipVerifiedCount === products.length,
+      pricingVerified: true,
+      visibleLocation: zipVerifiedCount ? 'New York 10001' : '',
+      message: zipVerifiedCount === products.length
+        ? `${products.length} 支 ASIN 均於獨立 runner 驗證美國 ZIP 10001 後擷取。`
+        : `${zipVerifiedCount} 支確認 ZIP 10001；${strictUsdVerifiedCount} 支改以 Amazon.com、精確 ASIN 與明確 USD 三重驗證。`,
     },
     results: preserveLastKnownPrices(rawResults, previousDailyHistory),
   };

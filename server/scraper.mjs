@@ -352,6 +352,119 @@ export function interpretSnapshot(snapshot) {
   };
 }
 
+function amazonComUrlAsin(value) {
+  try {
+    const url = new URL(String(value ?? ''));
+    const hostname = url.hostname.toLowerCase();
+    const isAmazonCom = hostname === 'amazon.com' || hostname.endsWith('.amazon.com');
+    const asin = url.pathname.match(/\/(?:dp|gp\/product)\/([A-Z0-9]{10})/i)?.[1] || '';
+    return { isAmazonCom, asin: asin.toUpperCase() };
+  } catch {
+    return { isAmazonCom: false, asin: '' };
+  }
+}
+
+function approximatelyEqual(left, right) {
+  return Number.isFinite(left)
+    && Number.isFinite(right)
+    && Math.abs(left - right) < 0.001;
+}
+
+function explicitUsdValue(value, expectedPrice) {
+  const text = String(value ?? '');
+  if (!/(?:US\$|USD\s*|(?<![A-Za-z])\$)\s*\d/i.test(text)) return false;
+  return approximatelyEqual(parseUsd(text), expectedPrice);
+}
+
+export function verifyAmazonUsdPrice(snapshot, expectedAsin, expectedPrice) {
+  const urlEvidence = amazonComUrlAsin(snapshot?.url);
+  const pageAsin = String(snapshot?.pageAsin || urlEvidence.asin || '').trim().toUpperCase();
+  const normalizedExpectedAsin = String(expectedAsin ?? '').trim().toUpperCase();
+  const directPriceValues = [
+    ...(snapshot?.priceTexts ?? []),
+    ...(snapshot?.priceDetails ?? [])
+      .filter((detail) => !detail.isUnit && (!detail.isTextPrice || !detail.isStruck))
+      .map((detail) => detail.text),
+  ];
+  const structuredValues = snapshot?.structuredPriceValues ?? [];
+  const explicitUsd = directPriceValues.some((value) => explicitUsdValue(value, expectedPrice))
+    || structuredValues.some((value) => explicitUsdValue(value, expectedPrice))
+    || structuredValues.some((value) => {
+      const text = String(value ?? '');
+      return /"(?:priceCurrency|currency)"\s*:\s*"USD"/i.test(text)
+        && approximatelyEqual(parseStructuredPrice(text), expectedPrice);
+    });
+
+  const hostVerified = urlEvidence.isAmazonCom;
+  const asinVerified = Boolean(normalizedExpectedAsin) && pageAsin === normalizedExpectedAsin;
+  return {
+    verified: hostVerified && asinVerified && explicitUsd,
+    hostVerified,
+    asinVerified,
+    currencyVerified: explicitUsd,
+    pageAsin,
+  };
+}
+
+export function finalizeProductSnapshot(snapshot, product, location) {
+  let interpreted = interpretSnapshot(snapshot);
+  const expectedAsin = String(product?.asin ?? '').trim().toUpperCase();
+  const urlAsin = amazonComUrlAsin(snapshot?.url).asin;
+  const actualAsin = String(interpreted.pageAsin || urlAsin || '').trim().toUpperCase();
+
+  if (actualAsin && actualAsin !== expectedAsin) {
+    return {
+      ...interpreted,
+      status: 'asin_mismatch',
+      availability: 'Amazon 導向其他規格',
+      currentPrice: null,
+      listPrice: null,
+      locationValidation: location?.applied ? 'zip_10001' : 'unverified',
+      error: `要求 ${expectedAsin}，但 Amazon 頁面目前選取 ${actualAsin}；為避免抓錯規格，未採用頁面價格。`,
+    };
+  }
+
+  if (Number.isFinite(interpreted.currentPrice)) {
+    const usdValidation = verifyAmazonUsdPrice(
+      snapshot,
+      expectedAsin,
+      interpreted.currentPrice,
+    );
+    if (!location?.applied && !usdValidation.verified) {
+      return {
+        ...interpreted,
+        status: 'location_unverified',
+        availability: '美元與美國站驗證未通過',
+        currentPrice: null,
+        listPrice: null,
+        locationValidation: 'unverified',
+        error: 'Amazon 未顯示 ZIP Code，且本頁未同時通過 Amazon.com、精確 ASIN 與明確 USD 價格驗證；已拒絕採用。',
+      };
+    }
+    interpreted = {
+      ...interpreted,
+      currency: 'USD',
+      locationValidation: location?.applied ? 'zip_10001' : 'amazon_com_exact_asin_usd',
+    };
+  } else if (!location?.applied
+    && ['unavailable', 'delivery_unavailable'].includes(interpreted.status)) {
+    interpreted = {
+      ...interpreted,
+      status: 'location_unverified',
+      availability: '配送地點尚未確認',
+      locationValidation: 'unverified',
+      error: 'Amazon 未顯示 ZIP Code，無法確認缺貨或不可配送是否只受目前配送地點影響；已阻止本批次發布。',
+    };
+  } else {
+    interpreted = {
+      ...interpreted,
+      locationValidation: location?.applied ? 'zip_10001' : 'unverified',
+    };
+  }
+
+  return interpreted;
+}
+
 async function readDeliveryLocation(page) {
   try {
     const locator = page.locator('#glow-ingress-line2');
@@ -395,7 +508,12 @@ async function setDeliveryZip(page, context, zipCode) {
     const verification = await verifyDeliveryZip(page, zipCode);
     lastVisibleLocation = verification.visibleLocation;
     if (verification.verified) {
-      return { applied: true, visibleLocation: verification.visibleLocation, message: `配送地點已確認：${verification.visibleLocation}` };
+      return {
+        applied: true,
+        verificationMode: 'zip',
+        visibleLocation: verification.visibleLocation,
+        message: `配送地點已確認：${verification.visibleLocation}`,
+      };
     }
   } catch {
     // The request-based fallback below uses the same Amazon session.
@@ -424,7 +542,12 @@ async function setDeliveryZip(page, context, zipCode) {
     const verification = await verifyDeliveryZip(page, zipCode);
     lastVisibleLocation = verification.visibleLocation || lastVisibleLocation;
     if (verification.verified) {
-      return { applied: true, visibleLocation: verification.visibleLocation, message: `配送地點已確認：${verification.visibleLocation}` };
+      return {
+        applied: true,
+        verificationMode: 'zip',
+        visibleLocation: verification.visibleLocation,
+        message: `配送地點已確認：${verification.visibleLocation}`,
+      };
     }
   } catch {
     // Report one concise, actionable error below.
@@ -433,8 +556,9 @@ async function setDeliveryZip(page, context, zipCode) {
   const detected = lastVisibleLocation ? `目前 Amazon 顯示「${lastVisibleLocation}」` : 'Amazon 未回傳可驗證的配送地點';
   return {
     applied: false,
+    verificationMode: 'strict_usd_page',
     visibleLocation: lastVisibleLocation,
-    message: `無法確認美國 ZIP Code ${zipCode}（${detected}）。本次已停止，避免把台幣或錯誤地區價格當成美元。`,
+    message: `無法從頁首文字確認美國 ZIP Code ${zipCode}（${detected}）。將繼續擷取，但只接受同時通過 Amazon.com、精確 ASIN 與明確 USD 驗證的價格。`,
   };
 }
 
@@ -718,9 +842,7 @@ export async function scrapeProducts(products, options = {}, onProgress = () => 
   const location = await setDeliveryZip(locationPage, context, options.zipCode ?? '10001');
   onProgress({ type: 'location', ...location });
   if (!location.applied) {
-    await context.close();
-    await browser.close();
-    throw new Error(location.message);
+    onProgress({ type: 'warning', message: location.message });
   }
   await locationPage.close();
 
@@ -735,17 +857,7 @@ export async function scrapeProducts(products, options = {}, onProgress = () => 
       try {
         const snapshot = await loadProductWithSearchFallback(page, product, options);
         snapshot.baselinePrice = product.baselinePrice;
-        let interpreted = interpretSnapshot(snapshot);
-        if (interpreted.pageAsin && interpreted.pageAsin !== product.asin) {
-          interpreted = {
-            ...interpreted,
-            status: 'asin_mismatch',
-            availability: 'Amazon 導向其他規格',
-            currentPrice: null,
-            listPrice: null,
-            error: `要求 ${product.asin}，但 Amazon 頁面目前選取 ${interpreted.pageAsin}；為避免抓錯規格，未採用頁面價格。`,
-          };
-        }
+        const interpreted = finalizeProductSnapshot(snapshot, product, location);
         const result = { ...product, ...interpreted, scrapedAt: new Date().toISOString(), startedAt };
         results.push(result);
         onProgress({ type: 'result', index, total: products.length, result });
@@ -831,59 +943,48 @@ export async function scrapeProducts(products, options = {}, onProgress = () => 
       );
       await retryLocationPage.close();
 
-      if (retryLocation.applied) {
-        for (const index of retryIndexes) {
-          const product = products[index];
-          const page = await retryContext.newPage();
-          await configurePage(page);
-          const startedAt = new Date().toISOString();
-          try {
-            const snapshot = await loadProductWithSearchFallback(page, product, {
-              ...options,
-              productUrlLimit: options.retryProductUrlLimit ?? 1,
-              priceObservationCount: options.retryPriceObservationCount ?? 2,
-            });
-            snapshot.baselinePrice = product.baselinePrice;
-            let interpreted = interpretSnapshot(snapshot);
-            if (interpreted.pageAsin && interpreted.pageAsin !== product.asin) {
-              interpreted = {
-                ...interpreted,
-                status: 'asin_mismatch',
-                availability: 'Amazon 導向其他規格',
-                currentPrice: null,
-                listPrice: null,
-                error: `要求 ${product.asin}，但 Amazon 頁面目前選取 ${interpreted.pageAsin}；為避免抓錯規格，未採用頁面價格。`,
-              };
-            }
-            if (Number.isFinite(interpreted.currentPrice)) {
-              results[index] = {
-                ...product,
-                ...interpreted,
-                scrapedAt: new Date().toISOString(),
-                startedAt,
-              };
-            }
-            onProgress({
-              type: 'retry_result',
-              index,
-              total: retryIndexes.length,
-              result: results[index],
-            });
-          } catch (error) {
-            onProgress({
-              type: 'warning',
-              message: `${product.asin} 第二階段補抓失敗：${conciseError(error)}`,
-            });
-          } finally {
-            await page.close().catch(() => {});
-          }
-          await new Promise((resolve) => setTimeout(
-            resolve,
-            Math.max(1_500, Number(options.retryDelayMs) || 2_500),
-          ));
-        }
-      } else {
+      if (!retryLocation.applied) {
         onProgress({ type: 'warning', message: retryLocation.message });
+      }
+      for (const index of retryIndexes) {
+        const product = products[index];
+        const page = await retryContext.newPage();
+        await configurePage(page);
+        const startedAt = new Date().toISOString();
+        try {
+          const snapshot = await loadProductWithSearchFallback(page, product, {
+            ...options,
+            productUrlLimit: options.retryProductUrlLimit ?? 1,
+            priceObservationCount: options.retryPriceObservationCount ?? 2,
+          });
+          snapshot.baselinePrice = product.baselinePrice;
+          const interpreted = finalizeProductSnapshot(snapshot, product, retryLocation);
+          if (Number.isFinite(interpreted.currentPrice)) {
+            results[index] = {
+              ...product,
+              ...interpreted,
+              scrapedAt: new Date().toISOString(),
+              startedAt,
+            };
+          }
+          onProgress({
+            type: 'retry_result',
+            index,
+            total: retryIndexes.length,
+            result: results[index],
+          });
+        } catch (error) {
+          onProgress({
+            type: 'warning',
+            message: `${product.asin} 第二階段補抓失敗：${conciseError(error)}`,
+          });
+        } finally {
+          await page.close().catch(() => {});
+        }
+        await new Promise((resolve) => setTimeout(
+          resolve,
+          Math.max(1_500, Number(options.retryDelayMs) || 2_500),
+        ));
       }
       await retryContext.close();
     }
