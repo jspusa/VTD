@@ -1,7 +1,7 @@
 [
   {
     "date": "2026-07-24",
-    "capturedAt": "2026-07-23T16:44:46.679Z",
+    "capturedAt": "2026-07-24T04:28:52.204Z",
     "items": [
       {
         "id": "pair-01-competitor",
@@ -12,7 +12,7 @@
         "status": "available",
         "price": 14.49,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-07-23T16:34:34.582Z",
+        "priceObservedAt": "2026-07-24T04:25:57.628Z",
         "monthlyBoughtText": "10K+ bought in past month",
         "monthlyBoughtLowerBound": 10000
       },
@@ -23,9 +23,9 @@
         "sku": "7VTSD013AB",
         "asin": "B0DNF4564B",
         "status": "available",
-        "price": 11.24,
+        "price": 12.49,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-07-23T16:31:37.714Z",
+        "priceObservedAt": "2026-07-24T04:25:47.809Z",
         "monthlyBoughtText": "3K+ bought in past month",
         "monthlyBoughtLowerBound": 3000
       },
@@ -38,7 +38,7 @@
         "status": "available",
         "price": 60,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-07-23T16:43:43.446Z",
+        "priceObservedAt": "2026-07-24T04:26:02.782Z",
         "monthlyBoughtText": "700+ bought in past month",
         "monthlyBoughtLowerBound": 700
       },
@@ -51,7 +51,7 @@
         "status": "available",
         "price": 57.99,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-07-23T16:44:18.648Z",
+        "priceObservedAt": "2026-07-24T04:26:21.948Z",
         "monthlyBoughtText": "",
         "monthlyBoughtLowerBound": null
       },
@@ -64,7 +64,7 @@
         "status": "available",
         "price": 120,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-07-23T16:35:23.357Z",
+        "priceObservedAt": "2026-07-24T04:26:34.112Z",
         "monthlyBoughtText": "50+ bought in past month",
         "monthlyBoughtLowerBound": 50
       },
@@ -77,7 +77,7 @@
         "status": "available",
         "price": 113.99,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-07-23T16:43:49.163Z",
+        "priceObservedAt": "2026-07-24T04:26:47.105Z",
         "monthlyBoughtText": "",
         "monthlyBoughtLowerBound": null
       },
@@ -90,7 +90,7 @@
         "status": "available",
         "price": 14.99,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-07-23T16:35:18.082Z",
+        "priceObservedAt": "2026-07-24T04:27:02.691Z",
         "monthlyBoughtText": "300+ bought in past month",
         "monthlyBoughtLowerBound": 300
       },
@@ -103,7 +103,7 @@
         "status": "available",
         "price": 12.99,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-07-23T16:38:15.736Z",
+        "priceObservedAt": "2026-07-24T04:27:10.068Z",
         "monthlyBoughtText": "100+ bought in past month",
         "monthlyBoughtLowerBound": 100
       },
@@ -116,7 +116,7 @@
         "status": "available",
         "price": 28,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-07-23T16:39:54.117Z",
+        "priceObservedAt": "2026-07-24T04:27:29.907Z",
         "monthlyBoughtText": "200+ bought in past month",
         "monthlyBoughtLowerBound": 200
       },
@@ -129,7 +129,7 @@
         "status": "available",
         "price": 19.99,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-07-23T16:38:10.271Z",
+        "priceObservedAt": "2026-07-24T04:27:53.037Z",
         "monthlyBoughtText": "",
         "monthlyBoughtLowerBound": null
       },
@@ -142,7 +142,7 @@
         "status": "available",
         "price": 19.99,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-07-23T16:38:48.678Z",
+        "priceObservedAt": "2026-07-24T04:28:23.197Z",
         "monthlyBoughtText": "4K+ bought in past month",
         "monthlyBoughtLowerBound": 4000
       },
@@ -155,7 +155,7 @@
         "status": "available",
         "price": 17.99,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-07-23T16:38:55.142Z",
+        "priceObservedAt": "2026-07-24T04:28:12.962Z",
         "monthlyBoughtText": "",
         "monthlyBoughtLowerBound": null
       }
