@@ -1,7 +1,7 @@
 [
   {
     "date": "2026-07-27",
-    "capturedAt": "2026-07-27T04:51:14.846Z",
+    "capturedAt": "2026-07-27T08:45:18.431Z",
     "items": [
       {
         "id": "pair-01-competitor",
@@ -12,7 +12,7 @@
         "status": "available",
         "price": 14.49,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-07-27T04:48:12.049Z",
+        "priceObservedAt": "2026-07-27T08:42:29.577Z",
         "monthlyBoughtText": "10K+ bought in past month",
         "monthlyBoughtLowerBound": 10000
       },
@@ -25,7 +25,7 @@
         "status": "available",
         "price": 12.49,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-07-27T04:48:16.817Z",
+        "priceObservedAt": "2026-07-27T08:42:23.433Z",
         "monthlyBoughtText": "3K+ bought in past month",
         "monthlyBoughtLowerBound": 3000
       },
@@ -38,7 +38,7 @@
         "status": "available",
         "price": 60,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-07-27T04:48:13.647Z",
+        "priceObservedAt": "2026-07-27T08:42:25.012Z",
         "monthlyBoughtText": "600+ bought in past month",
         "monthlyBoughtLowerBound": 600
       },
@@ -49,9 +49,9 @@
         "sku": "7VTSD513AB",
         "asin": "B0H5JPQKKT",
         "status": "available",
-        "price": 57.99,
+        "price": 58,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-07-27T04:48:50.409Z",
+        "priceObservedAt": "2026-07-27T08:43:01.401Z",
         "monthlyBoughtText": "",
         "monthlyBoughtLowerBound": null
       },
@@ -64,7 +64,7 @@
         "status": "available",
         "price": 120,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-07-27T04:48:58.365Z",
+        "priceObservedAt": "2026-07-27T08:43:37.564Z",
         "monthlyBoughtText": "50+ bought in past month",
         "monthlyBoughtLowerBound": 50
       },
@@ -75,9 +75,9 @@
         "sku": "7VTSD913AB",
         "asin": "B0H5JKB7QS",
         "status": "available",
-        "price": 113.99,
+        "price": 118,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-07-27T04:49:01.641Z",
+        "priceObservedAt": "2026-07-27T08:43:10.292Z",
         "monthlyBoughtText": "",
         "monthlyBoughtLowerBound": null
       },
@@ -90,7 +90,7 @@
         "status": "available",
         "price": 14.99,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-07-27T04:50:03.362Z",
+        "priceObservedAt": "2026-07-27T08:43:48.537Z",
         "monthlyBoughtText": "200+ bought in past month",
         "monthlyBoughtLowerBound": 200
       },
@@ -103,7 +103,7 @@
         "status": "available",
         "price": 12.99,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-07-27T04:49:38.811Z",
+        "priceObservedAt": "2026-07-27T08:43:58.837Z",
         "monthlyBoughtText": "100+ bought in past month",
         "monthlyBoughtLowerBound": 100
       },
@@ -116,7 +116,7 @@
         "status": "available",
         "price": 28,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-07-27T04:49:39.030Z",
+        "priceObservedAt": "2026-07-27T08:44:14.442Z",
         "monthlyBoughtText": "200+ bought in past month",
         "monthlyBoughtLowerBound": 200
       },
@@ -129,7 +129,7 @@
         "status": "available",
         "price": 19.99,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-07-27T04:50:13.950Z",
+        "priceObservedAt": "2026-07-27T08:44:31.045Z",
         "monthlyBoughtText": "",
         "monthlyBoughtLowerBound": null
       },
@@ -142,7 +142,7 @@
         "status": "available",
         "price": 19.99,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-07-27T04:50:39.713Z",
+        "priceObservedAt": "2026-07-27T08:44:40.181Z",
         "monthlyBoughtText": "3K+ bought in past month",
         "monthlyBoughtLowerBound": 3000
       },
@@ -155,7 +155,7 @@
         "status": "available",
         "price": 19.99,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-07-27T04:50:45.716Z",
+        "priceObservedAt": "2026-07-27T08:44:50.259Z",
         "monthlyBoughtText": "",
         "monthlyBoughtLowerBound": null
       }
