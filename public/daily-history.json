@@ -1,7 +1,7 @@
 [
   {
     "date": "2026-07-28",
-    "capturedAt": "2026-07-28T10:15:56.994Z",
+    "capturedAt": "2026-07-28T12:26:50.304Z",
     "items": [
       {
         "id": "pair-01-competitor",
@@ -12,7 +12,7 @@
         "status": "available",
         "price": 14.49,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-07-28T10:12:44.146Z",
+        "priceObservedAt": "2026-07-28T12:23:57.263Z",
         "monthlyBoughtText": "10K+ bought in past month",
         "monthlyBoughtLowerBound": 10000
       },
@@ -25,7 +25,7 @@
         "status": "available",
         "price": 12.49,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-07-28T10:12:51.400Z",
+        "priceObservedAt": "2026-07-28T12:24:12.555Z",
         "monthlyBoughtText": "3K+ bought in past month",
         "monthlyBoughtLowerBound": 3000
       },
@@ -38,7 +38,7 @@
         "status": "available",
         "price": 60,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-07-28T10:12:48.163Z",
+        "priceObservedAt": "2026-07-28T12:23:56.603Z",
         "monthlyBoughtText": "600+ bought in past month",
         "monthlyBoughtLowerBound": 600
       },
@@ -51,7 +51,7 @@
         "status": "available",
         "price": 58,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-07-28T10:13:44.306Z",
+        "priceObservedAt": "2026-07-28T12:24:53.980Z",
         "monthlyBoughtText": "",
         "monthlyBoughtLowerBound": null
       },
@@ -64,7 +64,7 @@
         "status": "available",
         "price": 120,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-07-28T10:13:34.213Z",
+        "priceObservedAt": "2026-07-28T12:24:47.462Z",
         "monthlyBoughtText": "50+ bought in past month",
         "monthlyBoughtLowerBound": 50
       },
@@ -77,7 +77,7 @@
         "status": "available",
         "price": 118,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-07-28T10:13:38.705Z",
+        "priceObservedAt": "2026-07-28T12:24:54.777Z",
         "monthlyBoughtText": "",
         "monthlyBoughtLowerBound": null
       },
@@ -90,7 +90,7 @@
         "status": "available",
         "price": 14.99,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-07-28T10:14:13.878Z",
+        "priceObservedAt": "2026-07-28T12:25:34.997Z",
         "monthlyBoughtText": "200+ bought in past month",
         "monthlyBoughtLowerBound": 200
       },
@@ -103,7 +103,7 @@
         "status": "available",
         "price": 12.99,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-07-28T10:14:30.063Z",
+        "priceObservedAt": "2026-07-28T12:25:28.955Z",
         "monthlyBoughtText": "100+ bought in past month",
         "monthlyBoughtLowerBound": 100
       },
@@ -116,7 +116,7 @@
         "status": "available",
         "price": 28,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-07-28T10:14:32.328Z",
+        "priceObservedAt": "2026-07-28T12:25:38.342Z",
         "monthlyBoughtText": "200+ bought in past month",
         "monthlyBoughtLowerBound": 200
       },
@@ -129,7 +129,7 @@
         "status": "available",
         "price": 19.99,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-07-28T10:15:10.692Z",
+        "priceObservedAt": "2026-07-28T12:26:18.374Z",
         "monthlyBoughtText": "",
         "monthlyBoughtLowerBound": null
       },
@@ -142,7 +142,7 @@
         "status": "available",
         "price": 19.99,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-07-28T10:15:10.909Z",
+        "priceObservedAt": "2026-07-28T12:26:21.769Z",
         "monthlyBoughtText": "3K+ bought in past month",
         "monthlyBoughtLowerBound": 3000
       },
@@ -155,7 +155,7 @@
         "status": "available",
         "price": 19.99,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-07-28T10:15:17.881Z",
+        "priceObservedAt": "2026-07-28T12:26:17.409Z",
         "monthlyBoughtText": "",
         "monthlyBoughtLowerBound": null
       }
