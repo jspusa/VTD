@@ -1,7 +1,7 @@
 [
   {
     "date": "2026-07-31",
-    "capturedAt": "2026-07-31T10:14:15.440Z",
+    "capturedAt": "2026-07-31T12:37:02.394Z",
     "items": [
       {
         "id": "pair-01-competitor",
@@ -12,7 +12,7 @@
         "status": "available",
         "price": 14.49,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-07-31T10:11:07.536Z",
+        "priceObservedAt": "2026-07-31T12:31:17.155Z",
         "monthlyBoughtText": "10K+ bought in past month",
         "monthlyBoughtLowerBound": 10000
       },
@@ -25,7 +25,7 @@
         "status": "available",
         "price": 11.99,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-07-31T10:11:04.595Z",
+        "priceObservedAt": "2026-07-31T12:31:20.512Z",
         "monthlyBoughtText": "3K+ bought in past month",
         "monthlyBoughtLowerBound": 3000
       },
@@ -38,7 +38,7 @@
         "status": "available",
         "price": 60,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-07-31T10:11:01.638Z",
+        "priceObservedAt": "2026-07-31T12:31:44.407Z",
         "monthlyBoughtText": "700+ bought in past month",
         "monthlyBoughtLowerBound": 700
       },
@@ -51,7 +51,7 @@
         "status": "available",
         "price": 57.99,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-07-31T10:11:44.083Z",
+        "priceObservedAt": "2026-07-31T12:31:54.394Z",
         "monthlyBoughtText": "",
         "monthlyBoughtLowerBound": null
       },
@@ -64,7 +64,7 @@
         "status": "available",
         "price": 120,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-07-31T10:11:48.880Z",
+        "priceObservedAt": "2026-07-31T12:32:13.788Z",
         "monthlyBoughtText": "50+ bought in past month",
         "monthlyBoughtLowerBound": 50
       },
@@ -77,7 +77,7 @@
         "status": "available",
         "price": 113.99,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-07-31T10:11:41.906Z",
+        "priceObservedAt": "2026-07-31T12:32:31.323Z",
         "monthlyBoughtText": "",
         "monthlyBoughtLowerBound": null
       },
@@ -90,7 +90,7 @@
         "status": "available",
         "price": 14.99,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-07-31T10:12:25.205Z",
+        "priceObservedAt": "2026-07-31T12:33:10.075Z",
         "monthlyBoughtText": "200+ bought in past month",
         "monthlyBoughtLowerBound": 200
       },
@@ -103,7 +103,7 @@
         "status": "available",
         "price": 12.99,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-07-31T10:12:45.219Z",
+        "priceObservedAt": "2026-07-31T12:33:04.146Z",
         "monthlyBoughtText": "100+ bought in past month",
         "monthlyBoughtLowerBound": 100
       },
@@ -116,7 +116,7 @@
         "status": "available",
         "price": 28,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-07-31T10:12:24.884Z",
+        "priceObservedAt": "2026-07-31T12:33:09.905Z",
         "monthlyBoughtText": "200+ bought in past month",
         "monthlyBoughtLowerBound": 200
       },
@@ -129,7 +129,7 @@
         "status": "available",
         "price": 19.99,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-07-31T10:13:01.599Z",
+        "priceObservedAt": "2026-07-31T12:33:48.605Z",
         "monthlyBoughtText": "",
         "monthlyBoughtLowerBound": null
       },
@@ -142,7 +142,7 @@
         "status": "available",
         "price": 19.99,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-07-31T10:13:16.904Z",
+        "priceObservedAt": "2026-07-31T12:33:58.916Z",
         "monthlyBoughtText": "3K+ bought in past month",
         "monthlyBoughtLowerBound": 3000
       },
@@ -155,7 +155,7 @@
         "status": "available",
         "price": 17.99,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-07-31T10:13:36.834Z",
+        "priceObservedAt": "2026-07-31T12:33:53.992Z",
         "monthlyBoughtText": "",
         "monthlyBoughtLowerBound": null
       }
