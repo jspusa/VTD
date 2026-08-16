@@ -122,23 +122,23 @@
     }
   ],
   "run": {
-    "id": "2f416726-f220-4ee5-8f34-66aa9f06b40d",
-    "startedAt": "2026-08-16T02:24:18.000Z",
-    "finishedAt": "2026-08-16T02:28:11.054Z",
+    "id": "9dce08d5-e15b-46e9-9fcd-9d88ec6b5886",
+    "startedAt": "2026-08-16T11:30:18.000Z",
+    "finishedAt": "2026-08-16T11:37:56.143Z",
     "options": {
       "zipCode": "10001",
       "headless": true,
       "strategy": "one-asin-per-runner-v2",
       "primaryRunnerCount": 12,
-      "retryRunnerCount": 0,
+      "retryRunnerCount": 2,
       "transactionalPublish": true,
       "strictUsdFallback": true
     },
     "location": {
-      "applied": true,
+      "applied": false,
       "pricingVerified": true,
       "visibleLocation": "New York 10001",
-      "message": "12 支 ASIN 均於獨立 runner 驗證美國 ZIP 10001 後擷取。"
+      "message": "11 支確認 ZIP 10001；1 支改以 Amazon.com、精確 ASIN 與明確 USD 三重驗證。"
     },
     "results": [
       {
@@ -165,11 +165,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-08-16T02:24:58.966Z",
-        "startedAt": "2026-08-16T02:24:53.397Z",
+        "scrapedAt": "2026-08-16T11:31:02.778Z",
+        "startedAt": "2026-08-16T11:30:56.997Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-08-16T02:24:58.966Z"
+        "priceObservedAt": "2026-08-16T11:31:02.778Z"
       },
       {
         "id": "pair-01-own",
@@ -195,11 +195,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-08-16T02:25:01.769Z",
-        "startedAt": "2026-08-16T02:24:55.984Z",
-        "scrapePass": "primary",
+        "scrapedAt": "2026-08-16T11:37:29.984Z",
+        "startedAt": "2026-08-16T11:37:24.117Z",
+        "scrapePass": "retry",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-08-16T02:25:01.769Z"
+        "priceObservedAt": "2026-08-16T11:37:29.984Z"
       },
       {
         "id": "pair-02-competitor",
@@ -220,16 +220,16 @@
         "productTitle": "iPaw Turkey Tendon for Dogs Value Pack, All Natural Human Grade Puppy Chew | Strips (5 Packs), Single Protein, Hypoallergenic, Grain free, Rawhide Alternative Dog Treats, US-Sourced Turkey",
         "pageAsin": "B0DWMFGPH3",
         "finalUrl": "https://www.amazon.com/dp/B0DWMFGPH3?th=1&psc=1&language=en_US&currency=USD",
-        "monthlyBoughtText": "900+ bought in past month",
-        "monthlyBoughtLowerBound": 900,
+        "monthlyBoughtText": "800+ bought in past month",
+        "monthlyBoughtLowerBound": 800,
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-08-16T02:24:59.772Z",
-        "startedAt": "2026-08-16T02:24:53.991Z",
+        "scrapedAt": "2026-08-16T11:30:55.616Z",
+        "startedAt": "2026-08-16T11:30:49.907Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-08-16T02:24:59.772Z"
+        "priceObservedAt": "2026-08-16T11:30:55.616Z"
       },
       {
         "id": "pair-02-own",
@@ -255,11 +255,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-08-16T02:25:45.865Z",
-        "startedAt": "2026-08-16T02:25:40.223Z",
+        "scrapedAt": "2026-08-16T11:31:39.054Z",
+        "startedAt": "2026-08-16T11:31:33.543Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-08-16T02:25:45.865Z"
+        "priceObservedAt": "2026-08-16T11:31:39.054Z"
       },
       {
         "id": "pair-03-competitor",
@@ -274,22 +274,22 @@
         "availability": "In Stock",
         "currentPrice": 120,
         "listPrice": null,
-        "priceSource": "amazon_product_page",
+        "priceSource": "exact_asin_search_result",
         "coupon": "",
-        "seller": "PetDelux US",
+        "seller": "",
         "productTitle": "iPaw Turkey Tendon for Dogs Bulk Pack, SQF-Certified Production Process | Strips (10 Packs/Box), Single Protein, Hypoallergenic, Grain free, Rawhide Alternative Dog Treats, US-Sourced Turkey",
         "pageAsin": "B0F4WN2333",
-        "finalUrl": "https://www.amazon.com/dp/B0F4WN2333?th=1&psc=1&language=en_US&currency=USD",
+        "finalUrl": "https://www.amazon.com/dp/B0F4WN2333",
         "monthlyBoughtText": "50+ bought in past month",
         "monthlyBoughtLowerBound": 50,
         "error": "",
         "currency": "USD",
-        "locationValidation": "zip_10001",
-        "scrapedAt": "2026-08-16T02:25:43.757Z",
-        "startedAt": "2026-08-16T02:25:38.044Z",
+        "locationValidation": "amazon_com_exact_asin_usd",
+        "scrapedAt": "2026-08-16T11:31:52.713Z",
+        "startedAt": "2026-08-16T11:31:33.780Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-08-16T02:25:43.757Z"
+        "priceObservedAt": "2026-08-16T11:31:52.713Z"
       },
       {
         "id": "pair-03-own",
@@ -315,11 +315,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-08-16T02:25:51.510Z",
-        "startedAt": "2026-08-16T02:25:46.110Z",
+        "scrapedAt": "2026-08-16T11:32:00.942Z",
+        "startedAt": "2026-08-16T11:31:55.674Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-08-16T02:25:51.510Z"
+        "priceObservedAt": "2026-08-16T11:32:00.942Z"
       },
       {
         "id": "pair-04-competitor",
@@ -345,11 +345,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-08-16T02:26:23.965Z",
-        "startedAt": "2026-08-16T02:26:18.585Z",
+        "scrapedAt": "2026-08-16T11:32:23.572Z",
+        "startedAt": "2026-08-16T11:32:17.965Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-08-16T02:26:23.965Z"
+        "priceObservedAt": "2026-08-16T11:32:23.572Z"
       },
       {
         "id": "pair-04-own",
@@ -363,23 +363,23 @@
         "status": "available",
         "availability": "In Stock",
         "currentPrice": 12.99,
-        "listPrice": 14.99,
+        "listPrice": null,
         "priceSource": "amazon_product_page",
         "coupon": "Coupon: Save 10%: Coupon available when you select Subscribe & Save . Shop items | Terms",
         "seller": "JASPER PET CARE PRODUCTS, INC.",
         "productTitle": "VITADAY All Natural Turkey Tendon Dog Treats Bone (S), 4-Pack | Long-lasting dog training treats, Rawhide-free made of USA-sourced turkey",
         "pageAsin": "B0DNF21SYR",
         "finalUrl": "https://www.amazon.com/dp/B0DNF21SYR?th=1&psc=1&language=en_US&currency=USD",
-        "monthlyBoughtText": "100+ bought in past month",
-        "monthlyBoughtLowerBound": 100,
+        "monthlyBoughtText": "50+ bought in past month",
+        "monthlyBoughtLowerBound": 50,
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-08-16T02:26:23.481Z",
-        "startedAt": "2026-08-16T02:26:17.510Z",
-        "scrapePass": "primary",
+        "scrapedAt": "2026-08-16T11:37:29.285Z",
+        "startedAt": "2026-08-16T11:37:23.534Z",
+        "scrapePass": "retry",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-08-16T02:26:23.481Z"
+        "priceObservedAt": "2026-08-16T11:37:29.285Z"
       },
       {
         "id": "pair-05-competitor",
@@ -405,11 +405,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-08-16T02:26:29.097Z",
-        "startedAt": "2026-08-16T02:26:23.700Z",
+        "scrapedAt": "2026-08-16T11:32:43.498Z",
+        "startedAt": "2026-08-16T11:32:37.810Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-08-16T02:26:29.097Z"
+        "priceObservedAt": "2026-08-16T11:32:43.498Z"
       },
       {
         "id": "pair-05-own",
@@ -435,11 +435,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-08-16T02:27:04.516Z",
-        "startedAt": "2026-08-16T02:26:58.942Z",
+        "scrapedAt": "2026-08-16T11:33:01.643Z",
+        "startedAt": "2026-08-16T11:32:56.299Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-08-16T02:27:04.516Z"
+        "priceObservedAt": "2026-08-16T11:33:01.643Z"
       },
       {
         "id": "pair-06-competitor",
@@ -465,11 +465,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-08-16T02:27:42.846Z",
-        "startedAt": "2026-08-16T02:27:37.056Z",
+        "scrapedAt": "2026-08-16T11:33:35.490Z",
+        "startedAt": "2026-08-16T11:33:29.810Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-08-16T02:27:42.846Z"
+        "priceObservedAt": "2026-08-16T11:33:35.490Z"
       },
       {
         "id": "pair-06-own",
@@ -495,11 +495,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-08-16T02:27:17.167Z",
-        "startedAt": "2026-08-16T02:27:11.692Z",
+        "scrapedAt": "2026-08-16T11:33:40.082Z",
+        "startedAt": "2026-08-16T11:33:34.576Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-08-16T02:27:17.167Z"
+        "priceObservedAt": "2026-08-16T11:33:40.082Z"
       }
     ]
   }
