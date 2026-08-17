@@ -122,23 +122,23 @@
     }
   ],
   "run": {
-    "id": "9dce08d5-e15b-46e9-9fcd-9d88ec6b5886",
-    "startedAt": "2026-08-16T11:30:18.000Z",
-    "finishedAt": "2026-08-16T11:37:56.143Z",
+    "id": "de00084a-b091-41f7-a08e-f0d065bd78c3",
+    "startedAt": "2026-08-17T02:22:59.000Z",
+    "finishedAt": "2026-08-17T02:26:22.557Z",
     "options": {
       "zipCode": "10001",
       "headless": true,
       "strategy": "one-asin-per-runner-v2",
       "primaryRunnerCount": 12,
-      "retryRunnerCount": 2,
+      "retryRunnerCount": 0,
       "transactionalPublish": true,
       "strictUsdFallback": true
     },
     "location": {
-      "applied": false,
+      "applied": true,
       "pricingVerified": true,
       "visibleLocation": "New York 10001",
-      "message": "11 支確認 ZIP 10001；1 支改以 Amazon.com、精確 ASIN 與明確 USD 三重驗證。"
+      "message": "12 支 ASIN 均於獨立 runner 驗證美國 ZIP 10001 後擷取。"
     },
     "results": [
       {
@@ -160,16 +160,16 @@
         "productTitle": "iPaw Turkey Tendon for Dogs, All Natural Human Grade Puppy Chew, Strips | Single Protein, Hypoallergenic, Grain free, Rawhide Alternative Dog Treats, US-Sourced Turkey",
         "pageAsin": "B0CZRN7HXT",
         "finalUrl": "https://www.amazon.com/dp/B0CZRN7HXT?th=1&psc=1&language=en_US&currency=USD",
-        "monthlyBoughtText": "10K+ bought in past month",
-        "monthlyBoughtLowerBound": 10000,
+        "monthlyBoughtText": "8K+ bought in past month",
+        "monthlyBoughtLowerBound": 8000,
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-08-16T11:31:02.778Z",
-        "startedAt": "2026-08-16T11:30:56.997Z",
+        "scrapedAt": "2026-08-17T02:23:45.669Z",
+        "startedAt": "2026-08-17T02:23:40.037Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-08-16T11:31:02.778Z"
+        "priceObservedAt": "2026-08-17T02:23:45.669Z"
       },
       {
         "id": "pair-01-own",
@@ -190,16 +190,16 @@
         "productTitle": "VITADAY Turkey Tendons for Dogs, All Natural, Healthy Dog Treats, Long Lasting, Hypoallergenic Dog Chews, Rawhide Free, USA-Sourced, for Small Dogs, Strips, 3 oz Pack | Long-lasting dog training treats, Rawhide-free made of USA-sourced turkey",
         "pageAsin": "B0DNF4564B",
         "finalUrl": "https://www.amazon.com/dp/B0DNF4564B?th=1&psc=1&language=en_US&currency=USD",
-        "monthlyBoughtText": "3K+ bought in past month",
-        "monthlyBoughtLowerBound": 3000,
+        "monthlyBoughtText": "2K+ bought in past month",
+        "monthlyBoughtLowerBound": 2000,
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-08-16T11:37:29.984Z",
-        "startedAt": "2026-08-16T11:37:24.117Z",
-        "scrapePass": "retry",
+        "scrapedAt": "2026-08-17T02:23:43.083Z",
+        "startedAt": "2026-08-17T02:23:37.342Z",
+        "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-08-16T11:37:29.984Z"
+        "priceObservedAt": "2026-08-17T02:23:43.083Z"
       },
       {
         "id": "pair-02-competitor",
@@ -220,16 +220,16 @@
         "productTitle": "iPaw Turkey Tendon for Dogs Value Pack, All Natural Human Grade Puppy Chew | Strips (5 Packs), Single Protein, Hypoallergenic, Grain free, Rawhide Alternative Dog Treats, US-Sourced Turkey",
         "pageAsin": "B0DWMFGPH3",
         "finalUrl": "https://www.amazon.com/dp/B0DWMFGPH3?th=1&psc=1&language=en_US&currency=USD",
-        "monthlyBoughtText": "800+ bought in past month",
-        "monthlyBoughtLowerBound": 800,
+        "monthlyBoughtText": "600+ bought in past month",
+        "monthlyBoughtLowerBound": 600,
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-08-16T11:30:55.616Z",
-        "startedAt": "2026-08-16T11:30:49.907Z",
+        "scrapedAt": "2026-08-17T02:23:45.026Z",
+        "startedAt": "2026-08-17T02:23:39.178Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-08-16T11:30:55.616Z"
+        "priceObservedAt": "2026-08-17T02:23:45.026Z"
       },
       {
         "id": "pair-02-own",
@@ -255,11 +255,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-08-16T11:31:39.054Z",
-        "startedAt": "2026-08-16T11:31:33.543Z",
+        "scrapedAt": "2026-08-17T02:24:27.663Z",
+        "startedAt": "2026-08-17T02:24:21.835Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-08-16T11:31:39.054Z"
+        "priceObservedAt": "2026-08-17T02:24:27.663Z"
       },
       {
         "id": "pair-03-competitor",
@@ -274,22 +274,22 @@
         "availability": "In Stock",
         "currentPrice": 120,
         "listPrice": null,
-        "priceSource": "exact_asin_search_result",
+        "priceSource": "amazon_product_page",
         "coupon": "",
-        "seller": "",
+        "seller": "PetDelux US",
         "productTitle": "iPaw Turkey Tendon for Dogs Bulk Pack, SQF-Certified Production Process | Strips (10 Packs/Box), Single Protein, Hypoallergenic, Grain free, Rawhide Alternative Dog Treats, US-Sourced Turkey",
         "pageAsin": "B0F4WN2333",
-        "finalUrl": "https://www.amazon.com/dp/B0F4WN2333",
-        "monthlyBoughtText": "50+ bought in past month",
-        "monthlyBoughtLowerBound": 50,
+        "finalUrl": "https://www.amazon.com/dp/B0F4WN2333?th=1&psc=1&language=en_US&currency=USD",
+        "monthlyBoughtText": "",
+        "monthlyBoughtLowerBound": null,
         "error": "",
         "currency": "USD",
-        "locationValidation": "amazon_com_exact_asin_usd",
-        "scrapedAt": "2026-08-16T11:31:52.713Z",
-        "startedAt": "2026-08-16T11:31:33.780Z",
+        "locationValidation": "zip_10001",
+        "scrapedAt": "2026-08-17T02:24:28.848Z",
+        "startedAt": "2026-08-17T02:24:23.004Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-08-16T11:31:52.713Z"
+        "priceObservedAt": "2026-08-17T02:24:28.848Z"
       },
       {
         "id": "pair-03-own",
@@ -315,11 +315,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-08-16T11:32:00.942Z",
-        "startedAt": "2026-08-16T11:31:55.674Z",
+        "scrapedAt": "2026-08-17T02:24:31.676Z",
+        "startedAt": "2026-08-17T02:24:26.222Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-08-16T11:32:00.942Z"
+        "priceObservedAt": "2026-08-17T02:24:31.676Z"
       },
       {
         "id": "pair-04-competitor",
@@ -340,16 +340,16 @@
         "productTitle": "iPaw Turkey Tendon for Dogs, All Natural Human Grade Puppy Chew, Bone | 4 Pcs/Pack (Small), Single Protein, Hypoallergenic, Grain free, Rawhide Alternative Dog Treats, US-Sourced Turkey",
         "pageAsin": "B0DSKK95GQ",
         "finalUrl": "https://www.amazon.com/dp/B0DSKK95GQ?th=1&psc=1&language=en_US&currency=USD",
-        "monthlyBoughtText": "200+ bought in past month",
-        "monthlyBoughtLowerBound": 200,
+        "monthlyBoughtText": "100+ bought in past month",
+        "monthlyBoughtLowerBound": 100,
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-08-16T11:32:23.572Z",
-        "startedAt": "2026-08-16T11:32:17.965Z",
+        "scrapedAt": "2026-08-17T02:25:12.009Z",
+        "startedAt": "2026-08-17T02:25:06.429Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-08-16T11:32:23.572Z"
+        "priceObservedAt": "2026-08-17T02:25:12.009Z"
       },
       {
         "id": "pair-04-own",
@@ -375,11 +375,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-08-16T11:37:29.285Z",
-        "startedAt": "2026-08-16T11:37:23.534Z",
-        "scrapePass": "retry",
+        "scrapedAt": "2026-08-17T02:25:05.721Z",
+        "startedAt": "2026-08-17T02:25:00.056Z",
+        "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-08-16T11:37:29.285Z"
+        "priceObservedAt": "2026-08-17T02:25:05.721Z"
       },
       {
         "id": "pair-05-competitor",
@@ -405,11 +405,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-08-16T11:32:43.498Z",
-        "startedAt": "2026-08-16T11:32:37.810Z",
+        "scrapedAt": "2026-08-17T02:25:08.033Z",
+        "startedAt": "2026-08-17T02:25:02.310Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-08-16T11:32:43.498Z"
+        "priceObservedAt": "2026-08-17T02:25:08.033Z"
       },
       {
         "id": "pair-05-own",
@@ -435,11 +435,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-08-16T11:33:01.643Z",
-        "startedAt": "2026-08-16T11:32:56.299Z",
+        "scrapedAt": "2026-08-17T02:25:46.150Z",
+        "startedAt": "2026-08-17T02:25:40.648Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-08-16T11:33:01.643Z"
+        "priceObservedAt": "2026-08-17T02:25:46.150Z"
       },
       {
         "id": "pair-06-competitor",
@@ -460,16 +460,16 @@
         "productTitle": "iPaw 10 Pcs Value Pack Turkey Tendons Ring for Dog, All Natural Human Grade | Single Protein, Hypoallergenic, Grain free, Rawhide Alternative Dog Treats, US-Sourced Turkey",
         "pageAsin": "B0F1385154",
         "finalUrl": "https://www.amazon.com/dp/B0F1385154?th=1&psc=1&language=en_US&currency=USD",
-        "monthlyBoughtText": "3K+ bought in past month",
-        "monthlyBoughtLowerBound": 3000,
+        "monthlyBoughtText": "2K+ bought in past month",
+        "monthlyBoughtLowerBound": 2000,
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-08-16T11:33:35.490Z",
-        "startedAt": "2026-08-16T11:33:29.810Z",
+        "scrapedAt": "2026-08-17T02:25:49.230Z",
+        "startedAt": "2026-08-17T02:25:43.439Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-08-16T11:33:35.490Z"
+        "priceObservedAt": "2026-08-17T02:25:49.230Z"
       },
       {
         "id": "pair-06-own",
@@ -495,11 +495,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-08-16T11:33:40.082Z",
-        "startedAt": "2026-08-16T11:33:34.576Z",
+        "scrapedAt": "2026-08-17T02:25:57.375Z",
+        "startedAt": "2026-08-17T02:25:51.654Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-08-16T11:33:40.082Z"
+        "priceObservedAt": "2026-08-17T02:25:57.375Z"
       }
     ]
   }
