@@ -1,7 +1,7 @@
 [
   {
     "date": "2026-08-18",
-    "capturedAt": "2026-08-18T04:21:28.964Z",
+    "capturedAt": "2026-08-18T05:49:19.707Z",
     "items": [
       {
         "id": "pair-01-competitor",
@@ -12,7 +12,7 @@
         "status": "available",
         "price": 13.99,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-08-18T04:18:42.416Z",
+        "priceObservedAt": "2026-08-18T05:41:35.838Z",
         "monthlyBoughtText": "10K+ bought in past month",
         "monthlyBoughtLowerBound": 10000
       },
@@ -25,7 +25,7 @@
         "status": "available",
         "price": 11.99,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-08-18T04:18:41.810Z",
+        "priceObservedAt": "2026-08-18T05:42:04.500Z",
         "monthlyBoughtText": "4K+ bought in past month",
         "monthlyBoughtLowerBound": 4000
       },
@@ -38,7 +38,7 @@
         "status": "available",
         "price": 60,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-08-18T04:18:36.027Z",
+        "priceObservedAt": "2026-08-18T05:41:41.327Z",
         "monthlyBoughtText": "900+ bought in past month",
         "monthlyBoughtLowerBound": 900
       },
@@ -51,7 +51,7 @@
         "status": "available",
         "price": 57.99,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-08-18T04:19:25.649Z",
+        "priceObservedAt": "2026-08-18T05:42:21.596Z",
         "monthlyBoughtText": "",
         "monthlyBoughtLowerBound": null
       },
@@ -64,7 +64,7 @@
         "status": "available",
         "price": 120,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-08-18T04:19:21.170Z",
+        "priceObservedAt": "2026-08-18T05:45:18.489Z",
         "monthlyBoughtText": "50+ bought in past month",
         "monthlyBoughtLowerBound": 50
       },
@@ -77,7 +77,7 @@
         "status": "available",
         "price": 113.99,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-08-18T04:19:24.499Z",
+        "priceObservedAt": "2026-08-18T05:42:53.964Z",
         "monthlyBoughtText": "",
         "monthlyBoughtLowerBound": null
       },
@@ -90,7 +90,7 @@
         "status": "available",
         "price": 14.99,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-08-18T04:20:13.103Z",
+        "priceObservedAt": "2026-08-18T05:43:31.972Z",
         "monthlyBoughtText": "200+ bought in past month",
         "monthlyBoughtLowerBound": 200
       },
@@ -103,7 +103,7 @@
         "status": "available",
         "price": 12.99,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-08-18T04:20:13.798Z",
+        "priceObservedAt": "2026-08-18T05:43:38.301Z",
         "monthlyBoughtText": "100+ bought in past month",
         "monthlyBoughtLowerBound": 100
       },
@@ -116,7 +116,7 @@
         "status": "available",
         "price": 28,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-08-18T04:20:06.556Z",
+        "priceObservedAt": "2026-08-18T05:44:37.839Z",
         "monthlyBoughtText": "100+ bought in past month",
         "monthlyBoughtLowerBound": 100
       },
@@ -129,7 +129,7 @@
         "status": "available",
         "price": 19.99,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-08-18T04:20:53.419Z",
+        "priceObservedAt": "2026-08-18T05:44:22.615Z",
         "monthlyBoughtText": "",
         "monthlyBoughtLowerBound": null
       },
@@ -142,7 +142,7 @@
         "status": "available",
         "price": 19.99,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-08-18T04:20:53.913Z",
+        "priceObservedAt": "2026-08-18T05:49:02.530Z",
         "monthlyBoughtText": "3K+ bought in past month",
         "monthlyBoughtLowerBound": 3000
       },
@@ -155,9 +155,9 @@
         "status": "available",
         "price": 17.99,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-08-18T04:20:55.082Z",
-        "monthlyBoughtText": "50+ bought in past month",
-        "monthlyBoughtLowerBound": 50
+        "priceObservedAt": "2026-08-18T05:45:23.366Z",
+        "monthlyBoughtText": "",
+        "monthlyBoughtLowerBound": null
       }
     ]
   },
