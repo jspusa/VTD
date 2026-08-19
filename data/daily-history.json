@@ -1,7 +1,7 @@
 [
   {
     "date": "2026-08-19",
-    "capturedAt": "2026-08-19T02:34:03.682Z",
+    "capturedAt": "2026-08-19T04:22:21.282Z",
     "items": [
       {
         "id": "pair-01-competitor",
@@ -12,7 +12,7 @@
         "status": "available",
         "price": 13.99,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-08-19T02:24:55.479Z",
+        "priceObservedAt": "2026-08-19T04:19:24.353Z",
         "monthlyBoughtText": "10K+ bought in past month",
         "monthlyBoughtLowerBound": 10000
       },
@@ -25,7 +25,7 @@
         "status": "available",
         "price": 11.99,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-08-19T02:22:38.266Z",
+        "priceObservedAt": "2026-08-19T04:19:22.668Z",
         "monthlyBoughtText": "4K+ bought in past month",
         "monthlyBoughtLowerBound": 4000
       },
@@ -38,7 +38,7 @@
         "status": "available",
         "price": 60,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-08-19T02:24:57.707Z",
+        "priceObservedAt": "2026-08-19T04:18:55.143Z",
         "monthlyBoughtText": "900+ bought in past month",
         "monthlyBoughtLowerBound": 900
       },
@@ -51,7 +51,7 @@
         "status": "available",
         "price": 57.99,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-08-19T02:25:33.475Z",
+        "priceObservedAt": "2026-08-19T04:19:40.151Z",
         "monthlyBoughtText": "",
         "monthlyBoughtLowerBound": null
       },
@@ -64,7 +64,7 @@
         "status": "available",
         "price": 120,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-08-19T02:28:41.184Z",
+        "priceObservedAt": "2026-08-19T04:20:32.090Z",
         "monthlyBoughtText": "50+ bought in past month",
         "monthlyBoughtLowerBound": 50
       },
@@ -77,7 +77,7 @@
         "status": "available",
         "price": 113.99,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-08-19T02:25:34.240Z",
+        "priceObservedAt": "2026-08-19T04:20:04.322Z",
         "monthlyBoughtText": "",
         "monthlyBoughtLowerBound": null
       },
@@ -90,7 +90,7 @@
         "status": "available",
         "price": 14.99,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-08-19T02:28:05.766Z",
+        "priceObservedAt": "2026-08-19T04:20:48.260Z",
         "monthlyBoughtText": "200+ bought in past month",
         "monthlyBoughtLowerBound": 200
       },
@@ -103,7 +103,7 @@
         "status": "available",
         "price": 12.99,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-08-19T02:27:47.129Z",
+        "priceObservedAt": "2026-08-19T04:20:44.308Z",
         "monthlyBoughtText": "100+ bought in past month",
         "monthlyBoughtLowerBound": 100
       },
@@ -116,7 +116,7 @@
         "status": "available",
         "price": 28,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-08-19T02:30:22.627Z",
+        "priceObservedAt": "2026-08-19T04:21:07.384Z",
         "monthlyBoughtText": "100+ bought in past month",
         "monthlyBoughtLowerBound": 100
       },
@@ -129,7 +129,7 @@
         "status": "available",
         "price": 19.99,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-08-19T02:29:52.285Z",
+        "priceObservedAt": "2026-08-19T04:21:39.810Z",
         "monthlyBoughtText": "",
         "monthlyBoughtLowerBound": null
       },
@@ -142,7 +142,7 @@
         "status": "available",
         "price": 19.99,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-08-19T02:33:26.780Z",
+        "priceObservedAt": "2026-08-19T04:21:32.427Z",
         "monthlyBoughtText": "3K+ bought in past month",
         "monthlyBoughtLowerBound": 3000
       },
@@ -155,7 +155,7 @@
         "status": "available",
         "price": 17.99,
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-08-19T02:32:35.938Z",
+        "priceObservedAt": "2026-08-19T04:21:47.778Z",
         "monthlyBoughtText": "50+ bought in past month",
         "monthlyBoughtLowerBound": 50
       }
