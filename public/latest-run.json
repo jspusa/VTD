@@ -122,9 +122,9 @@
     }
   ],
   "run": {
-    "id": "e7180dd4-02ef-4893-80c2-144a77f961dc",
-    "startedAt": "2026-08-26T05:43:58.000Z",
-    "finishedAt": "2026-08-26T05:47:37.005Z",
+    "id": "b88c1aaa-8c70-4559-abc5-3c5c67276d68",
+    "startedAt": "2026-08-26T07:54:39.000Z",
+    "finishedAt": "2026-08-26T07:58:25.865Z",
     "options": {
       "zipCode": "10001",
       "headless": true,
@@ -165,11 +165,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-08-26T05:44:39.824Z",
-        "startedAt": "2026-08-26T05:44:33.997Z",
+        "scrapedAt": "2026-08-26T07:55:30.334Z",
+        "startedAt": "2026-08-26T07:55:24.783Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-08-26T05:44:39.824Z"
+        "priceObservedAt": "2026-08-26T07:55:30.334Z"
       },
       {
         "id": "pair-01-own",
@@ -183,7 +183,7 @@
         "status": "available",
         "availability": "In Stock",
         "currentPrice": 11.99,
-        "listPrice": 14,
+        "listPrice": 23.18,
         "priceSource": "amazon_product_page",
         "coupon": "Coupon: Apply $3 coupon Terms",
         "seller": "JASPER PET CARE PRODUCTS, INC.",
@@ -195,11 +195,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-08-26T05:44:41.940Z",
-        "startedAt": "2026-08-26T05:44:35.976Z",
+        "scrapedAt": "2026-08-26T07:55:26.969Z",
+        "startedAt": "2026-08-26T07:55:21.197Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-08-26T05:44:41.940Z"
+        "priceObservedAt": "2026-08-26T07:55:26.969Z"
       },
       {
         "id": "pair-02-competitor",
@@ -220,16 +220,16 @@
         "productTitle": "iPaw Turkey Tendon for Dogs Value Pack, All Natural Human Grade Puppy Chew",
         "pageAsin": "B0DWMFGPH3",
         "finalUrl": "https://www.amazon.com/dp/B0DWMFGPH3?th=1&psc=1&language=en_US&currency=USD",
-        "monthlyBoughtText": "900+ bought in past month",
-        "monthlyBoughtLowerBound": 900,
+        "monthlyBoughtText": "800+ bought in past month",
+        "monthlyBoughtLowerBound": 800,
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-08-26T05:44:45.196Z",
-        "startedAt": "2026-08-26T05:44:39.549Z",
+        "scrapedAt": "2026-08-26T07:55:21.360Z",
+        "startedAt": "2026-08-26T07:55:15.249Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-08-26T05:44:45.196Z"
+        "priceObservedAt": "2026-08-26T07:55:21.360Z"
       },
       {
         "id": "pair-02-own",
@@ -255,11 +255,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-08-26T05:45:32.062Z",
-        "startedAt": "2026-08-26T05:45:26.711Z",
+        "scrapedAt": "2026-08-26T07:56:00.604Z",
+        "startedAt": "2026-08-26T07:55:55.097Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-08-26T05:45:32.062Z"
+        "priceObservedAt": "2026-08-26T07:56:00.604Z"
       },
       {
         "id": "pair-03-competitor",
@@ -285,11 +285,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-08-26T05:45:21.859Z",
-        "startedAt": "2026-08-26T05:45:16.167Z",
+        "scrapedAt": "2026-08-26T07:56:03.571Z",
+        "startedAt": "2026-08-26T07:55:57.879Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-08-26T05:45:21.859Z"
+        "priceObservedAt": "2026-08-26T07:56:03.571Z"
       },
       {
         "id": "pair-03-own",
@@ -315,11 +315,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-08-26T05:45:33.885Z",
-        "startedAt": "2026-08-26T05:45:28.172Z",
+        "scrapedAt": "2026-08-26T07:56:44.587Z",
+        "startedAt": "2026-08-26T07:56:38.805Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-08-26T05:45:33.885Z"
+        "priceObservedAt": "2026-08-26T07:56:44.587Z"
       },
       {
         "id": "pair-04-competitor",
@@ -333,7 +333,7 @@
         "status": "available",
         "availability": "In Stock",
         "currentPrice": 14.99,
-        "listPrice": null,
+        "listPrice": 22.63,
         "priceSource": "amazon_product_page",
         "coupon": "Coupon: Save 15%: Coupon available when you select Subscribe & Save . Shop items | Terms",
         "seller": "PetDelux US",
@@ -345,11 +345,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-08-26T05:46:11.275Z",
-        "startedAt": "2026-08-26T05:46:05.951Z",
+        "scrapedAt": "2026-08-26T07:56:37.253Z",
+        "startedAt": "2026-08-26T07:56:31.671Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-08-26T05:46:11.275Z"
+        "priceObservedAt": "2026-08-26T07:56:37.253Z"
       },
       {
         "id": "pair-04-own",
@@ -375,11 +375,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-08-26T05:46:12.220Z",
-        "startedAt": "2026-08-26T05:46:06.344Z",
+        "scrapedAt": "2026-08-26T07:56:46.531Z",
+        "startedAt": "2026-08-26T07:56:40.835Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-08-26T05:46:12.220Z"
+        "priceObservedAt": "2026-08-26T07:56:46.531Z"
       },
       {
         "id": "pair-05-competitor",
@@ -405,11 +405,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-08-26T05:46:18.837Z",
-        "startedAt": "2026-08-26T05:46:13.180Z",
+        "scrapedAt": "2026-08-26T07:57:14.818Z",
+        "startedAt": "2026-08-26T07:57:09.176Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-08-26T05:46:18.837Z"
+        "priceObservedAt": "2026-08-26T07:57:14.818Z"
       },
       {
         "id": "pair-05-own",
@@ -435,11 +435,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-08-26T05:46:57.837Z",
-        "startedAt": "2026-08-26T05:46:52.412Z",
+        "scrapedAt": "2026-08-26T07:58:01.513Z",
+        "startedAt": "2026-08-26T07:57:56.316Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-08-26T05:46:57.837Z"
+        "priceObservedAt": "2026-08-26T07:58:01.513Z"
       },
       {
         "id": "pair-06-competitor",
@@ -465,11 +465,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-08-26T05:46:58.370Z",
-        "startedAt": "2026-08-26T05:46:52.358Z",
+        "scrapedAt": "2026-08-26T07:57:25.383Z",
+        "startedAt": "2026-08-26T07:57:19.585Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-08-26T05:46:58.370Z"
+        "priceObservedAt": "2026-08-26T07:57:25.383Z"
       },
       {
         "id": "pair-06-own",
@@ -495,11 +495,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-08-26T05:47:05.398Z",
-        "startedAt": "2026-08-26T05:46:59.528Z",
+        "scrapedAt": "2026-08-26T07:57:52.652Z",
+        "startedAt": "2026-08-26T07:57:47.112Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-08-26T05:47:05.398Z"
+        "priceObservedAt": "2026-08-26T07:57:52.652Z"
       }
     ]
   }
