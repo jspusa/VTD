@@ -122,9 +122,9 @@
     }
   ],
   "run": {
-    "id": "6e7bb3ad-c5a3-408b-867d-0f6089f625ea",
-    "startedAt": "2026-08-26T11:38:32.000Z",
-    "finishedAt": "2026-08-26T11:42:58.858Z",
+    "id": "a05114b6-3ffb-4420-9cca-994fa9708891",
+    "startedAt": "2026-08-27T11:08:36.000Z",
+    "finishedAt": "2026-08-27T11:12:38.351Z",
     "options": {
       "zipCode": "10001",
       "headless": true,
@@ -153,7 +153,7 @@
         "status": "available",
         "availability": "In Stock",
         "currentPrice": 13.99,
-        "listPrice": 23.18,
+        "listPrice": null,
         "priceSource": "amazon_product_page",
         "coupon": "Coupon: Save 15%: Coupon available when you select Subscribe & Save . Shop items | Terms",
         "seller": "PetDelux US",
@@ -165,11 +165,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-08-26T11:39:19.803Z",
-        "startedAt": "2026-08-26T11:39:14.120Z",
+        "scrapedAt": "2026-08-27T11:09:26.850Z",
+        "startedAt": "2026-08-27T11:09:21.426Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-08-26T11:39:19.803Z"
+        "priceObservedAt": "2026-08-27T11:09:26.850Z"
       },
       {
         "id": "pair-01-own",
@@ -190,16 +190,16 @@
         "productTitle": "VITADAY Turkey Tendons for Dogs, All Natural, Healthy Dog Treats, Long Lasting, Hypoallergenic Dog Chews, Rawhide Free, USA-Sourced, for Small Dogs, Strips, 3 oz Pack",
         "pageAsin": "B0DNF4564B",
         "finalUrl": "https://www.amazon.com/dp/B0DNF4564B?th=1&psc=1&language=en_US&currency=USD",
-        "monthlyBoughtText": "4K+ bought in past month",
-        "monthlyBoughtLowerBound": 4000,
+        "monthlyBoughtText": "5K+ bought in past month",
+        "monthlyBoughtLowerBound": 5000,
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-08-26T11:39:24.131Z",
-        "startedAt": "2026-08-26T11:39:18.105Z",
+        "scrapedAt": "2026-08-27T11:09:46.574Z",
+        "startedAt": "2026-08-27T11:09:40.851Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-08-26T11:39:24.131Z"
+        "priceObservedAt": "2026-08-27T11:09:46.574Z"
       },
       {
         "id": "pair-02-competitor",
@@ -225,11 +225,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-08-26T11:39:21.831Z",
-        "startedAt": "2026-08-26T11:39:15.847Z",
+        "scrapedAt": "2026-08-27T11:09:17.038Z",
+        "startedAt": "2026-08-27T11:09:10.975Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-08-26T11:39:21.831Z"
+        "priceObservedAt": "2026-08-27T11:09:17.038Z"
       },
       {
         "id": "pair-02-own",
@@ -242,8 +242,8 @@
         "order": 4,
         "status": "available",
         "availability": "In Stock",
-        "currentPrice": 57.99,
-        "listPrice": 61.86,
+        "currentPrice": 58,
+        "listPrice": 61.87,
         "priceSource": "amazon_product_page",
         "coupon": "Coupon: Apply $5 coupon Terms",
         "seller": "JASPER PET CARE PRODUCTS, INC.",
@@ -255,11 +255,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-08-26T11:40:08.768Z",
-        "startedAt": "2026-08-26T11:40:03.030Z",
+        "scrapedAt": "2026-08-27T11:10:02.860Z",
+        "startedAt": "2026-08-27T11:09:57.026Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-08-26T11:40:08.768Z"
+        "priceObservedAt": "2026-08-27T11:10:02.860Z"
       },
       {
         "id": "pair-03-competitor",
@@ -285,11 +285,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-08-26T11:40:50.091Z",
-        "startedAt": "2026-08-26T11:40:44.562Z",
+        "scrapedAt": "2026-08-27T11:10:20.879Z",
+        "startedAt": "2026-08-27T11:10:15.120Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-08-26T11:40:50.091Z"
+        "priceObservedAt": "2026-08-27T11:10:20.879Z"
       },
       {
         "id": "pair-03-own",
@@ -302,7 +302,7 @@
         "order": 6,
         "status": "available",
         "availability": "In Stock",
-        "currentPrice": 113.99,
+        "currentPrice": 118,
         "listPrice": null,
         "priceSource": "amazon_product_page",
         "coupon": "Coupon: Apply $10 coupon Terms",
@@ -315,11 +315,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-08-26T11:40:05.753Z",
-        "startedAt": "2026-08-26T11:40:00.312Z",
+        "scrapedAt": "2026-08-27T11:10:33.321Z",
+        "startedAt": "2026-08-27T11:10:27.545Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-08-26T11:40:05.753Z"
+        "priceObservedAt": "2026-08-27T11:10:33.321Z"
       },
       {
         "id": "pair-04-competitor",
@@ -345,11 +345,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-08-26T11:41:36.776Z",
-        "startedAt": "2026-08-26T11:41:31.447Z",
+        "scrapedAt": "2026-08-27T11:10:41.015Z",
+        "startedAt": "2026-08-27T11:10:35.323Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-08-26T11:41:36.776Z"
+        "priceObservedAt": "2026-08-27T11:10:41.015Z"
       },
       {
         "id": "pair-04-own",
@@ -363,7 +363,7 @@
         "status": "available",
         "availability": "In Stock",
         "currentPrice": 12.99,
-        "listPrice": null,
+        "listPrice": 28.72,
         "priceSource": "amazon_product_page",
         "coupon": "Coupon: Save 10%: Coupon available when you select Subscribe & Save . Shop items | Terms",
         "seller": "JASPER PET CARE PRODUCTS, INC.",
@@ -375,11 +375,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-08-26T11:40:58.264Z",
-        "startedAt": "2026-08-26T11:40:52.644Z",
+        "scrapedAt": "2026-08-27T11:11:13.223Z",
+        "startedAt": "2026-08-27T11:11:07.533Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-08-26T11:40:58.264Z"
+        "priceObservedAt": "2026-08-27T11:11:13.223Z"
       },
       {
         "id": "pair-05-competitor",
@@ -405,11 +405,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-08-26T11:41:29.791Z",
-        "startedAt": "2026-08-26T11:41:23.981Z",
+        "scrapedAt": "2026-08-27T11:11:37.340Z",
+        "startedAt": "2026-08-27T11:11:31.551Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-08-26T11:41:29.791Z"
+        "priceObservedAt": "2026-08-27T11:11:37.340Z"
       },
       {
         "id": "pair-05-own",
@@ -435,11 +435,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-08-26T11:42:03.014Z",
-        "startedAt": "2026-08-26T11:41:57.457Z",
+        "scrapedAt": "2026-08-27T11:11:23.050Z",
+        "startedAt": "2026-08-27T11:11:17.459Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-08-26T11:42:03.014Z"
+        "priceObservedAt": "2026-08-27T11:11:23.050Z"
       },
       {
         "id": "pair-06-competitor",
@@ -465,11 +465,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-08-26T11:42:22.138Z",
-        "startedAt": "2026-08-26T11:42:16.796Z",
+        "scrapedAt": "2026-08-27T11:12:05.763Z",
+        "startedAt": "2026-08-27T11:11:59.947Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-08-26T11:42:22.138Z"
+        "priceObservedAt": "2026-08-27T11:12:05.763Z"
       },
       {
         "id": "pair-06-own",
@@ -482,8 +482,8 @@
         "order": 12,
         "status": "available",
         "availability": "In Stock",
-        "currentPrice": 17.99,
-        "listPrice": 19.99,
+        "currentPrice": 19.99,
+        "listPrice": null,
         "priceSource": "amazon_product_page",
         "coupon": "",
         "seller": "JASPER PET CARE PRODUCTS, INC.",
@@ -495,11 +495,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-08-26T11:42:34.183Z",
-        "startedAt": "2026-08-26T11:42:28.587Z",
+        "scrapedAt": "2026-08-27T11:12:00.549Z",
+        "startedAt": "2026-08-27T11:11:54.878Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-08-26T11:42:34.183Z"
+        "priceObservedAt": "2026-08-27T11:12:00.549Z"
       }
     ]
   }
