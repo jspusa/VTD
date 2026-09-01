@@ -122,9 +122,9 @@
     }
   ],
   "run": {
-    "id": "714b0164-2017-48f2-9817-c542d1688eac",
-    "startedAt": "2026-09-01T06:12:14.000Z",
-    "finishedAt": "2026-09-01T06:16:18.881Z",
+    "id": "c1c5ca21-a565-417a-8f1a-9d81141fece8",
+    "startedAt": "2026-09-01T11:58:00.000Z",
+    "finishedAt": "2026-09-01T12:02:11.490Z",
     "options": {
       "zipCode": "10001",
       "headless": true,
@@ -165,11 +165,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-09-01T06:12:50.552Z",
-        "startedAt": "2026-09-01T06:12:44.882Z",
+        "scrapedAt": "2026-09-01T11:58:48.329Z",
+        "startedAt": "2026-09-01T11:58:42.350Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-09-01T06:12:50.552Z"
+        "priceObservedAt": "2026-09-01T11:58:48.329Z"
       },
       {
         "id": "pair-01-own",
@@ -185,7 +185,7 @@
         "currentPrice": 11.99,
         "listPrice": null,
         "priceSource": "amazon_product_page",
-        "coupon": "Coupon: Apply $3 coupon Terms",
+        "coupon": "",
         "seller": "JASPER PET CARE PRODUCTS, INC.",
         "productTitle": "VITADAY Turkey Tendons for Dogs, All Natural, Healthy Dog Treats, Long Lasting, Hypoallergenic Dog Chews, Rawhide Free, USA-Sourced, for Small Dogs, Strips, 3 oz Pack",
         "pageAsin": "B0DNF4564B",
@@ -195,11 +195,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-09-01T06:13:03.235Z",
-        "startedAt": "2026-09-01T06:12:57.725Z",
+        "scrapedAt": "2026-09-01T11:58:57.320Z",
+        "startedAt": "2026-09-01T11:58:51.590Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-09-01T06:13:03.235Z"
+        "priceObservedAt": "2026-09-01T11:58:57.320Z"
       },
       {
         "id": "pair-02-competitor",
@@ -225,11 +225,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-09-01T06:12:55.958Z",
-        "startedAt": "2026-09-01T06:12:50.383Z",
+        "scrapedAt": "2026-09-01T11:58:37.457Z",
+        "startedAt": "2026-09-01T11:58:31.553Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-09-01T06:12:55.958Z"
+        "priceObservedAt": "2026-09-01T11:58:37.457Z"
       },
       {
         "id": "pair-02-own",
@@ -242,10 +242,10 @@
         "order": 4,
         "status": "available",
         "availability": "In Stock",
-        "currentPrice": 58,
-        "listPrice": 61.87,
+        "currentPrice": 57.99,
+        "listPrice": 61.86,
         "priceSource": "amazon_product_page",
-        "coupon": "Coupon: Apply $5 coupon Terms",
+        "coupon": "",
         "seller": "JASPER PET CARE PRODUCTS, INC.",
         "productTitle": "VITADAY All Natural Turkey Tendon Dog Treats Strips, 5-Pack",
         "pageAsin": "B0H5JPQKKT",
@@ -255,11 +255,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-09-01T06:14:00.329Z",
-        "startedAt": "2026-09-01T06:13:54.736Z",
+        "scrapedAt": "2026-09-01T11:59:16.394Z",
+        "startedAt": "2026-09-01T11:59:10.607Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-09-01T06:14:00.329Z"
+        "priceObservedAt": "2026-09-01T11:59:16.394Z"
       },
       {
         "id": "pair-03-competitor",
@@ -273,7 +273,7 @@
         "status": "available",
         "availability": "In Stock",
         "currentPrice": 120,
-        "listPrice": 123.43,
+        "listPrice": null,
         "priceSource": "amazon_product_page",
         "coupon": "Coupon: Save 15%: Coupon available when you select Subscribe & Save . Shop items | Terms",
         "seller": "PetDelux US",
@@ -285,11 +285,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-09-01T06:13:34.890Z",
-        "startedAt": "2026-09-01T06:13:29.453Z",
+        "scrapedAt": "2026-09-01T11:59:27.928Z",
+        "startedAt": "2026-09-01T11:59:22.089Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-09-01T06:13:34.890Z"
+        "priceObservedAt": "2026-09-01T11:59:27.928Z"
       },
       {
         "id": "pair-03-own",
@@ -302,7 +302,7 @@
         "order": 6,
         "status": "available",
         "availability": "In Stock",
-        "currentPrice": 118,
+        "currentPrice": 113.99,
         "listPrice": null,
         "priceSource": "amazon_product_page",
         "coupon": "",
@@ -315,11 +315,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-09-01T06:14:05.779Z",
-        "startedAt": "2026-09-01T06:14:00.476Z",
+        "scrapedAt": "2026-09-01T11:59:40.901Z",
+        "startedAt": "2026-09-01T11:59:35.294Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-09-01T06:14:05.779Z"
+        "priceObservedAt": "2026-09-01T11:59:40.901Z"
       },
       {
         "id": "pair-04-competitor",
@@ -340,16 +340,16 @@
         "productTitle": "iPaw Turkey Tendon for Dogs, All Natural Human Grade Puppy Chew, Bone",
         "pageAsin": "B0DSKK95GQ",
         "finalUrl": "https://www.amazon.com/dp/B0DSKK95GQ?th=1&psc=1&language=en_US&currency=USD",
-        "monthlyBoughtText": "300+ bought in past month",
-        "monthlyBoughtLowerBound": 300,
+        "monthlyBoughtText": "200+ bought in past month",
+        "monthlyBoughtLowerBound": 200,
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-09-01T06:14:13.644Z",
-        "startedAt": "2026-09-01T06:14:08.140Z",
+        "scrapedAt": "2026-09-01T11:59:57.538Z",
+        "startedAt": "2026-09-01T11:59:52.083Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-09-01T06:14:13.644Z"
+        "priceObservedAt": "2026-09-01T11:59:57.538Z"
       },
       {
         "id": "pair-04-own",
@@ -375,11 +375,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-09-01T06:15:09.933Z",
-        "startedAt": "2026-09-01T06:15:04.258Z",
+        "scrapedAt": "2026-09-01T12:00:14.130Z",
+        "startedAt": "2026-09-01T12:00:08.623Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-09-01T06:15:09.933Z"
+        "priceObservedAt": "2026-09-01T12:00:14.130Z"
       },
       {
         "id": "pair-05-competitor",
@@ -405,11 +405,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-09-01T06:14:46.557Z",
-        "startedAt": "2026-09-01T06:14:40.990Z",
+        "scrapedAt": "2026-09-01T12:00:21.538Z",
+        "startedAt": "2026-09-01T12:00:15.319Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-09-01T06:14:46.557Z"
+        "priceObservedAt": "2026-09-01T12:00:21.538Z"
       },
       {
         "id": "pair-05-own",
@@ -435,11 +435,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-09-01T06:14:51.942Z",
-        "startedAt": "2026-09-01T06:14:46.505Z",
+        "scrapedAt": "2026-09-01T12:00:36.841Z",
+        "startedAt": "2026-09-01T12:00:31.269Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-09-01T06:14:51.942Z"
+        "priceObservedAt": "2026-09-01T12:00:36.841Z"
       },
       {
         "id": "pair-06-competitor",
@@ -465,11 +465,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-09-01T06:15:32.181Z",
-        "startedAt": "2026-09-01T06:15:26.415Z",
+        "scrapedAt": "2026-09-01T12:01:33.290Z",
+        "startedAt": "2026-09-01T12:01:27.672Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-09-01T06:15:32.181Z"
+        "priceObservedAt": "2026-09-01T12:01:33.290Z"
       },
       {
         "id": "pair-06-own",
@@ -482,8 +482,8 @@
         "order": 12,
         "status": "available",
         "availability": "In Stock",
-        "currentPrice": 19.99,
-        "listPrice": null,
+        "currentPrice": 17.99,
+        "listPrice": 19.99,
         "priceSource": "amazon_product_page",
         "coupon": "",
         "seller": "JASPER PET CARE PRODUCTS, INC.",
@@ -495,11 +495,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-09-01T06:15:45.419Z",
-        "startedAt": "2026-09-01T06:15:40.050Z",
+        "scrapedAt": "2026-09-01T12:01:13.919Z",
+        "startedAt": "2026-09-01T12:01:08.188Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-09-01T06:15:45.419Z"
+        "priceObservedAt": "2026-09-01T12:01:13.919Z"
       }
     ]
   }
