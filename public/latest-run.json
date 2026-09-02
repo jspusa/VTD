@@ -122,9 +122,9 @@
     }
   ],
   "run": {
-    "id": "c1c5ca21-a565-417a-8f1a-9d81141fece8",
-    "startedAt": "2026-09-01T11:58:00.000Z",
-    "finishedAt": "2026-09-01T12:02:11.490Z",
+    "id": "c695851f-80c4-4740-b22b-e1be94c27b9d",
+    "startedAt": "2026-09-02T05:41:57.000Z",
+    "finishedAt": "2026-09-02T05:46:01.974Z",
     "options": {
       "zipCode": "10001",
       "headless": true,
@@ -165,11 +165,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-09-01T11:58:48.329Z",
-        "startedAt": "2026-09-01T11:58:42.350Z",
+        "scrapedAt": "2026-09-02T05:42:37.784Z",
+        "startedAt": "2026-09-02T05:42:32.012Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-09-01T11:58:48.329Z"
+        "priceObservedAt": "2026-09-02T05:42:37.784Z"
       },
       {
         "id": "pair-01-own",
@@ -195,11 +195,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-09-01T11:58:57.320Z",
-        "startedAt": "2026-09-01T11:58:51.590Z",
+        "scrapedAt": "2026-09-02T05:42:47.069Z",
+        "startedAt": "2026-09-02T05:42:41.483Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-09-01T11:58:57.320Z"
+        "priceObservedAt": "2026-09-02T05:42:47.069Z"
       },
       {
         "id": "pair-02-competitor",
@@ -220,16 +220,16 @@
         "productTitle": "iPaw Turkey Tendon for Dogs Value Pack, All Natural Human Grade Puppy Chew",
         "pageAsin": "B0DWMFGPH3",
         "finalUrl": "https://www.amazon.com/dp/B0DWMFGPH3?th=1&psc=1&language=en_US&currency=USD",
-        "monthlyBoughtText": "800+ bought in past month",
-        "monthlyBoughtLowerBound": 800,
+        "monthlyBoughtText": "900+ bought in past month",
+        "monthlyBoughtLowerBound": 900,
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-09-01T11:58:37.457Z",
-        "startedAt": "2026-09-01T11:58:31.553Z",
+        "scrapedAt": "2026-09-02T05:42:59.087Z",
+        "startedAt": "2026-09-02T05:42:53.204Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-09-01T11:58:37.457Z"
+        "priceObservedAt": "2026-09-02T05:42:59.087Z"
       },
       {
         "id": "pair-02-own",
@@ -250,16 +250,16 @@
         "productTitle": "VITADAY All Natural Turkey Tendon Dog Treats Strips, 5-Pack",
         "pageAsin": "B0H5JPQKKT",
         "finalUrl": "https://www.amazon.com/dp/B0H5JPQKKT?th=1&psc=1&language=en_US&currency=USD",
-        "monthlyBoughtText": "",
-        "monthlyBoughtLowerBound": null,
+        "monthlyBoughtText": "50+ bought in past month",
+        "monthlyBoughtLowerBound": 50,
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-09-01T11:59:16.394Z",
-        "startedAt": "2026-09-01T11:59:10.607Z",
+        "scrapedAt": "2026-09-02T05:43:33.240Z",
+        "startedAt": "2026-09-02T05:43:27.438Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-09-01T11:59:16.394Z"
+        "priceObservedAt": "2026-09-02T05:43:33.240Z"
       },
       {
         "id": "pair-03-competitor",
@@ -285,11 +285,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-09-01T11:59:27.928Z",
-        "startedAt": "2026-09-01T11:59:22.089Z",
+        "scrapedAt": "2026-09-02T05:43:49.253Z",
+        "startedAt": "2026-09-02T05:43:43.359Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-09-01T11:59:27.928Z"
+        "priceObservedAt": "2026-09-02T05:43:49.253Z"
       },
       {
         "id": "pair-03-own",
@@ -315,11 +315,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-09-01T11:59:40.901Z",
-        "startedAt": "2026-09-01T11:59:35.294Z",
+        "scrapedAt": "2026-09-02T05:43:38.609Z",
+        "startedAt": "2026-09-02T05:43:32.941Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-09-01T11:59:40.901Z"
+        "priceObservedAt": "2026-09-02T05:43:38.609Z"
       },
       {
         "id": "pair-04-competitor",
@@ -340,16 +340,16 @@
         "productTitle": "iPaw Turkey Tendon for Dogs, All Natural Human Grade Puppy Chew, Bone",
         "pageAsin": "B0DSKK95GQ",
         "finalUrl": "https://www.amazon.com/dp/B0DSKK95GQ?th=1&psc=1&language=en_US&currency=USD",
-        "monthlyBoughtText": "200+ bought in past month",
-        "monthlyBoughtLowerBound": 200,
+        "monthlyBoughtText": "300+ bought in past month",
+        "monthlyBoughtLowerBound": 300,
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-09-01T11:59:57.538Z",
-        "startedAt": "2026-09-01T11:59:52.083Z",
+        "scrapedAt": "2026-09-02T05:44:13.282Z",
+        "startedAt": "2026-09-02T05:44:07.600Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-09-01T11:59:57.538Z"
+        "priceObservedAt": "2026-09-02T05:44:13.282Z"
       },
       {
         "id": "pair-04-own",
@@ -375,11 +375,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-09-01T12:00:14.130Z",
-        "startedAt": "2026-09-01T12:00:08.623Z",
+        "scrapedAt": "2026-09-02T05:44:19.368Z",
+        "startedAt": "2026-09-02T05:44:13.862Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-09-01T12:00:14.130Z"
+        "priceObservedAt": "2026-09-02T05:44:19.368Z"
       },
       {
         "id": "pair-05-competitor",
@@ -405,11 +405,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-09-01T12:00:21.538Z",
-        "startedAt": "2026-09-01T12:00:15.319Z",
+        "scrapedAt": "2026-09-02T05:44:34.600Z",
+        "startedAt": "2026-09-02T05:44:28.800Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-09-01T12:00:21.538Z"
+        "priceObservedAt": "2026-09-02T05:44:34.600Z"
       },
       {
         "id": "pair-05-own",
@@ -435,11 +435,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-09-01T12:00:36.841Z",
-        "startedAt": "2026-09-01T12:00:31.269Z",
+        "scrapedAt": "2026-09-02T05:44:55.013Z",
+        "startedAt": "2026-09-02T05:44:49.398Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-09-01T12:00:36.841Z"
+        "priceObservedAt": "2026-09-02T05:44:55.013Z"
       },
       {
         "id": "pair-06-competitor",
@@ -465,11 +465,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-09-01T12:01:33.290Z",
-        "startedAt": "2026-09-01T12:01:27.672Z",
+        "scrapedAt": "2026-09-02T05:44:58.661Z",
+        "startedAt": "2026-09-02T05:44:52.977Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-09-01T12:01:33.290Z"
+        "priceObservedAt": "2026-09-02T05:44:58.661Z"
       },
       {
         "id": "pair-06-own",
@@ -495,11 +495,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-09-01T12:01:13.919Z",
-        "startedAt": "2026-09-01T12:01:08.188Z",
+        "scrapedAt": "2026-09-02T05:45:26.439Z",
+        "startedAt": "2026-09-02T05:45:20.799Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-09-01T12:01:13.919Z"
+        "priceObservedAt": "2026-09-02T05:45:26.439Z"
       }
     ]
   }
