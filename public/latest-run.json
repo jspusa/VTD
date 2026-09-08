@@ -122,9 +122,9 @@
     }
   ],
   "run": {
-    "id": "75754de3-70bc-49a7-9f94-0e0e6380c463",
-    "startedAt": "2026-09-08T05:52:33.000Z",
-    "finishedAt": "2026-09-08T05:56:22.552Z",
+    "id": "85e71adb-8e01-4004-8301-d88dfccec06e",
+    "startedAt": "2026-09-08T11:08:47.000Z",
+    "finishedAt": "2026-09-08T11:12:31.103Z",
     "options": {
       "zipCode": "10001",
       "headless": true,
@@ -165,11 +165,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-09-08T05:53:13.590Z",
-        "startedAt": "2026-09-08T05:53:07.598Z",
+        "scrapedAt": "2026-09-08T11:09:30.548Z",
+        "startedAt": "2026-09-08T11:09:24.897Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-09-08T05:53:13.590Z"
+        "priceObservedAt": "2026-09-08T11:09:30.548Z"
       },
       {
         "id": "pair-01-own",
@@ -183,7 +183,7 @@
         "status": "available",
         "availability": "In Stock",
         "currentPrice": 11.99,
-        "listPrice": null,
+        "listPrice": 16.48,
         "priceSource": "amazon_product_page",
         "coupon": "",
         "seller": "JASPER PET CARE PRODUCTS, INC.",
@@ -195,11 +195,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-09-08T05:53:20.571Z",
-        "startedAt": "2026-09-08T05:53:14.967Z",
+        "scrapedAt": "2026-09-08T11:09:22.476Z",
+        "startedAt": "2026-09-08T11:09:16.855Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-09-08T05:53:20.571Z"
+        "priceObservedAt": "2026-09-08T11:09:22.476Z"
       },
       {
         "id": "pair-02-competitor",
@@ -225,11 +225,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-09-08T05:53:15.636Z",
-        "startedAt": "2026-09-08T05:53:09.822Z",
+        "scrapedAt": "2026-09-08T11:09:24.352Z",
+        "startedAt": "2026-09-08T11:09:18.863Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-09-08T05:53:15.636Z"
+        "priceObservedAt": "2026-09-08T11:09:24.352Z"
       },
       {
         "id": "pair-02-own",
@@ -247,7 +247,7 @@
         "priceSource": "amazon_product_page",
         "coupon": "",
         "seller": "JASPER PET CARE PRODUCTS, INC.",
-        "productTitle": "VITADAY All Natural Turkey Tendon Dog Treats Strips, 5-Pack",
+        "productTitle": "VITADAY Turkey Tendon for Dogs, USA-Sourced, Strips, 3 oz, Pack of 5",
         "pageAsin": "B0H5JPQKKT",
         "finalUrl": "https://www.amazon.com/dp/B0H5JPQKKT?th=1&psc=1&language=en_US&currency=USD",
         "monthlyBoughtText": "",
@@ -255,11 +255,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-09-08T05:54:26.055Z",
-        "startedAt": "2026-09-08T05:54:20.512Z",
+        "scrapedAt": "2026-09-08T11:10:00.632Z",
+        "startedAt": "2026-09-08T11:09:54.813Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-09-08T05:54:26.055Z"
+        "priceObservedAt": "2026-09-08T11:10:00.632Z"
       },
       {
         "id": "pair-03-competitor",
@@ -285,11 +285,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-09-08T05:54:01.844Z",
-        "startedAt": "2026-09-08T05:53:56.190Z",
+        "scrapedAt": "2026-09-08T11:10:05.912Z",
+        "startedAt": "2026-09-08T11:10:00.242Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-09-08T05:54:01.844Z"
+        "priceObservedAt": "2026-09-08T11:10:05.912Z"
       },
       {
         "id": "pair-03-own",
@@ -307,7 +307,7 @@
         "priceSource": "amazon_product_page",
         "coupon": "",
         "seller": "JASPER PET CARE PRODUCTS, INC.",
-        "productTitle": "VITADAY All Natural Turkey Tendon Dog Treats Strips, 10-Pack",
+        "productTitle": "VITADAY Turkey Tendon for Dogs, USA-Sourced, Strips, 3 oz, Pack of 10",
         "pageAsin": "B0H5JKB7QS",
         "finalUrl": "https://www.amazon.com/dp/B0H5JKB7QS?th=1&psc=1&language=en_US&currency=USD",
         "monthlyBoughtText": "",
@@ -315,11 +315,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-09-08T05:54:00.988Z",
-        "startedAt": "2026-09-08T05:53:55.190Z",
+        "scrapedAt": "2026-09-08T11:10:20.825Z",
+        "startedAt": "2026-09-08T11:10:15.596Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-09-08T05:54:00.988Z"
+        "priceObservedAt": "2026-09-08T11:10:20.825Z"
       },
       {
         "id": "pair-04-competitor",
@@ -345,11 +345,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-09-08T05:55:13.744Z",
-        "startedAt": "2026-09-08T05:55:08.165Z",
+        "scrapedAt": "2026-09-08T11:10:44.564Z",
+        "startedAt": "2026-09-08T11:10:39.082Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-09-08T05:55:13.744Z"
+        "priceObservedAt": "2026-09-08T11:10:44.564Z"
       },
       {
         "id": "pair-04-own",
@@ -363,7 +363,7 @@
         "status": "available",
         "availability": "In Stock",
         "currentPrice": 12.99,
-        "listPrice": 14.99,
+        "listPrice": null,
         "priceSource": "amazon_product_page",
         "coupon": "Coupon: Save 10%: Coupon available when you select Subscribe & Save . Shop items | Terms",
         "seller": "JASPER PET CARE PRODUCTS, INC.",
@@ -375,11 +375,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-09-08T05:54:41.680Z",
-        "startedAt": "2026-09-08T05:54:35.998Z",
+        "scrapedAt": "2026-09-08T11:10:54.659Z",
+        "startedAt": "2026-09-08T11:10:48.772Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-09-08T05:54:41.680Z"
+        "priceObservedAt": "2026-09-08T11:10:54.659Z"
       },
       {
         "id": "pair-05-competitor",
@@ -405,11 +405,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-09-08T05:55:11.460Z",
-        "startedAt": "2026-09-08T05:55:05.695Z",
+        "scrapedAt": "2026-09-08T11:10:57.523Z",
+        "startedAt": "2026-09-08T11:10:51.949Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-09-08T05:55:11.460Z"
+        "priceObservedAt": "2026-09-08T11:10:57.523Z"
       },
       {
         "id": "pair-05-own",
@@ -427,7 +427,7 @@
         "priceSource": "amazon_product_page",
         "coupon": "",
         "seller": "JASPER PET CARE PRODUCTS, INC.",
-        "productTitle": "VITADAY All Natural Turkey Tendon Dog Treats Bone (S) 10 Pcs Value Pack",
+        "productTitle": "VITADAY Turkey Tendon for Dogs, USA-Sourced, Bone (Small), 10 Count",
         "pageAsin": "B0H5JZLM61",
         "finalUrl": "https://www.amazon.com/dp/B0H5JZLM61?th=1&psc=1&language=en_US&currency=USD",
         "monthlyBoughtText": "",
@@ -435,11 +435,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-09-08T05:55:25.536Z",
-        "startedAt": "2026-09-08T05:55:20.065Z",
+        "scrapedAt": "2026-09-08T11:11:36.553Z",
+        "startedAt": "2026-09-08T11:11:30.846Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-09-08T05:55:25.536Z"
+        "priceObservedAt": "2026-09-08T11:11:36.553Z"
       },
       {
         "id": "pair-06-competitor",
@@ -465,11 +465,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-09-08T05:55:49.373Z",
-        "startedAt": "2026-09-08T05:55:43.981Z",
+        "scrapedAt": "2026-09-08T11:11:44.482Z",
+        "startedAt": "2026-09-08T11:11:39.238Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-09-08T05:55:49.373Z"
+        "priceObservedAt": "2026-09-08T11:11:44.482Z"
       },
       {
         "id": "pair-06-own",
@@ -487,7 +487,7 @@
         "priceSource": "amazon_product_page",
         "coupon": "",
         "seller": "JASPER PET CARE PRODUCTS, INC.",
-        "productTitle": "VITADAY All Natural Turkey Tendon Dog Treats Ring (S) 10 Pcs Value Pack",
+        "productTitle": "VITADAY Turkey Tendon for Dogs, USA-Sourced, Ring (Small), 10 Count",
         "pageAsin": "B0H5K85LPS",
         "finalUrl": "https://www.amazon.com/dp/B0H5K85LPS?th=1&psc=1&language=en_US&currency=USD",
         "monthlyBoughtText": "50+ bought in past month",
@@ -495,11 +495,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-09-08T05:55:57.350Z",
-        "startedAt": "2026-09-08T05:55:51.892Z",
+        "scrapedAt": "2026-09-08T11:12:07.878Z",
+        "startedAt": "2026-09-08T11:12:02.632Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-09-08T05:55:57.350Z"
+        "priceObservedAt": "2026-09-08T11:12:07.878Z"
       }
     ]
   }
