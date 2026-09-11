@@ -122,9 +122,9 @@
     }
   ],
   "run": {
-    "id": "af4db050-ee64-42ac-b664-d8d2c73cddd4",
-    "startedAt": "2026-09-11T11:09:40.000Z",
-    "finishedAt": "2026-09-11T11:13:47.705Z",
+    "id": "e26ee748-02f3-4096-80f2-423aabb8df61",
+    "startedAt": "2026-09-11T15:10:07.000Z",
+    "finishedAt": "2026-09-11T15:14:40.566Z",
     "options": {
       "zipCode": "10001",
       "headless": true,
@@ -165,11 +165,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-09-11T11:10:54.534Z",
-        "startedAt": "2026-09-11T11:10:49.269Z",
+        "scrapedAt": "2026-09-11T15:11:20.300Z",
+        "startedAt": "2026-09-11T15:11:14.242Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-09-11T11:10:54.534Z"
+        "priceObservedAt": "2026-09-11T15:11:20.300Z"
       },
       {
         "id": "pair-01-own",
@@ -195,11 +195,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-09-11T11:10:18.469Z",
-        "startedAt": "2026-09-11T11:10:12.531Z",
+        "scrapedAt": "2026-09-11T15:11:38.408Z",
+        "startedAt": "2026-09-11T15:11:32.445Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-09-11T11:10:18.469Z"
+        "priceObservedAt": "2026-09-11T15:11:38.408Z"
       },
       {
         "id": "pair-02-competitor",
@@ -225,11 +225,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-09-11T11:10:26.565Z",
-        "startedAt": "2026-09-11T11:10:20.752Z",
+        "scrapedAt": "2026-09-11T15:11:25.434Z",
+        "startedAt": "2026-09-11T15:11:19.348Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-09-11T11:10:26.565Z"
+        "priceObservedAt": "2026-09-11T15:11:25.434Z"
       },
       {
         "id": "pair-02-own",
@@ -255,11 +255,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-09-11T11:10:58.998Z",
-        "startedAt": "2026-09-11T11:10:53.744Z",
+        "scrapedAt": "2026-09-11T15:11:57.719Z",
+        "startedAt": "2026-09-11T15:11:52.165Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-09-11T11:10:58.998Z"
+        "priceObservedAt": "2026-09-11T15:11:57.719Z"
       },
       {
         "id": "pair-03-competitor",
@@ -285,11 +285,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-09-11T11:11:45.704Z",
-        "startedAt": "2026-09-11T11:11:39.924Z",
+        "scrapedAt": "2026-09-11T15:12:18.370Z",
+        "startedAt": "2026-09-11T15:12:12.479Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-09-11T11:11:45.704Z"
+        "priceObservedAt": "2026-09-11T15:12:18.370Z"
       },
       {
         "id": "pair-03-own",
@@ -315,11 +315,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-09-11T11:11:43.976Z",
-        "startedAt": "2026-09-11T11:11:38.048Z",
+        "scrapedAt": "2026-09-11T15:12:32.353Z",
+        "startedAt": "2026-09-11T15:12:26.705Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-09-11T11:11:43.976Z"
+        "priceObservedAt": "2026-09-11T15:12:32.353Z"
       },
       {
         "id": "pair-04-competitor",
@@ -345,11 +345,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-09-11T11:11:36.212Z",
-        "startedAt": "2026-09-11T11:11:30.778Z",
+        "scrapedAt": "2026-09-11T15:12:40.128Z",
+        "startedAt": "2026-09-11T15:12:34.397Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-09-11T11:11:36.212Z"
+        "priceObservedAt": "2026-09-11T15:12:40.128Z"
       },
       {
         "id": "pair-04-own",
@@ -375,11 +375,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-09-11T11:12:48.080Z",
-        "startedAt": "2026-09-11T11:12:42.531Z",
+        "scrapedAt": "2026-09-11T15:13:03.402Z",
+        "startedAt": "2026-09-11T15:12:57.931Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-09-11T11:12:48.080Z"
+        "priceObservedAt": "2026-09-11T15:13:03.402Z"
       },
       {
         "id": "pair-05-competitor",
@@ -405,11 +405,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-09-11T11:12:21.730Z",
-        "startedAt": "2026-09-11T11:12:16.162Z",
+        "scrapedAt": "2026-09-11T15:13:15.286Z",
+        "startedAt": "2026-09-11T15:13:09.918Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-09-11T11:12:21.730Z"
+        "priceObservedAt": "2026-09-11T15:13:15.286Z"
       },
       {
         "id": "pair-05-own",
@@ -435,11 +435,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-09-11T11:12:33.326Z",
-        "startedAt": "2026-09-11T11:12:28.141Z",
+        "scrapedAt": "2026-09-11T15:13:26.168Z",
+        "startedAt": "2026-09-11T15:13:20.706Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-09-11T11:12:33.326Z"
+        "priceObservedAt": "2026-09-11T15:13:26.168Z"
       },
       {
         "id": "pair-06-competitor",
@@ -465,11 +465,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-09-11T11:13:07.279Z",
-        "startedAt": "2026-09-11T11:13:01.835Z",
+        "scrapedAt": "2026-09-11T15:13:41.993Z",
+        "startedAt": "2026-09-11T15:13:36.077Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-09-11T11:13:07.279Z"
+        "priceObservedAt": "2026-09-11T15:13:41.993Z"
       },
       {
         "id": "pair-06-own",
@@ -495,11 +495,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-09-11T11:13:13.932Z",
-        "startedAt": "2026-09-11T11:13:08.394Z",
+        "scrapedAt": "2026-09-11T15:14:02.204Z",
+        "startedAt": "2026-09-11T15:13:56.355Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-09-11T11:13:13.932Z"
+        "priceObservedAt": "2026-09-11T15:14:02.204Z"
       }
     ]
   }
