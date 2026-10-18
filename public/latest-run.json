@@ -122,9 +122,9 @@
     }
   ],
   "run": {
-    "id": "b13f5279-696b-47fd-a7ba-b294345dce02",
-    "startedAt": "2026-10-17T05:31:42.000Z",
-    "finishedAt": "2026-10-17T05:35:26.108Z",
+    "id": "6702ff84-a177-4f1e-a996-5117aecd451f",
+    "startedAt": "2026-10-18T05:47:28.000Z",
+    "finishedAt": "2026-10-18T05:51:05.299Z",
     "options": {
       "zipCode": "10001",
       "headless": true,
@@ -135,10 +135,10 @@
       "strictUsdFallback": true
     },
     "location": {
-      "applied": false,
+      "applied": true,
       "pricingVerified": true,
       "visibleLocation": "New York 10001",
-      "message": "10 支確認 ZIP 10001；2 支改以 Amazon.com、精確 ASIN 與明確 USD 三重驗證。"
+      "message": "12 支 ASIN 均於獨立 runner 驗證美國 ZIP 10001 後擷取。"
     },
     "results": [
       {
@@ -159,17 +159,17 @@
         "seller": "PetDelux US",
         "productTitle": "iPaw Turkey Tendon for Dogs, All Natural Human Grade Puppy Chew, Strips",
         "pageAsin": "B0CZRN7HXT",
-        "finalUrl": "https://www.amazon.com/dp/B0CZRN7HXT?th=1&language=en_US&currency=USD",
+        "finalUrl": "https://www.amazon.com/dp/B0CZRN7HXT?th=1&psc=1&language=en_US&currency=USD",
         "monthlyBoughtText": "10K+ bought in past month",
         "monthlyBoughtLowerBound": 10000,
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-10-17T05:32:22.108Z",
-        "startedAt": "2026-10-17T05:32:16.269Z",
+        "scrapedAt": "2026-10-18T05:48:20.146Z",
+        "startedAt": "2026-10-18T05:48:14.685Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-10-17T05:32:22.108Z"
+        "priceObservedAt": "2026-10-18T05:48:20.146Z"
       },
       {
         "id": "pair-01-own",
@@ -195,11 +195,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-10-17T05:32:23.885Z",
-        "startedAt": "2026-10-17T05:32:18.230Z",
+        "scrapedAt": "2026-10-18T05:48:12.193Z",
+        "startedAt": "2026-10-18T05:48:06.269Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-10-17T05:32:23.885Z"
+        "priceObservedAt": "2026-10-18T05:48:12.193Z"
       },
       {
         "id": "pair-02-competitor",
@@ -213,23 +213,23 @@
         "status": "available",
         "availability": "In Stock",
         "currentPrice": 60,
-        "listPrice": null,
-        "priceSource": "exact_asin_search_result",
-        "coupon": "",
-        "seller": "",
+        "listPrice": 64,
+        "priceSource": "amazon_product_page",
+        "coupon": "Coupon: Save 15%: Coupon available when you select Subscribe & Save . Shop items | Terms",
+        "seller": "PetDelux US",
         "productTitle": "iPaw Turkey Tendon for Dogs Value Pack, All Natural Human Grade Puppy Chew",
         "pageAsin": "B0DWMFGPH3",
-        "finalUrl": "https://www.amazon.com/dp/B0DWMFGPH3",
+        "finalUrl": "https://www.amazon.com/dp/B0DWMFGPH3?th=1&psc=1&language=en_US&currency=USD",
         "monthlyBoughtText": "900+ bought in past month",
         "monthlyBoughtLowerBound": 900,
         "error": "",
         "currency": "USD",
-        "locationValidation": "amazon_com_exact_asin_usd",
-        "scrapedAt": "2026-10-17T05:32:34.314Z",
-        "startedAt": "2026-10-17T05:32:15.300Z",
+        "locationValidation": "zip_10001",
+        "scrapedAt": "2026-10-18T05:48:37.848Z",
+        "startedAt": "2026-10-18T05:48:32.077Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-10-17T05:32:34.314Z"
+        "priceObservedAt": "2026-10-18T05:48:37.848Z"
       },
       {
         "id": "pair-02-own",
@@ -249,17 +249,17 @@
         "seller": "JASPER PET CARE PRODUCTS, INC.",
         "productTitle": "VITADAY Turkey Tendon for Dogs, USA-Sourced, Strips, 3 oz, Pack of 5",
         "pageAsin": "B0H5JPQKKT",
-        "finalUrl": "https://www.amazon.com/dp/B0H5JPQKKT?th=1&psc=1&language=en_US&currency=USD",
+        "finalUrl": "https://www.amazon.com/dp/B0H5JPQKKT?th=1&language=en_US&currency=USD",
         "monthlyBoughtText": "50+ bought in past month",
         "monthlyBoughtLowerBound": 50,
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-10-17T05:32:55.615Z",
-        "startedAt": "2026-10-17T05:32:50.489Z",
+        "scrapedAt": "2026-10-18T05:48:53.552Z",
+        "startedAt": "2026-10-18T05:48:47.867Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-10-17T05:32:55.615Z"
+        "priceObservedAt": "2026-10-18T05:48:53.552Z"
       },
       {
         "id": "pair-03-competitor",
@@ -271,25 +271,25 @@
         "baselinePrice": null,
         "order": 5,
         "status": "available",
-        "availability": "In Stock",
+        "availability": "FREE delivery October 25 - November 2",
         "currentPrice": 115,
         "listPrice": null,
-        "priceSource": "exact_asin_search_result",
-        "coupon": "",
-        "seller": "",
+        "priceSource": "amazon_product_page",
+        "coupon": "Coupon: Save 15%: Coupon available when you select Subscribe & Save . Shop items | Terms",
+        "seller": "PetDelux US",
         "productTitle": "iPaw Turkey Tendon for Dogs Bulk Pack, SQF-Certified Production Process",
         "pageAsin": "B0F4WN2333",
-        "finalUrl": "https://www.amazon.com/dp/B0F4WN2333",
+        "finalUrl": "https://www.amazon.com/dp/B0F4WN2333?th=1&psc=1&language=en_US&currency=USD",
         "monthlyBoughtText": "",
         "monthlyBoughtLowerBound": null,
         "error": "",
         "currency": "USD",
-        "locationValidation": "amazon_com_exact_asin_usd",
-        "scrapedAt": "2026-10-17T05:33:12.556Z",
-        "startedAt": "2026-10-17T05:32:53.582Z",
+        "locationValidation": "zip_10001",
+        "scrapedAt": "2026-10-18T05:49:03.683Z",
+        "startedAt": "2026-10-18T05:48:57.933Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-10-17T05:33:12.556Z"
+        "priceObservedAt": "2026-10-18T05:49:03.683Z"
       },
       {
         "id": "pair-03-own",
@@ -304,22 +304,22 @@
         "availability": "In Stock",
         "currentPrice": 96.99,
         "listPrice": null,
-        "priceSource": "exact_asin_search_result",
+        "priceSource": "amazon_product_page",
         "coupon": "",
-        "seller": "",
+        "seller": "JASPER PET CARE PRODUCTS, INC.",
         "productTitle": "VITADAY Turkey Tendon for Dogs, USA-Sourced, Strips, 3 oz, Pack of 10",
         "pageAsin": "B0H5JKB7QS",
-        "finalUrl": "https://www.amazon.com/dp/B0H5JKB7QS",
+        "finalUrl": "https://www.amazon.com/dp/B0H5JKB7QS?th=1&psc=1&language=en_US&currency=USD",
         "monthlyBoughtText": "",
         "monthlyBoughtLowerBound": null,
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-10-17T05:33:24.013Z",
-        "startedAt": "2026-10-17T05:33:04.608Z",
+        "scrapedAt": "2026-10-18T05:49:18.003Z",
+        "startedAt": "2026-10-18T05:49:12.337Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-10-17T05:33:24.013Z"
+        "priceObservedAt": "2026-10-18T05:49:18.003Z"
       },
       {
         "id": "pair-04-competitor",
@@ -345,11 +345,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-10-17T05:33:40.829Z",
-        "startedAt": "2026-10-17T05:33:35.263Z",
+        "scrapedAt": "2026-10-18T05:49:31.018Z",
+        "startedAt": "2026-10-18T05:49:25.565Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-10-17T05:33:40.829Z"
+        "priceObservedAt": "2026-10-18T05:49:31.018Z"
       },
       {
         "id": "pair-04-own",
@@ -375,11 +375,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-10-17T05:33:52.128Z",
-        "startedAt": "2026-10-17T05:33:46.514Z",
+        "scrapedAt": "2026-10-18T05:49:52.968Z",
+        "startedAt": "2026-10-18T05:49:47.453Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-10-17T05:33:52.128Z"
+        "priceObservedAt": "2026-10-18T05:49:52.968Z"
       },
       {
         "id": "pair-05-competitor",
@@ -405,11 +405,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-10-17T05:34:07.335Z",
-        "startedAt": "2026-10-17T05:34:01.702Z",
+        "scrapedAt": "2026-10-18T05:50:00.114Z",
+        "startedAt": "2026-10-18T05:49:54.704Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-10-17T05:34:07.335Z"
+        "priceObservedAt": "2026-10-18T05:50:00.114Z"
       },
       {
         "id": "pair-05-own",
@@ -435,11 +435,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-10-17T05:34:22.574Z",
-        "startedAt": "2026-10-17T05:34:17.457Z",
+        "scrapedAt": "2026-10-18T05:50:11.082Z",
+        "startedAt": "2026-10-18T05:50:05.963Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-10-17T05:34:22.574Z"
+        "priceObservedAt": "2026-10-18T05:50:11.082Z"
       },
       {
         "id": "pair-06-competitor",
@@ -459,17 +459,17 @@
         "seller": "PetDelux US",
         "productTitle": "iPaw 10 Pcs Value Pack Turkey Tendons Ring for Dog, All Natural Human Grade",
         "pageAsin": "B0F1385154",
-        "finalUrl": "https://www.amazon.com/dp/B0F1385154?th=1&language=en_US&currency=USD",
+        "finalUrl": "https://www.amazon.com/dp/B0F1385154?th=1&psc=1&language=en_US&currency=USD",
         "monthlyBoughtText": "4K+ bought in past month",
         "monthlyBoughtLowerBound": 4000,
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-10-17T05:34:29.063Z",
-        "startedAt": "2026-10-17T05:34:23.609Z",
+        "scrapedAt": "2026-10-18T05:50:34.056Z",
+        "startedAt": "2026-10-18T05:50:28.149Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-10-17T05:34:29.063Z"
+        "priceObservedAt": "2026-10-18T05:50:34.056Z"
       },
       {
         "id": "pair-06-own",
@@ -495,11 +495,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-10-17T05:34:54.746Z",
-        "startedAt": "2026-10-17T05:34:49.358Z",
+        "scrapedAt": "2026-10-18T05:50:43.167Z",
+        "startedAt": "2026-10-18T05:50:37.809Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-10-17T05:34:54.746Z"
+        "priceObservedAt": "2026-10-18T05:50:43.167Z"
       }
     ]
   }
