@@ -122,9 +122,9 @@
     }
   ],
   "run": {
-    "id": "5646173e-5793-4547-9266-ae9bf82f2849",
-    "startedAt": "2026-11-11T07:42:04.000Z",
-    "finishedAt": "2026-11-11T07:45:35.561Z",
+    "id": "454ba5e0-6006-4989-9a8e-0da6b6ecaebb",
+    "startedAt": "2026-11-12T08:12:42.000Z",
+    "finishedAt": "2026-11-12T08:16:08.159Z",
     "options": {
       "zipCode": "10001",
       "headless": true,
@@ -165,11 +165,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-11-11T07:42:57.778Z",
-        "startedAt": "2026-11-11T07:42:52.466Z",
+        "scrapedAt": "2026-11-12T08:13:20.425Z",
+        "startedAt": "2026-11-12T08:13:15.141Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-11-11T07:42:57.778Z"
+        "priceObservedAt": "2026-11-12T08:13:20.425Z"
       },
       {
         "id": "pair-01-own",
@@ -183,7 +183,7 @@
         "status": "available",
         "availability": "In Stock",
         "currentPrice": 9.99,
-        "listPrice": 11.99,
+        "listPrice": null,
         "priceSource": "amazon_product_page",
         "coupon": "",
         "seller": "JASPER PET CARE PRODUCTS, INC.",
@@ -195,11 +195,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-11-11T07:42:38.661Z",
-        "startedAt": "2026-11-11T07:42:32.919Z",
+        "scrapedAt": "2026-11-12T08:13:21.209Z",
+        "startedAt": "2026-11-12T08:13:15.558Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-11-11T07:42:38.661Z"
+        "priceObservedAt": "2026-11-12T08:13:21.209Z"
       },
       {
         "id": "pair-02-competitor",
@@ -219,17 +219,17 @@
         "seller": "PetDelux US",
         "productTitle": "iPaw Turkey Tendon for Dogs Value Pack, All Natural Human Grade Puppy Chew",
         "pageAsin": "B0DWMFGPH3",
-        "finalUrl": "https://www.amazon.com/dp/B0DWMFGPH3?th=1&psc=1&language=en_US&currency=USD",
+        "finalUrl": "https://www.amazon.com/dp/B0DWMFGPH3?th=1&language=en_US&currency=USD",
         "monthlyBoughtText": "800+ bought in past month",
         "monthlyBoughtLowerBound": 800,
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-11-11T07:42:39.167Z",
-        "startedAt": "2026-11-11T07:42:33.588Z",
+        "scrapedAt": "2026-11-12T08:13:32.308Z",
+        "startedAt": "2026-11-12T08:13:26.581Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-11-11T07:42:39.167Z"
+        "priceObservedAt": "2026-11-12T08:13:32.308Z"
       },
       {
         "id": "pair-02-own",
@@ -255,11 +255,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-11-11T07:43:33.471Z",
-        "startedAt": "2026-11-11T07:43:27.765Z",
+        "scrapedAt": "2026-11-12T08:14:03.454Z",
+        "startedAt": "2026-11-12T08:13:57.360Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-11-11T07:43:33.471Z"
+        "priceObservedAt": "2026-11-12T08:14:03.454Z"
       },
       {
         "id": "pair-03-competitor",
@@ -285,11 +285,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-11-11T07:43:19.261Z",
-        "startedAt": "2026-11-11T07:43:13.807Z",
+        "scrapedAt": "2026-11-12T08:13:56.091Z",
+        "startedAt": "2026-11-12T08:13:50.481Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-11-11T07:43:19.261Z"
+        "priceObservedAt": "2026-11-12T08:13:56.091Z"
       },
       {
         "id": "pair-03-own",
@@ -309,17 +309,17 @@
         "seller": "JASPER PET CARE PRODUCTS, INC.",
         "productTitle": "VITADAY Turkey Tendon for Dogs, USA-Sourced, Strips, 3 oz, Pack of 10",
         "pageAsin": "B0H5JKB7QS",
-        "finalUrl": "https://www.amazon.com/dp/B0H5JKB7QS?th=1&language=en_US&currency=USD",
+        "finalUrl": "https://www.amazon.com/dp/B0H5JKB7QS?th=1&psc=1&language=en_US&currency=USD",
         "monthlyBoughtText": "",
         "monthlyBoughtLowerBound": null,
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-11-11T07:43:36.530Z",
-        "startedAt": "2026-11-11T07:43:31.201Z",
+        "scrapedAt": "2026-11-12T08:14:19.413Z",
+        "startedAt": "2026-11-12T08:14:13.925Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-11-11T07:43:36.530Z"
+        "priceObservedAt": "2026-11-12T08:14:19.413Z"
       },
       {
         "id": "pair-04-competitor",
@@ -339,17 +339,17 @@
         "seller": "PetDelux US",
         "productTitle": "iPaw Turkey Tendon for Dogs, All Natural Human Grade Puppy Chew, Bone",
         "pageAsin": "B0DSKK95GQ",
-        "finalUrl": "https://www.amazon.com/dp/B0DSKK95GQ?th=1&language=en_US&currency=USD",
+        "finalUrl": "https://www.amazon.com/dp/B0DSKK95GQ?th=1&psc=1&language=en_US&currency=USD",
         "monthlyBoughtText": "300+ bought in past month",
         "monthlyBoughtLowerBound": 300,
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-11-11T07:44:02.288Z",
-        "startedAt": "2026-11-11T07:43:56.984Z",
+        "scrapedAt": "2026-11-12T08:14:34.674Z",
+        "startedAt": "2026-11-12T08:14:29.336Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-11-11T07:44:02.288Z"
+        "priceObservedAt": "2026-11-12T08:14:34.674Z"
       },
       {
         "id": "pair-04-own",
@@ -369,17 +369,17 @@
         "seller": "JASPER PET CARE PRODUCTS, INC.",
         "productTitle": "VITADAY Turkey Tendon for Dogs, USA-Sourced, Bone (S), Pack of 4",
         "pageAsin": "B0DNF21SYR",
-        "finalUrl": "https://www.amazon.com/dp/B0DNF21SYR?th=1&psc=1&language=en_US&currency=USD",
+        "finalUrl": "https://www.amazon.com/dp/B0DNF21SYR?th=1&language=en_US&currency=USD",
         "monthlyBoughtText": "100+ bought in past month",
         "monthlyBoughtLowerBound": 100,
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-11-11T07:44:22.214Z",
-        "startedAt": "2026-11-11T07:44:17.030Z",
+        "scrapedAt": "2026-11-12T08:14:35.371Z",
+        "startedAt": "2026-11-12T08:14:30.162Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-11-11T07:44:22.214Z"
+        "priceObservedAt": "2026-11-12T08:14:35.371Z"
       },
       {
         "id": "pair-05-competitor",
@@ -405,11 +405,11 @@
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-11-11T07:44:16.521Z",
-        "startedAt": "2026-11-11T07:44:11.045Z",
+        "scrapedAt": "2026-11-12T08:15:04.651Z",
+        "startedAt": "2026-11-12T08:14:59.098Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-11-11T07:44:16.521Z"
+        "priceObservedAt": "2026-11-12T08:15:04.651Z"
       },
       {
         "id": "pair-05-own",
@@ -423,23 +423,23 @@
         "status": "available",
         "availability": "In Stock",
         "currentPrice": 19.99,
-        "listPrice": null,
+        "listPrice": 29.55,
         "priceSource": "amazon_product_page",
         "coupon": "",
         "seller": "JASPER PET CARE PRODUCTS, INC.",
         "productTitle": "VITADAY Turkey Tendon for Dogs, USA-Sourced, Bone (Small), 10 Count",
         "pageAsin": "B0H5JZLM61",
-        "finalUrl": "https://www.amazon.com/dp/B0H5JZLM61?th=1&psc=1&language=en_US&currency=USD",
+        "finalUrl": "https://www.amazon.com/dp/B0H5JZLM61?th=1&language=en_US&currency=USD",
         "monthlyBoughtText": "",
         "monthlyBoughtLowerBound": null,
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-11-11T07:44:38.415Z",
-        "startedAt": "2026-11-11T07:44:33.221Z",
+        "scrapedAt": "2026-11-12T08:15:06.816Z",
+        "startedAt": "2026-11-12T08:15:01.949Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-11-11T07:44:38.415Z"
+        "priceObservedAt": "2026-11-12T08:15:06.816Z"
       },
       {
         "id": "pair-06-competitor",
@@ -453,23 +453,23 @@
         "status": "available",
         "availability": "In Stock",
         "currentPrice": 19.99,
-        "listPrice": 46.63,
+        "listPrice": null,
         "priceSource": "amazon_product_page",
         "coupon": "Coupon: Save 15%: Coupon available when you select Subscribe & Save . Shop items | Terms",
         "seller": "PetDelux US",
         "productTitle": "iPaw 10 Pcs Value Pack Turkey Tendons Ring for Dog, All Natural Human Grade",
         "pageAsin": "B0F1385154",
-        "finalUrl": "https://www.amazon.com/dp/B0F1385154?th=1&language=en_US&currency=USD",
+        "finalUrl": "https://www.amazon.com/dp/B0F1385154?th=1&psc=1&language=en_US&currency=USD",
         "monthlyBoughtText": "4K+ bought in past month",
         "monthlyBoughtLowerBound": 4000,
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-11-11T07:44:52.633Z",
-        "startedAt": "2026-11-11T07:44:47.075Z",
+        "scrapedAt": "2026-11-12T08:15:07.360Z",
+        "startedAt": "2026-11-12T08:15:02.114Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-11-11T07:44:52.633Z"
+        "priceObservedAt": "2026-11-12T08:15:07.360Z"
       },
       {
         "id": "pair-06-own",
@@ -489,17 +489,17 @@
         "seller": "JASPER PET CARE PRODUCTS, INC.",
         "productTitle": "VITADAY Turkey Tendon for Dogs, USA-Sourced, Ring (Small), 10 Count",
         "pageAsin": "B0H5K85LPS",
-        "finalUrl": "https://www.amazon.com/dp/B0H5K85LPS?th=1&language=en_US&currency=USD",
+        "finalUrl": "https://www.amazon.com/dp/B0H5K85LPS?th=1&psc=1&language=en_US&currency=USD",
         "monthlyBoughtText": "100+ bought in past month",
         "monthlyBoughtLowerBound": 100,
         "error": "",
         "currency": "USD",
         "locationValidation": "zip_10001",
-        "scrapedAt": "2026-11-11T07:45:02.474Z",
-        "startedAt": "2026-11-11T07:44:56.961Z",
+        "scrapedAt": "2026-11-12T08:15:41.077Z",
+        "startedAt": "2026-11-12T08:15:35.630Z",
         "scrapePass": "primary",
         "priceFreshness": "fresh",
-        "priceObservedAt": "2026-11-11T07:45:02.474Z"
+        "priceObservedAt": "2026-11-12T08:15:41.077Z"
       }
     ]
   }
